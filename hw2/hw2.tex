@@ -1,0 +1,602 @@
+\documentclass{article}\usepackage[]{graphicx}\usepackage[]{color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+\usepackage{enumerate}
+\usepackage{amsmath}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+
+\title{\huge \textbf{Stat 207 HW2} \\}
+\author{\large Cheng Luo 912466499 \\ \large Fan Wu 912538518}
+\maketitle
+
+\clearpage
+
+\section {25.7}
+
+\begin{enumerate}[(a)]
+
+\item
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+  \hlstd{sod} \hlkwb{=} \hlkwd{read.table}\hlstd{(}\hlstr{"CH25PR07.txt"}\hlstd{)}
+  \hlkwd{names}\hlstd{(sod)} \hlkwb{=} \hlkwd{c}\hlstd{(}\hlstr{"Y"}\hlstd{,} \hlstr{"A"}\hlstd{,} \hlstr{"B"}\hlstd{)}
+  \hlstd{fit} \hlkwb{=} \hlkwd{lm}\hlstd{(Y} \hlopt{~} \hlkwd{factor}\hlstd{(A),} \hlkwc{data} \hlstd{= sod)}
+  \hlkwd{anova}\hlstd{(fit)}
+\end{alltt}
+\begin{verbatim}
+## Analysis of Variance Table
+## 
+## Response: Y
+##           Df Sum Sq Mean Sq F value    Pr(>F)    
+## factor(A)  5 854.53 170.906  238.71 < 2.2e-16 ***
+## Residuals 42  30.07   0.716                      
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+Therefore, test whether or not the mean sodium content is the same in all brands sold in the metropolitan area:
+
+\begin{center}
+$H_0$:$\sigma_\mu^2=0$
+
+VS. $H_1$:$\sigma_\mu^2 \ne 0$
+
+$F^*=\frac{MSA}{MSE} = 238.71$
+
+we can reject $H_0$ if $F^* > F(1-0.01;5,42)=3.488235$,otherwise reject$H_1$
+
+so that reject $H_0$ because $F^*>F(1-0.05;2,48)=3.488235$,
+
+therefore,the mean sodium content is not the same in all brands sold in the metropolitan area
+\end{center}
+
+\item
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+  \hlstd{y_bar} \hlkwb{=} \hlnum{17.62917}
+  \hlstd{s} \hlkwb{=} \hlkwd{sqrt}\hlstd{(}\hlnum{170.906}\hlopt{/}\hlnum{48}\hlstd{)}
+  \hlstd{t} \hlkwb{=} \hlkwd{qt}\hlstd{(}\hlnum{0.995}\hlstd{,}\hlnum{5}\hlstd{)}
+  \hlkwd{c}\hlstd{(y_bar}\hlopt{-}\hlstd{s}\hlopt{*}\hlstd{t, y_bar}\hlopt{+}\hlstd{s}\hlopt{*}\hlstd{t)}
+\end{alltt}
+\begin{verbatim}
+## [1] 10.02076 25.23758
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\begin{displaymath}
+\begin{split}
+\bar{Y}_{\cdot\cdot}&=17.62917\\
+s(\bar{Y}_{\cdot\cdot})&=\sqrt{\frac{MSTR}{nr}}=\sqrt{\frac{170.906}{48}}=1.88694\\
+t(1-\alpha/2,r-1)&=t(1-0.01/2,6-1)=4.032143
+\end{split}
+\end{displaymath}
+
+Therefore, the confident interval is 10.021 $\leq \mu_{\cdot} \leq$ 25.237. 
+
+\end{enumerate}
+
+\section {25.8}
+
+\begin{enumerate}[(a)]
+
+\item
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+  \hlstd{f_low} \hlkwb{=} \hlkwd{qf}\hlstd{(}\hlnum{0.005}\hlstd{,} \hlnum{5}\hlstd{,} \hlnum{42}\hlstd{)}
+  \hlstd{f_high} \hlkwb{=} \hlkwd{qf}\hlstd{(}\hlnum{0.995}\hlstd{,} \hlnum{5}\hlstd{,} \hlnum{42}\hlstd{)}
+  \hlstd{f_star} \hlkwb{=} \hlnum{238.71}
+  \hlstd{n} \hlkwb{=} \hlnum{8}
+  \hlstd{u} \hlkwb{=} \hlnum{1}\hlopt{/}\hlstd{n}\hlopt{*}\hlstd{(f_star}\hlopt{/}\hlstd{f_low} \hlopt{-} \hlnum{1}\hlstd{)}
+  \hlstd{l} \hlkwb{=} \hlnum{1}\hlopt{/}\hlstd{n}\hlopt{*}\hlstd{(f_star}\hlopt{/}\hlstd{f_high} \hlopt{-} \hlnum{1}\hlstd{)}
+  \hlstd{L_star} \hlkwb{=} \hlstd{l}\hlopt{/}\hlstd{(l}\hlopt{+}\hlnum{1}\hlstd{)}
+  \hlstd{U_star} \hlkwb{=} \hlstd{u}\hlopt{/}\hlstd{(u}\hlopt{+}\hlnum{1}\hlstd{)}
+  \hlkwd{c}\hlstd{(L_star, U_star)}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.8812875 0.9973277
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+So a 99\% confidence interval for $\sigma_\mu^2/(\sigma_\mu^2+\sigma^2)$ is (0.8812875, 0.9973277)
+
+\item
+
+Since
+\begin{displaymath}
+\begin{split}
+E(MSE) &= \sigma^2\\
+E(MSTR) &= n\sigma_\mu^2+\sigma^2\\
+\end{split}
+\end{displaymath}
+
+\quad MSE = 0.716 estimates $\sigma^2$, and $s_\mu^2=\frac{MSTR-MSE}{n}=21.27375$ estimates $\sigma_\mu^2$
+
+\item
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+  \hlstd{sse} \hlkwb{=} \hlnum{0.716}
+  \hlstd{x1} \hlkwb{=} \hlkwd{qchisq}\hlstd{(}\hlnum{0.005}\hlstd{,} \hlnum{42}\hlstd{)}
+  \hlstd{x2} \hlkwb{=} \hlkwd{qchisq}\hlstd{(}\hlnum{0.995}\hlstd{,} \hlnum{42}\hlstd{)}
+  \hlkwd{c}\hlstd{(}\hlnum{30.07}\hlopt{/}\hlstd{x2,} \hlnum{30.07}\hlopt{/}\hlstd{x1)}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.4336853 1.3582695
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+Since
+
+\qquad $SSE/\sigma^2 \sim \chi^2_{(r(n-1))}$ , r=6,n=8
+
+then $\frac{SSE}{\chi^2_{(0.995, 42)}} \leq \sigma^2 \leq \frac{SSE}{\chi^2_{(0.005, 42)}}$,which means the 95\% confidence interval of $\sigma^2$ is (0.4336853,1.3582695)
+
+\item
+
+test:
+
+\begin{center}
+$H_0$:$\sigma_\mu^2 \leq 2\sigma^2$
+
+VS. $H_1$:$\sigma_\mu^2 > 2\sigma^2$
+
+$F^*=\frac{MSTR/(2n+1)}{MSE} = 14.04091$
+
+we can reject $H_0$ if $F^* > F(1-0.01;5,42)=3.488235$,otherwise reject$H_1$
+
+so that reject $H_0$ because $F^*>F(1-0.05;2,48)=3.488235$,
+
+therefore,the variance of sodium content between brands is more than twice as great as that within brands.
+\end{center}
+
+\item
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+  \hlstd{c1}\hlkwb{=}\hlnum{0.125}
+  \hlstd{c2}\hlkwb{=}\hlopt{-}\hlnum{.125}
+  \hlstd{ms1}\hlkwb{=}\hlnum{170.906}
+  \hlstd{ms2}\hlkwb{=}\hlnum{0.716}
+  \hlstd{df1}\hlkwb{=}\hlnum{5}
+  \hlstd{df2}\hlkwb{=}\hlnum{42}
+  \hlstd{F1}\hlkwb{=}\hlkwd{qf}\hlstd{(}\hlnum{.995}\hlstd{,}\hlnum{5}\hlstd{,}\hlnum{Inf}\hlstd{)}
+  \hlstd{F2}\hlkwb{=}\hlkwd{qf}\hlstd{(}\hlnum{.995}\hlstd{,}\hlnum{42}\hlstd{,}\hlnum{Inf}\hlstd{)}
+  \hlstd{F3}\hlkwb{=}\hlkwd{qf}\hlstd{(}\hlnum{.995}\hlstd{,}\hlnum{Inf}\hlstd{,}\hlnum{5}\hlstd{)}
+  \hlstd{F4}\hlkwb{=}\hlkwd{qf}\hlstd{(}\hlnum{.995}\hlstd{,}\hlnum{Inf}\hlstd{,}\hlnum{42}\hlstd{)}
+  \hlstd{F5}\hlkwb{=}\hlkwd{qf}\hlstd{(}\hlnum{.995}\hlstd{,}\hlnum{5}\hlstd{,}\hlnum{42}\hlstd{)}
+  \hlstd{F6}\hlkwb{=}\hlkwd{qf}\hlstd{(}\hlnum{.995}\hlstd{,}\hlnum{42}\hlstd{,}\hlnum{5}\hlstd{)}
+  \hlstd{G1}\hlkwb{=}\hlnum{1}\hlopt{-}\hlnum{1}\hlopt{/}\hlstd{F1}
+  \hlstd{G2}\hlkwb{=}\hlnum{1}\hlopt{-}\hlnum{1}\hlopt{/}\hlstd{F2}
+  \hlstd{G3}\hlkwb{=}\hlstd{((F5}\hlopt{-}\hlnum{1}\hlstd{)}\hlopt{^}\hlnum{2}\hlopt{-}\hlstd{(G1}\hlopt{*}\hlstd{F5)}\hlopt{^}\hlnum{2}\hlopt{-}\hlstd{(F4}\hlopt{-}\hlnum{1}\hlstd{)}\hlopt{^}\hlnum{2}\hlstd{)}\hlopt{/}\hlstd{F5}
+  \hlstd{G4}\hlkwb{=}\hlstd{F6}\hlopt{*}\hlstd{( ((F6}\hlopt{-}\hlnum{1}\hlstd{)}\hlopt{/}\hlstd{F6)}\hlopt{^}\hlnum{2} \hlopt{-} \hlstd{((F3}\hlopt{-}\hlnum{1}\hlstd{)}\hlopt{/}\hlstd{F6)}\hlopt{^}\hlnum{2} \hlopt{-} \hlstd{G2}\hlopt{^}\hlnum{2} \hlstd{)}
+  \hlstd{Hl} \hlkwb{=} \hlkwd{sqrt}\hlstd{( (G1}\hlopt{*}\hlstd{c1}\hlopt{*}\hlstd{ms1)}\hlopt{^}\hlnum{2} \hlopt{+} \hlstd{((F4}\hlopt{-}\hlnum{1}\hlstd{)}\hlopt{*}\hlstd{c2}\hlopt{*}\hlstd{ms2)}\hlopt{^}\hlnum{2} \hlopt{-} \hlstd{G3}\hlopt{*}\hlstd{c1}\hlopt{*}\hlstd{c2}\hlopt{*}\hlstd{ms1}\hlopt{*}\hlstd{ms2)}
+  \hlstd{Hl}
+\end{alltt}
+\begin{verbatim}
+## [1] 14.98986
+\end{verbatim}
+\begin{alltt}
+  \hlstd{Hu} \hlkwb{=} \hlkwd{sqrt}\hlstd{( (G2}\hlopt{*}\hlstd{c2}\hlopt{*}\hlstd{ms2)}\hlopt{^}\hlnum{2} \hlopt{+} \hlstd{((F3}\hlopt{-}\hlnum{1}\hlstd{)}\hlopt{*}\hlstd{c1}\hlopt{*}\hlstd{ms1)}\hlopt{^}\hlnum{2} \hlopt{-} \hlstd{G4}\hlopt{*}\hlstd{c1}\hlopt{*}\hlstd{c2}\hlopt{*}\hlstd{ms1}\hlopt{*}\hlstd{ms2)}
+  \hlstd{Hu}
+\end{alltt}
+\begin{verbatim}
+## [1] 238.0569
+\end{verbatim}
+\begin{alltt}
+  \hlstd{sigma_mu} \hlkwb{=} \hlnum{21.27375}
+  \hlkwd{c}\hlstd{(sigma_mu}\hlopt{-}\hlstd{Hl, sigma_mu}\hlopt{+}\hlstd{Hu)}
+\end{alltt}
+\begin{verbatim}
+## [1]   6.283885 259.330628
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\begin{center}
+E(MSTR)= $n\sigma_\mu^2+\sigma^2$ \qquad E(MSE)=$\sigma^2$\\
+Base on $L=\sigma_\mu^2=c_1E(MSTR)+c_2E(MSE)$\\
+then $c_1=1/n=0.125$, $c_2=-1/n=-0.125$\\
+and $MSTR=170.906, MSE=0.716, df1=5, df2=42$\\
+\end{center}
+
+According to R code, $H_l=14.98986$ \qquad $H_u=238.0569$ \qquad $\sigma_\mu^2=21.27375$
+
+\qquad so that $6.283885 \leq \sigma_\mu^2 \leq 259.330628$
+
+Confidence interval is very large, because the small sample sizes and the difficulty in estimating variance component precisely.
+
+\end{enumerate}
+
+\section {25.11}
+
+Let $\bar{(\alpha\beta)}_{\cdot j}^*$ denote the mean of the unrestricted interaction terms $(\alpha\beta)^*_{\cdot 1}$,$(\alpha\beta)^*_{\cdot 2} \cdots  (\alpha\beta)^*_{\cdot n}$
+
+so that $(\alpha\beta)_{ij} = (\alpha\beta)_{ij}^* - \bar{(\alpha\beta)}_{\cdot j}^*$
+
+Therefore, $\sum_i(\alpha\beta)_{ij} = \sum_i( (\alpha\beta)_{ij}^* - \bar{(\alpha\beta)}_{\cdot j}^*) = \sum_i(\alpha\beta)_{ij}^* - \sum_i(\alpha\beta)_{ij}^*=0$
+
+but $\sum_j(\alpha\beta)_{ij} = \sum_j( (\alpha\beta)_{ij}^* - \bar{(\alpha\beta)}_{\cdot j}^*) = \sum_j(\alpha\beta)_{ij}^* - \sum_j\bar{(\alpha\beta)}_{\cdot j}^*$ , usually it doesn't equal zero.
+
+
+\section {25.12}
+
+We should choose Two factors model (A fixed, B random, ANOVA III, mixed model)
+
+\center{$Y_{ijk}=\mu_{\cdot\cdot}+\alpha_i+\beta_j+(\alpha\beta)_{ij}+\epsilon_{ijk}$}
+
+We choose this model, because  there are only 3 possible price, so it's fixed, but we choose 3 colors randomly from many colors to represent the range of different color, so we use this model.
+
+\section{25.16}
+
+\begin{enumerate}[(a)]
+
+\item
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+  \hlstd{dat} \hlkwb{=} \hlkwd{read.table}\hlstd{(}\hlstr{'CH19PR16.txt'}\hlstd{)}
+  \hlkwd{names}\hlstd{(dat)} \hlkwb{=} \hlkwd{c}\hlstd{(}\hlstr{'y'}\hlstd{,} \hlstr{'A'}\hlstd{,} \hlstr{'B'}\hlstd{,} \hlstr{'k'}\hlstd{)}
+  \hlstd{dat}\hlopt{$}\hlstd{A} \hlkwb{=} \hlkwd{as.factor}\hlstd{(dat}\hlopt{$}\hlstd{A)}
+  \hlstd{dat}\hlopt{$}\hlstd{B} \hlkwb{=} \hlkwd{as.factor}\hlstd{(dat}\hlopt{$}\hlstd{B)}
+  \hlstd{a} \hlkwb{=} \hlkwd{length}\hlstd{(}\hlkwd{unique}\hlstd{(dat}\hlopt{$}\hlstr{'A'}\hlstd{))}
+  \hlstd{b} \hlkwb{=} \hlkwd{length}\hlstd{(}\hlkwd{unique}\hlstd{(dat}\hlopt{$}\hlstr{'B'}\hlstd{))}
+  \hlstd{n} \hlkwb{=} \hlkwd{length}\hlstd{(}\hlkwd{unique}\hlstd{(dat}\hlopt{$}\hlstr{'k'}\hlstd{))}
+  \hlstd{model} \hlkwb{=} \hlkwd{aov}\hlstd{(y} \hlopt{~} \hlstd{B} \hlopt{+} \hlkwd{Error}\hlstd{(A}\hlopt{*}\hlstd{B),} \hlkwc{data} \hlstd{= dat)}
+  \hlstd{model.aov} \hlkwb{=} \hlkwd{summary}\hlstd{(model)}
+  \hlkwd{qf}\hlstd{(}\hlnum{1}\hlopt{-}\hlnum{0.01}\hlstd{,}\hlnum{4}\hlstd{,}\hlnum{36}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 3.890308
+\end{verbatim}
+\begin{alltt}
+  \hlkwd{pf}\hlstd{(}\hlnum{303.8}\hlopt{/}\hlnum{52.01}\hlstd{,}\hlnum{4}\hlstd{,}\hlnum{36}\hlstd{,}\hlkwc{lower.tail} \hlstd{=} \hlnum{FALSE}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.0009944442
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+Test:
+
+\begin{center}
+$H_0$:$\sigma_{\alpha\beta}^2=0$
+
+VS. $H_1$:$\sigma_{\alpha\beta}^2>0$
+
+$F^*=\frac{MSAB}{MSE} = 303.8/52.01 = 5.841184$
+
+we can reject $H_0$ if $F^* > F(1-0.01;4,36)=3.890308$,otherwise reject$H_1$
+
+so that reject $H_0$ because $F^*>3.890308$,
+
+therefore,there are two factors interact, and P-value of it is 0.0009944442
+\end{center}
+
+\item
+
+Since
+
+\begin{center}
+E(MSAB)-E(MSE)=$n\sigma_{\alpha\beta}^2$
+\end{center}
+
+then
+
+\begin{center}
+$s_{\alpha\beta}^2 = (MSAB-MSE)/n = (303.8 -52.01)/5 = 50.358$
+\end{center}
+
+therefore,$s_{\alpha\beta}^2=50.358$ is estimate of $\sigma_{\alpha\beta}^2$, $MSE=52.01$ is estimate of $\sigma^2$, so that  $\sigma_{\alpha\beta}^2$ appears to be small relative to $\sigma^2$.
+
+\item
+
+test:
+
+\begin{center}
+$H_0$:$\sigma_{\alpha}^2=0$
+
+VS. $H_1$:$\sigma_{\alpha}^2>0$
+
+$F^*=\frac{MSA}{MSE} = 12.29/52.01 = 0.2363007$
+
+we can reject $H_0$ if $F^* > F(1-0.01;2,36)=5.247894$,otherwise reject$H_1$
+
+so that reject $H_1$ because $F^*<5.247894$,
+
+therefore,no factor A main effects are present, but the interaction effects are present.
+\end{center}
+
+\item
+
+test:
+
+\begin{center}
+$H_0$:all $\beta_j$ equal zero(j=1,2,3)
+
+VS. $H_1$:not all $\beta_j$ equal zero(j=1,2,3)
+
+$F^*=\frac{MSB}{MSAB} = 14.16/303.8  = 0.04660961$
+
+we can reject $H_0$ if $F^* > F(1-0.01;2,4)=18$,otherwise reject$H_1$
+
+so that reject $H_1$ because $F^*<18$,
+
+therefore,no factor B main effects are present, but the interaction effects are present.
+\end{center}
+
+\item
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+  \hlstd{means_j} \hlkwb{=} \hlkwd{with}\hlstd{(dat,} \hlkwd{by}\hlstd{(y, B, mean))}
+  \hlstd{means_j}
+\end{alltt}
+\begin{verbatim}
+## B: 1
+## [1] 56.13333
+## -------------------------------------------------------- 
+## B: 2
+## [1] 56.6
+## -------------------------------------------------------- 
+## B: 3
+## [1] 54.73333
+\end{verbatim}
+\begin{alltt}
+  \hlstd{D1} \hlkwb{=} \hlstd{means_j[}\hlnum{1}\hlstd{]}\hlopt{-}\hlstd{means_j[}\hlnum{2}\hlstd{]}
+  \hlstd{D2} \hlkwb{=} \hlstd{means_j[}\hlnum{1}\hlstd{]}\hlopt{-}\hlstd{means_j[}\hlnum{3}\hlstd{]}
+  \hlstd{D3} \hlkwb{=} \hlstd{means_j[}\hlnum{2}\hlstd{]}\hlopt{-}\hlstd{means_j[}\hlnum{3}\hlstd{]}
+  \hlstd{MSAB} \hlkwb{=} \hlnum{303.8}
+  \hlstd{s} \hlkwb{=} \hlkwd{sqrt}\hlstd{(MSAB}\hlopt{/}\hlstd{(n}\hlopt{*}\hlstd{a)}\hlopt{*}\hlstd{(}\hlnum{1}\hlopt{+}\hlnum{1}\hlstd{))}
+  \hlstd{alpha} \hlkwb{=} \hlnum{.05}
+  \hlstd{q.} \hlkwb{=} \hlnum{1}\hlopt{/}\hlkwd{sqrt}\hlstd{(}\hlnum{2}\hlstd{)}\hlopt{*}\hlkwd{qtukey}\hlstd{(}\hlnum{1}\hlopt{-}\hlstd{alpha, b, (a}\hlopt{-}\hlnum{1}\hlstd{)}\hlopt{*}\hlstd{(b}\hlopt{-}\hlnum{1}\hlstd{))}
+  \hlkwd{c}\hlstd{(D1}\hlopt{-}\hlstd{s}\hlopt{*}\hlstd{q., D1}\hlopt{+}\hlstd{s}\hlopt{*}\hlstd{q.)}
+\end{alltt}
+\begin{verbatim}
+##         1         1 
+## -23.14962  22.21629
+\end{verbatim}
+\begin{alltt}
+  \hlkwd{c}\hlstd{(D2}\hlopt{-}\hlstd{s}\hlopt{*}\hlstd{q., D2}\hlopt{+}\hlstd{s}\hlopt{*}\hlstd{q.)}
+\end{alltt}
+\begin{verbatim}
+##         1         1 
+## -21.28295  24.08295
+\end{verbatim}
+\begin{alltt}
+  \hlkwd{c}\hlstd{(D3}\hlopt{-}\hlstd{s}\hlopt{*}\hlstd{q., D3}\hlopt{+}\hlstd{s}\hlopt{*}\hlstd{q.)}
+\end{alltt}
+\begin{verbatim}
+##         2         2 
+## -20.81629  24.54962
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\begin{displaymath}
+\begin{split}
+\bar{Y}_{\cdot 1 \cdot} = 56.13333 &, \bar{Y}_{\cdot 2 \cdot} = 56.6 , \bar{Y}_{\cdot 3 \cdot} = 54.73333 \\
+\hat{D}_1 = \bar{Y}_{\cdot 1 \cdot}-\bar{Y}_{\cdot 2 \cdot} = -0.4666667 &,  \hat{D}_2 = \bar{Y}_{\cdot 1 \cdot}-\bar{Y}_{\cdot 3 \cdot}=1.4 , \hat{D}_3 = \bar{Y}_{\cdot 2 \cdot}-\bar{Y}_{\cdot 3 \cdot}=1.866667 \\
+S = \sqrt{\frac{MSAB}{na}\sum c_i} = 6.364485 &, T = \frac{1}{\sqrt{2}}\text{qtukey}(1-alpha, b, (a-1)*(b-1))=3.563989\\
+\text{base on} &\hat{D}_i \pm S*T\\
+-23.14962 & \leq D_1 \leq 22.21629 \\
+-21.28295 &\leq D_2 \leq 24.08295 \\
+-20.81629 &\leq D_3 \leq 24.54962 \\
+\end{split}
+\end{displaymath}
+
+\qquad It means D1,D2,D3 can equal to zero, there's no significant factor B effect.
+
+\item
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+  \hlstd{mu_j1} \hlkwb{=} \hlstd{means_j[}\hlnum{1}\hlstd{]}
+  \hlstd{mu_j1}
+\end{alltt}
+\begin{verbatim}
+##        1 
+## 56.13333
+\end{verbatim}
+\begin{alltt}
+  \hlstd{MSA} \hlkwb{=} \hlnum{12.29}
+  \hlstd{MSAB} \hlkwb{=} \hlnum{303.8}
+  \hlstd{c1} \hlkwb{=} \hlstd{(a}\hlopt{-}\hlnum{1}\hlstd{)}\hlopt{/}\hlstd{(n}\hlopt{*}\hlstd{a}\hlopt{*}\hlstd{b)}
+  \hlstd{c2} \hlkwb{=} \hlnum{1}\hlopt{/}\hlstd{(n}\hlopt{*}\hlstd{a}\hlopt{*}\hlstd{b)}
+  \hlstd{s} \hlkwb{=} \hlkwd{sqrt}\hlstd{(c1}\hlopt{*}\hlstd{MSAB}\hlopt{+}\hlstd{c2}\hlopt{*}\hlstd{MSA)}
+  \hlstd{s}
+\end{alltt}
+\begin{verbatim}
+## [1] 3.711514
+\end{verbatim}
+\begin{alltt}
+  \hlstd{df} \hlkwb{=} \hlstd{s}\hlopt{^}\hlnum{4}\hlopt{/}\hlstd{( (c1}\hlopt{*}\hlstd{MSAB)}\hlopt{^}\hlnum{2}\hlopt{/}\hlstd{((a}\hlopt{-}\hlnum{1}\hlstd{)}\hlopt{*}\hlstd{(b}\hlopt{-}\hlnum{1}\hlstd{))}\hlopt{+} \hlstd{(c2}\hlopt{*}\hlstd{MSA)}\hlopt{^}\hlnum{2}\hlopt{/}\hlstd{((a}\hlopt{-}\hlnum{1}\hlstd{)))}
+  \hlstd{t} \hlkwb{=} \hlkwd{qt}\hlstd{(}\hlnum{1}\hlopt{-}\hlnum{0.01}\hlopt{/}\hlnum{2}\hlstd{,(df))}
+  \hlstd{t}
+\end{alltt}
+\begin{verbatim}
+## [1] 4.485356
+\end{verbatim}
+\begin{alltt}
+  \hlkwd{c}\hlstd{(mu_j1}\hlopt{-}\hlstd{s}\hlopt{*}\hlstd{t, mu_j1}\hlopt{+}\hlstd{s}\hlopt{*}\hlstd{t)}
+\end{alltt}
+\begin{verbatim}
+##        1        1 
+## 39.48587 72.78079
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\begin{displaymath}
+\begin{split}
+\hat{\mu}_{\cdot 1}  =& 56.13333, MSA = 12.29 ,MSAB = 303.8 \\
+c_1 =& \frac{a-1}{nab}=0.04444444 , c_2 = \frac{1}{nab} = 0.02222222\\
+s = &\sqrt{c_1 *MSAB+c_2*MSA} = 3.711514\\
+df = &\frac{s^4}{\frac{(\frac{a-1}{nab}MSAB)^2}{(a-1)(b-1)}+\frac{(\frac{1}{nab}MSA)^2}{(a-1)}}=4.160049\\
+t = &t(1-\alpha/2;df) = 4.485356\\
+\text{ confidence limits } &\hat{\mu}_{\cdot i} \pm s*t\\
+39.48587 &\leq \mu_{\cdot 1} \leq 72.78079 
+\end{split}
+\end{displaymath}
+
+We are 99\% confident that $\mu_{\cdot 1}$ is between (39.48587, 72.78079)
+
+\item
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+  \hlstd{c1}\hlkwb{=}\hlnum{1}\hlopt{/}\hlnum{15}
+  \hlstd{c2}\hlkwb{=}\hlopt{-}\hlnum{1}\hlopt{/}\hlnum{15}
+  \hlstd{ms1}\hlkwb{=}\hlnum{12.29}
+  \hlstd{ms2}\hlkwb{=}\hlnum{52.01}
+  \hlstd{df1}\hlkwb{=}\hlnum{2}
+  \hlstd{df2}\hlkwb{=}\hlnum{36}
+  \hlstd{F1}\hlkwb{=}\hlkwd{qf}\hlstd{(}\hlnum{.995}\hlstd{,}\hlnum{2}\hlstd{,}\hlnum{Inf}\hlstd{)}
+  \hlstd{F2}\hlkwb{=}\hlkwd{qf}\hlstd{(}\hlnum{.995}\hlstd{,}\hlnum{36}\hlstd{,}\hlnum{Inf}\hlstd{)}
+  \hlstd{F3}\hlkwb{=}\hlkwd{qf}\hlstd{(}\hlnum{.995}\hlstd{,}\hlnum{Inf}\hlstd{,}\hlnum{2}\hlstd{)}
+  \hlstd{F4}\hlkwb{=}\hlkwd{qf}\hlstd{(}\hlnum{.995}\hlstd{,}\hlnum{Inf}\hlstd{,}\hlnum{36}\hlstd{)}
+  \hlstd{F5}\hlkwb{=}\hlkwd{qf}\hlstd{(}\hlnum{.995}\hlstd{,}\hlnum{2}\hlstd{,}\hlnum{36}\hlstd{)}
+  \hlstd{F6}\hlkwb{=}\hlkwd{qf}\hlstd{(}\hlnum{.995}\hlstd{,}\hlnum{36}\hlstd{,}\hlnum{2}\hlstd{)}
+  \hlstd{G1}\hlkwb{=}\hlnum{1}\hlopt{-}\hlnum{1}\hlopt{/}\hlstd{F1}
+  \hlstd{G2}\hlkwb{=}\hlnum{1}\hlopt{-}\hlnum{1}\hlopt{/}\hlstd{F2}
+  \hlstd{G3}\hlkwb{=}\hlstd{((F5}\hlopt{-}\hlnum{1}\hlstd{)}\hlopt{^}\hlnum{2}\hlopt{-}\hlstd{(G1}\hlopt{*}\hlstd{F5)}\hlopt{^}\hlnum{2}\hlopt{-}\hlstd{(F4}\hlopt{-}\hlnum{1}\hlstd{)}\hlopt{^}\hlnum{2}\hlstd{)}\hlopt{/}\hlstd{F5}
+  \hlstd{G4}\hlkwb{=}\hlstd{F6}\hlopt{*}\hlstd{( ((F6}\hlopt{-}\hlnum{1}\hlstd{)}\hlopt{/}\hlstd{F6)}\hlopt{^}\hlnum{2} \hlopt{-} \hlstd{((F3}\hlopt{-}\hlnum{1}\hlstd{)}\hlopt{/}\hlstd{F6)}\hlopt{^}\hlnum{2} \hlopt{-} \hlstd{G2}\hlopt{^}\hlnum{2} \hlstd{)}
+  \hlstd{Hl} \hlkwb{=} \hlkwd{sqrt}\hlstd{( (G1}\hlopt{*}\hlstd{c1}\hlopt{*}\hlstd{ms1)}\hlopt{^}\hlnum{2} \hlopt{+} \hlstd{((F4}\hlopt{-}\hlnum{1}\hlstd{)}\hlopt{*}\hlstd{c2}\hlopt{*}\hlstd{ms2)}\hlopt{^}\hlnum{2} \hlopt{-} \hlstd{G3}\hlopt{*}\hlstd{c1}\hlopt{*}\hlstd{c2}\hlopt{*}\hlstd{ms1}\hlopt{*}\hlstd{ms2)}
+  \hlstd{Hl}
+\end{alltt}
+\begin{verbatim}
+## [1] 3.613885
+\end{verbatim}
+\begin{alltt}
+  \hlstd{Hu} \hlkwb{=} \hlkwd{sqrt}\hlstd{( (G2}\hlopt{*}\hlstd{c2}\hlopt{*}\hlstd{ms2)}\hlopt{^}\hlnum{2} \hlopt{+} \hlstd{((F3}\hlopt{-}\hlnum{1}\hlstd{)}\hlopt{*}\hlstd{c1}\hlopt{*}\hlstd{ms1)}\hlopt{^}\hlnum{2} \hlopt{-} \hlstd{G4}\hlopt{*}\hlstd{c1}\hlopt{*}\hlstd{c2}\hlopt{*}\hlstd{ms1}\hlopt{*}\hlstd{ms2)}
+  \hlstd{Hu}
+\end{alltt}
+\begin{verbatim}
+## [1] 162.3423
+\end{verbatim}
+\begin{alltt}
+  \hlstd{sigma_mu} \hlkwb{=}  \hlstd{(ms1}\hlopt{-}\hlstd{ms2)}\hlopt{/}\hlstd{(n}\hlopt{*}\hlstd{b)}
+  \hlkwd{c}\hlstd{(}\hlkwd{max}\hlstd{(}\hlnum{0}\hlstd{,}\hlnum{0}\hlopt{-}\hlstd{Hl),} \hlnum{0}\hlopt{+}\hlstd{Hu)}
+\end{alltt}
+\begin{verbatim}
+## [1]   0.0000 162.3423
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\begin{center}
+E(MSA)= $nb\sigma_\mu^2+\sigma^2$ \qquad E(MSE)=$\sigma^2$\\
+Base on $L=\sigma_\mu^2=c_1E(MSA)+c_2E(MSE)$\\
+then $c_1=1/(nb)=0.06666667$, $c_2=-1/(nb)=-0.06666667$\\
+and $MSA=12.29, MSE=52.01, df1=2, df2=36$\\
+\end{center}
+
+According to MLS procedure, $H_l=3.613885$ \qquad $H_u=162.3423$ \qquad $\sigma_\mu^2=-2.648$
+
+since $\sigma_\mu^2=-2.648<0$, so that $\sigma_\mu^2=0$
+
+\qquad so that 99\% confident interval is  $max(0,0-H_l) \leq \sigma_\mu^2 \leq 0+H_u$,which means $0 \leq \sigma_\mu^2 \leq 162.3423$
+
+Confidence interval is very large, because the small sample sizes and the difficulty in estimating variance component precisely.
+
+\end{enumerate}
+
+\section {25.30}
+
+\begin{displaymath}
+\begin{split}
+L &\leq \frac{\sigma_\mu^2}{\sigma^2} \leq U\\
+\frac{1}{L} &\geq \frac{\sigma^2}{\sigma_\mu^2} \geq \frac{1}{U}\\
+\frac{1+L}{L} &\geq \frac{\sigma^2+\sigma_\mu^2}{\sigma_\mu^2} \geq \frac{1+U}{U}\\
+\frac{L}{1+L} &\leq \frac{\sigma_\mu^2}{\sigma^2+\sigma_\mu^2} \leq \frac{U}{1+U}\\
+\end{split}
+\end{displaymath}
+
+\section {25.32}
+
+\begin{displaymath}
+\begin{split}
+Y_{ij} &= \mu_{\cdot\cdot} + \rho_i + \tau_j + \epsilon_{ij}\\
+\text{then } \sigma^2\{Y_{ij} \} &= \sigma^2\{\mu_{\cdot\cdot} + \rho_i + \tau_j + \epsilon_{ij} \} = \sigma_\tau^2+\sigma^2\\
+\sigma^2\{\bar{Y}_{\cdot j} \} &= \sigma^2\{\mu_{\cdot\cdot} + \frac{\sum\rho_i}{n_b} + \tau_j + \bar{\epsilon}_{\cdot j} \} = \sigma_\tau^2+\sigma^2/n_b\\
+\end{split}
+\end{displaymath}
+
+\section{25.34}
+\begin{displaymath}
+\begin{split}
+\sigma^2\{  Y_{ij},Y_{ij'}\} &= E\{ (Y_{ij}-E(Y_{ij}))(Y_{ij'}-E(Y_{ij'}))\} \\
+                           &= E\{ [\mu_{\cdot\cdot} + \rho_i + \tau_j + \epsilon_{ij} -(\mu_{\cdot\cdot} + \tau_j)][\mu_{\cdot\cdot} + \rho_i + \tau_{j'} + \epsilon_{ij'} -(\mu_{\cdot\cdot} + \tau_{j'})]\}\\
+                           &= E\{ (\rho_i +\epsilon_{ij})(\rho_i +\epsilon_{ij'}) \}\\
+                           &= E(\rho_i^2) + E(\rho_i\epsilon_{ij'})+E(\rho_i\epsilon_{ij})+E(\epsilon_{ij}\epsilon_{ij'})\\
+                           &= (E(\rho_i))^2+\sigma_\rho^2\\
+                           &=\sigma_\rho^2
+\end{split}
+\end{displaymath}
+
+\end{document}

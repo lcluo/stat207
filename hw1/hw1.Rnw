@@ -1,0 +1,466 @@
+\documentclass{article}
+\usepackage{enumerate}
+\usepackage{amsmath}
+
+\begin{document}
+
+\title{\huge \textbf{Stat 207 HW1} \\}
+\author{\large Cheng Luo 912466499 \\ \large Fan Wu 912538518}
+\maketitle
+
+\clearpage
+
+\section{24.12}
+
+\begin{enumerate}[(a)]
+
+\item
+
+<<>>=
+  elec = read.table("CH24PR12.txt")
+  names(elec) = c("Y", "A", "B", "C", "T")
+  n = length(unique(elec$T)) 
+  a = length(unique(elec$A)) 
+  b = length(unique(elec$B))
+  c = length(unique(elec$C))
+  fit = lm(Y ~ as.factor(A) * as.factor(B) * as.factor(C) , elec)
+  res = resid(fit)
+  res
+  plot(fit, which = 1)
+@
+
+\qquad The residuals versus fitted values plots shows no sign for unequal variance.
+
+\item
+
+<<>>=
+  plot(fit, which = 2)
+  cor(sort(res), ppoints(res))
+@
+
+\qquad The normal QQ plot and correlation indicates approximately normal distribution of residuals with slight light tail, so that the normality assumption seems to be reasonable here.
+
+\end{enumerate}
+
+\section{24.13}
+
+\begin{enumerate}[(a)]
+
+\item
+
+$\bar{Y}_{ijk\cdot}$ are as follow:
+
+<<>>=
+  means = sapply(with(elec, split(Y,list(A,B,C))), mean)
+  means
+@
+
+<<>>=
+  elec.C = split(elec, elec$C)
+  par(mfrow = c(1,2))
+  with(elec.C$'1', interaction.plot(A, B, Y))
+  with(elec.C$'2', interaction.plot(A, B, Y))
+@
+
+\qquad From AB plots of the estimated treatment means, the AB curves seem to be parallel, which means there's no interaction between AB, moreover, main effect A and main effect B are present.
+
+\item
+
+<<>>=
+  anova(fit)
+@
+
+\item
+
+For three-factor interaction:
+
+\begin{center}
+$H_0$:all $(\alpha\beta\gamma)_{ijk}$=0
+
+VS. $H_1$:not all $(\alpha\beta\gamma)_{ijk}$ = 0
+
+$F^*=\frac{MSABC}{MSE} = 0.0111$
+
+we can reject $H_0$ if $F^* > F(1-0.05;2,48)=3.19$,otherwise reject$H_1$
+
+reject $H_1$ because $F^*<F(1-0.05;2,48)=3.19$,
+
+therefore,we conclude $H_0$ at 0.05 level, and there's no three-factor interaction effect, and P-value = 0.9890
+\end{center}
+
+\item
+
+For AB interaction:
+
+\begin{center}
+$H_0$:all $(\alpha\beta)_{ij}$=0
+
+VS. $H_1$:not all $(\alpha\beta)_{ij}$ = 0
+
+$F^*=\frac{MSAB}{MSE} = 0.3161$
+
+we can reject $H_0$ if $F^* > F(1-0.05;2,48)=3.19$,otherwise reject$H_1$
+
+reject $H_1$ because $F^*<F(1-0.05;2,48)=3.19$,
+
+therefore,we conclude $H_0$ at 0.05 level, and there's no AB interaction effect, and P-value = 0.7305
+\end{center}
+
+For AC interaction:
+
+\begin{center}
+$H_0$:all $(\alpha\gamma)_{ik}$=0
+
+VS. $H_1$:not all $(\alpha\gamma)_{ik}$ = 0
+
+$F^*=\frac{MSAC}{MSE} = 0.1064$
+
+we can reject $H_0$ if $F^* > F(1-0.05;1,48)=4.04$,otherwise reject$H_1$
+
+reject $H_1$ because $F^*<F(1-0.05;2,48)=4.04$,
+
+therefore,we conclude $H_0$ at 0.05 level, and there's no AC interaction effect, and P-value = 0.7457
+\end{center}
+
+For BC interaction:
+
+\begin{center}
+$H_0$:all $(\beta\gamma)_{jk}$=0
+
+VS. $H_1$:not all $(\beta\gamma)_{jk}$ = 0
+
+$F^*=\frac{MSBC}{MSE} = 0.5310$
+
+we can reject $H_0$ if $F^* > F(1-0.05;2,48)=3.19$,otherwise reject$H_1$
+
+reject $H_1$ because $F^*<F(1-0.05;2,48)=3.19$,
+
+therefore,we conclude $H_0$ at 0.05 level, and there's no BC interaction effect, and P-value = 0.5914
+\end{center}
+
+\item
+
+For A main effect:
+
+\begin{center}
+$H_0$:all $(\alpha)_{i}$=0
+
+VS. $H_1$:not all $(\alpha)_{i}$ = 0
+
+$F^*=\frac{MSA}{MSE} = 629.7603$
+
+we can reject $H_0$ if $F^* > F(1-0.05;2,48)=4.04$,otherwise reject$H_1$
+
+reject $H_0$ because $F^*>F(1-0.05;2,48)=4.04$,
+
+therefore,we conclude $H_1$ at 0.05 level, and there's A main effect, and P-value = 2.2e-16
+\end{center}
+
+For B main effect:
+
+\begin{center}
+$H_0$:all $(\beta)_{j}$=0
+
+VS. $H_1$:not all $(\beta)_{j}$ = 0
+
+$F^*=\frac{MSB}{MSE} = 28.7396$
+
+we can reject $H_0$ if $F^* > F(1-0.05;2,48)=3.19$,otherwise reject$H_1$
+
+reject $H_0$ because $F^*>F(1-0.05;2,48)=3.19$,
+
+therefore,we conclude $H_1$ at 0.05 level, and there's B main effect, and P-value = 6.22e-09
+\end{center}
+
+For C main effect:
+
+\begin{center}
+$H_0$:all $(\gamma)_{k}$=0
+
+VS. $H_1$:not all $(\gamma)_{k}$ = 0
+
+$F^*=\frac{MSC}{MSE} = 445.6679$
+
+we can reject $H_0$ if $F^* > F(1-0.05;2,48)=4.04$,otherwise reject$H_1$
+
+reject $H_0$ because $F^*>F(1-0.05;2,48)=3.19$,
+
+therefore,we conclude $H_1$ at 0.05 level, and there's C main effect, and P-value = 2.2e-16
+\end{center}
+
+\item
+
+\qquad A,B and C main effects are present, but there's no any interaction effect. As for upper bound for the family level of significance, using kimball inequality,$\alpha < 1-(1-\alpha_1)(1-\alpha_2) \cdots (1-\alpha_7)=1-(1-0.05)^7=0.3016627$
+
+\item 
+
+\qquad The results in part(f) confirm my graphic analysis in part(a)
+
+\end{enumerate}
+
+\section{24.14}
+
+\begin{enumerate}[(a)]
+
+\item
+
+<<>>=
+  means = with(elec, sapply(list(A, B, C), function(x) by(Y, x, mean)))
+  means
+  D1.hat = means[[1]][1] - means[[1]][2]
+  D2.hat = means[[2]][1] - means[[2]][2]
+  D3.hat = means[[2]][1] - means[[2]][3]
+  D4.hat = means[[2]][2] - means[[2]][3]
+  D5.hat = means[[3]][1] - means[[3]][2]
+  mse = anova(fit)["Residuals", 3]
+  S_D1 = sqrt(mse/(n*b*c)*2)
+  S_D2 = sqrt(mse/(n*a*c)*2)
+  S_D3 = sqrt(mse/(n*a*c)*2)
+  S_D4 = sqrt(mse/(n*a*c)*2)
+  S_D5 = sqrt(mse/(n*a*b)*2)
+  B = qt(1-.1/(2*5), 48)
+  c(D1.hat-B*S_D1, D1.hat+B*S_D1)
+  c(D2.hat-B*S_D2, D2.hat+B*S_D2)
+  c(D3.hat-B*S_D3, D3.hat+B*S_D3)
+  c(D4.hat-B*S_D4, D4.hat+B*S_D4)
+  c(D5.hat-B*S_D5, D5.hat+B*S_D5)
+@
+
+\begin{center}
+171.5984 $\leq D_1 \leq  $208.0016 \\
+-79.54229 $\leq D_2 \leq  $-34.95771 \\
+-15.69229 $\leq D_3 \leq  $28.89229 \\
+41.55771 $\leq D_4 \leq  $86.14229 \\
+141.4651 $\leq D_5 \leq  $177.8682 \\
+\end{center}
+
+\item
+
+<<>>=
+dat.231 = elec[with(elec, A == 2 & B == 3 & C == 1), ]
+means = mean(dat.231$Y)
+s = sqrt(mse/n)
+t. = qt(1 - .05/2, (n - 1)*a*b*c)
+c(means - t.*s, means + t.*s)
+@
+
+\qquad Therefore,$\mu_{231}$ with a 95 percent confidence interval is 994.0608 $\leq \mu_{231} \leq  $ 1046.7392
+
+\end{enumerate}
+
+\section{24.16}
+
+\begin{enumerate}[(a)]
+
+\item
+
+<<>>=
+  dat.reg = elec[-c(19, 40, 43), ]
+  x1 = dat.reg$A
+  x1 = replace(x1, which(dat.reg$A == 2), -1)
+  x2 = dat.reg$B
+  x2 = replace(x2, which(dat.reg$B == 3), -1)
+  x2 = replace(x2, which(dat.reg$B == 2), 0)
+  x3 = dat.reg$B
+  x3 = replace(x3, which(dat.reg$B == 3), -1)
+  x3 = replace(x3, which(dat.reg$B == 1), 0)
+  x3 = replace(x3, which(dat.reg$B == 2), 1)
+  x4 = dat.reg$C
+  x4 = replace(x4, which(dat.reg$C == 2), -1)
+  model.full = lm(dat.reg$Y ~ x1*(x2+x3)*x4)
+  sse.full = sum(resid(model.full)^2)
+@
+
+For full model:
+\begin{displaymath}
+\begin{split}
+Y_{ijkm} &= \mu_{\cdots} + \alpha_1 X_{ijkm1} +  \beta_1 X_{ijkm2} + \beta_2 X_{ijkm3} +\gamma X_{ijkm4}\\
+         &+ (\alpha\beta)_{11} X_{ijkm1} X_{ijkm2} + (\alpha\beta)_{12} X_{ijkm1} X_{ijkm3} +(\alpha\gamma)_{11} X_{ijkm1} X_{ijkm4} \\
+         &+ (\beta\gamma)_{11} X_{ijkm2} X_{ijkm4} + (\beta\gamma)_{21} X_{ijkm3} X_{ijkm4} +(\alpha\beta\gamma)_{111} X_{ijkm1} X_{ijkm2} X_{ijkm4} \\
+         &+ (\alpha\beta\gamma)_{121} X_{ijkm1} X_{ijkm3} X_{ijkm4} + \epsilon_{ijkm}
+\end{split}
+\end{displaymath}
+
+\begin{eqnarray}
+X_{ijkm1} =
+\begin{cases}
+1       & \text{if factor A is level 1} \\
+-1   & \text{if factor A is level 2}
+\end{cases}
+\end{eqnarray}
+
+\begin{eqnarray}
+X_{ijkm2} =
+\begin{cases}
+1       & \text{if factor B is level 1} \\
+-1   & \text{if factor B is level 3} \\
+0 & else
+\end{cases}
+\end{eqnarray}
+
+\begin{eqnarray}
+X_{ijkm3} =
+\begin{cases}
+1       & \text{if factor B is level 2} \\
+-1   & \text{if factor B is level 3} \\
+0 & else
+\end{cases}
+\end{eqnarray}
+
+\begin{eqnarray}
+X_{ijkm4} =
+\begin{cases}
+1       & \text{if factor C is level 1} \\
+-1   & \text{if factor C is level 2}
+\end{cases}
+\end{eqnarray}
+
+\item
+
+<<>>=
+  model.red = lm(dat.reg$Y ~ x1*(x2+x3)*x4 -x4)
+  sse.red = sum(resid(model.red)^2)
+@
+
+For reduced model:
+\begin{displaymath}
+\begin{split}
+Y_{ijkm} &= \mu_{\cdots} + \alpha_1 X_{ijkm1} +  \beta_1 X_{ijkm2} + \beta_2 X_{ijkm3} \\
+         &+ (\alpha\beta)_{11} X_{ijkm1} X_{ijkm2} + (\alpha\beta)_{12} X_{ijkm1} X_{ijkm3} +(\alpha\gamma)_{11} X_{ijkm1} X_{ijkm4} \\
+         &+ (\beta\gamma)_{11} X_{ijkm2} X_{ijkm4} + (\beta\gamma)_{21} X_{ijkm3} X_{ijkm4} +(\alpha\beta\gamma)_{111} X_{ijkm1} X_{ijkm2} X_{ijkm4} \\
+         &+ (\alpha\beta\gamma)_{121} X_{ijkm1} X_{ijkm3} X_{ijkm4} + \epsilon_{ijkm}
+\end{split}
+\end{displaymath}
+
+\item
+
+<<>>=
+  summary(model.full)
+  summary(model.red)
+  sse.full
+  sse.red
+@
+
+SSE(F)=39499.9, df(F)=45
+
+SSE(R)=399106.9, df(R)=46
+
+\begin{center}
+$H_0$:all $(\gamma)_{1}$=0
+
+VS. $H_1$:not all $(\gamma)_{1}$ = 0
+
+$F^*=\frac{(SSE(R)-SSE(F))/(df(R)-df(F))}{SSE(F)/df(F)} = \frac{359607/1}{39499.9/45} = 409.6799$
+
+we can reject $H_0$ if $F^* > F(1-0.05;1,45)=4.056612$,otherwise reject$H_1$
+
+reject $H_0$ because $F^*>F(1-0.05;1,45)=3.19$,
+
+therefore,we conclude $H_1$ at 0.05 level, and there's C main effect, and P-value is 3.114909e-24, very close to zero.
+\end{center}
+
+<<>>=
+  f.star = (sse.red - sse.full) / (sse.full/45)
+  qf(1 - .05, 1, 45)
+  pf(f.star, 1, 45, lower = FALSE)
+@
+
+\item
+
+<<>>=
+  D.hat = 159.6
+  n.s = with(dat.reg, by(Y, list(A, B, C), length))
+  s = sqrt(sse.full/(nrow(dat.reg) - a*b*c) / (a^2*b^2) * sum(1/n.s))
+  s
+  t. = qt(1 - .05/2, nrow(dat.reg) - a*b*c)
+  c(D.hat - s*t., D.hat + s*t.)
+@
+
+$\hat{D} = \hat{\mu}_{\cdot \cdot 1} - \hat{\mu}_{\cdot \cdot 2}= \hat{\gamma}_1 - \hat{\gamma}_2 = 2\hat{\gamma}_1=2*79.8=159.6$
+
+MSE = $\frac{SSE(F)}{df(F)} = 877.7756$
+
+$Var(\bar{Y}_{ijk\cdot}) = \frac{MSE}{n_{ijk}}$
+
+$Var(\hat{\mu}_{\cdot \cdot 1}) = Var(\frac{\sum_{i=1}^a\sum_{j=1}^b \bar{Y}_{ij1\cdot}}{ab}) = \frac{MSE}{a^2b^2} \sum_{i=1}^a\sum_{j=1}^b \frac{1}{n_{ij1}}$
+
+$S(\hat{D}) = \sqrt{Var(\hat{\mu}_{\cdot \cdot 1})+Var(\hat{\mu}_{\cdot \cdot 2})} = \sqrt{\frac{MSE}{a^2b^2} \sum_{i=1}^a\sum_{j=1}^b\sum_{k=1}^c \frac{1}{n_{ijk}}} = 7.885161$
+
+t = t(1- 0.05/2; 45) = 2.014103
+
+Therefore,$\hat{D} \pm S(\hat{D})*t$, which means 143.7185 $\leq D \leq$ 175.4815
+
+\end{enumerate}
+
+\section{24.18}
+
+<<>>=
+  n = 5
+  s = sqrt(29^2/(n*b*c)*2)
+  B = qt(1 - .1/(2*5), n*a*b*c - a*b*c)
+  B*s
+  n = 7
+  s = sqrt(29^2/(n*a*c)*2)
+  B = qt(1 - .1/(2*5), n*a*b*c - a*b*c)
+  B*s
+  n = 5
+  s = sqrt(29^2/(n*a*b)*2)
+  B = qt(1 - .1/(2*5), n*a*b*c - a*b*c)
+  B*s
+@
+
+\quad We find that 
+  \begin{itemize}
+  \item
+    for $L_1$, if the precision of each of the estimates should not exceed, the smallest sample size is 5 
+  \item
+    for $L_2, L_3$ and $L_4$, if the precision of each of the estimates should not exceed, the smallest sample size is 7 
+  \item 
+    for $L_1$, if the precision of each of the estimates should not exceed, the smallest sample size is 5.
+  \end{itemize}
+Therefore, the required sample size should be n $\geq$ 7.
+
+\section{24.19}
+
+\begin{displaymath}
+\begin{split}
+\sum_i(\alpha\beta\gamma)_{ijk} &= \sum_i(\mu_{ijk} - \mu_{ij\cdot} - \mu_{i\cdot k} - \mu_{\cdot jk} + \mu_{i\cdot\cdot} + \mu_{\cdot j \cdot} + \mu_{\cdot \cdot k} - \mu_{\cdots}) \\
+                                &= a\mu_{\cdot jk} - a\mu_{\cdot j\cdot} - a\mu_{\cdot\cdot k} - a\mu_{\cdot jk} + a\mu_{\cdot\cdot\cdot} + a\mu_{\cdot j \cdot} + a\mu_{\cdot \cdot k} - a\mu_{\cdots} \\
+                                &= 0
+\end{split}
+\end{displaymath}
+
+\section{24.20}
+
+The model without three-factor interaction is:
+\begin{center}
+$Y_{ijk} = \mu_{\cdots} + \alpha_i + \beta_j + \gamma_k + (\alpha\beta)_{ij} + (\alpha\gamma)_{ik} + (\beta\gamma)_{jk} + \epsilon_{ijk}$
+\end{center}
+
+\begin{table}[h]
+\begin{tabular}{llll}
+         & SS   & d.f.            & MS   \\ \hline
+A        & SSA  & a-1             & MSA  \\
+B        & SSB  & b-1             & MSB  \\
+C        & SSC  & c-1             & MSC  \\
+AB       & SSAB & (a-1)(b-1)      & MSAB \\
+AC       & SSAC & (a-1)(c-1)      & MSAC \\
+BC       & SSBC & (b-1)(c-1)      & MSBC \\
+         &      &                 &      \\ \hline
+Residual & SSE  & (a-1)(b-1)(c-1) & MSE  \\
+Total    & SSTO & abc-1           &     
+\end{tabular}
+\end{table}
+
+\section{24.21}
+
+\begin{displaymath}
+\begin{split}
+Var(\hat{L}) &= Var(\sum\sum c_{ij}\bar{Y}_{ij\cdot\cdot}) \\
+             &= \sum\sum c_{ij}^2 Var(\bar{Y}_{ij\cdot\cdot}) \\
+             &= \sum\sum c_{ij}^2 \frac{\sigma^2}{cn} \\
+             &= \frac{\sigma^2}{cn} \sum\sum c_{ij}^2
+\end{split}
+\end{displaymath} 
+
+\end{document}
