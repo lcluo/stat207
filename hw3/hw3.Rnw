@@ -1,0 +1,86 @@
+\documentclass{article}
+\usepackage{enumerate}
+\usepackage{amsmath}
+
+\begin{document}
+
+\title{\huge \textbf{Stat 207 HW3} \\}
+\author{\large Cheng Luo 912466499 \\ \large Fan Wu 912538518}
+\maketitle
+
+\clearpage
+
+\section{26.4}
+
+\begin{enumerate}[(a)]
+
+\item
+
+\item
+
+\end{enumerate}
+
+\section{26.5}
+
+\section{26.6}
+
+\section{26.7}
+
+\section{26.19}
+
+\section{26.20}
+
+\section{26.24}
+
+\begin{displaymath}
+\begin{split}
+SSB+SSAB &= na\sum_{j}(\bar{Y}_{\cdot j \cdot}-\bar{Y}_{\cdots})^2 + n\sum_i\sum_j(\bar{Y}_{ij\cdot}-\bar{Y}_{i\cdot\cdot}-\bar{Y}_{\cdot j \cdot}+\bar{Y}_{\cdots})^2
+\end{split}
+\end{displaymath}
+
+\section{26.25}
+
+\begin{enumerate}[(a)]
+
+\item
+
+Since
+
+$$\bar{Y}_{ijk} = \mu_{ij} + \alpha_i + \beta_{j (i)} + \epsilon_{ijk}$$
+
+then:
+
+\begin{displaymath}
+\begin{split}
+\sigma^2 \{ \bar{Y}_{i\cdot\cdot} \} &= \sigma^2 \{ \mu_{i\cdot\cdot} + \alpha_i + \bar{\beta}_{\cdot (i)} + \bar{\epsilon}_{i\cdot\cdot} \} \\
+                        &= \sigma^2 \{ \bar{\beta}_{\cdot (i)} + \bar{\epsilon}_{i\cdot\cdot} \} \\
+                        &= \frac{\sigma^2_{\beta}}{b} + \frac{\sigma^2}{bn}  \qquad \text{,since $\beta$ and $\epsilon$ are independent}
+\end{split}
+\end{displaymath}
+
+\begin{displaymath}
+\begin{split}
+\sigma^2 \{ \bar{Y}_{\cdot\cdot\cdot} \} &= \sigma^2 \{ \mu_{\cdot\cdot\cdot}  + \bar{\beta}_{\cdot (\cdot)} + \bar{\epsilon}_{\cdot\cdot\cdot} \} \qquad \text{,since $\sum_i \alpha=0$}\\
+                        &= \sigma^2 \{ \bar{\beta}_{\cdot (\cdot)} + \bar{\epsilon}_{\cdot\cdot\cdot} \} \\
+                        &= \frac{\sigma^2_{\beta}}{ab} + \frac{\sigma^2}{abn}  \qquad \text{,since $\beta$ and $\epsilon$ are independent}
+\end{split}
+\end{displaymath}
+
+\item
+
+\begin{displaymath}
+\begin{split}
+E(MSB(a)) &= \sigma^2 + n\sigma^2_{\beta}\\
+E(MSE) &= \sigma^2 \\
+s^2_\beta &= (MSB(A)-MSE)/n\\
+\hat{\sigma}_\beta^2 &= max(0, s^2_\beta) = max(0, (MSB(A)-MSE)/n)
+\end{split}
+\end{displaymath}
+
+\end{enumerate}
+
+\section{26.28}
+
+
+
+\end{document}
