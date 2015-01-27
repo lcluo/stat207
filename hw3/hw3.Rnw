@@ -16,15 +16,413 @@
 
 \item
 
+<<>>=
+  dat = read.table("CH26PR04.txt")
+  names(dat) = c("Y", "A", "B", "k")
+  dat$A = factor(dat$A)
+  dat$B = factor(dat$B)
+  a = length(unique(dat$A))
+  b = length(unique(dat$B))
+  n = length(unique(dat$k))
+  model = aov(Y ~ A + A/B, data = dat)
+  resid(model)
+  par( mfrow = c(2,2))
+  plot(model, which = 1)
+  plot(model, which = 2)
+@
+
+\qquad The residuals versus fitted values plots shows no sign for unequal variance.And the QQ-plot indicates approximately normal distribution with slightly light tail, so that normality assumption seems to be reasonable, we can use model(26.7) here.
+
 \item
+
+<<>>=
+  require("lattice")
+  dotplot(resid(model) ~ dat$A, xlab = "Machine" )
+@
+
+\qquad The plot shows no sign for unequal variance, so it support the assumption of constancy of the error variance.
 
 \end{enumerate}
 
 \section{26.5}
 
+\begin{enumerate}[(a)]
+
+\item
+  
+\qquad No.
+
+\item
+
+<<>>=
+  dotplot(dat$A ~ dat$Y, groups = dat$B)
+@
+
+\qquad It seems operator effect are present.
+
+\item
+
+<<>>=
+  summary(model)
+@
+
+Test the mean outputs differ for three machine:
+
+\begin{center}
+$H_0$:all $\alpha_i$ equal zero(i=1,2,3)
+
+VS. $H_1$:not all $\alpha_i$ equal zero
+
+$F^*=\frac{MSA}{MSE} = 847.8/23.6  = 35.92$
+
+we can reject $H_0$ if $F^* > F(1-0.01;2,48)=5.076664$,otherwise reject$H_1$
+
+so that reject $H_0$ because $F^*>5.076664$,
+
+therefore, the mean outputs differ for three machine, and the P-value is 2.90e-10
+\end{center}
+
+\item
+
+Test the mean outputs differ for the operator:
+
+\begin{center}
+$H_0$:all $\beta_{j(i)}$ equal zero(i=1,2,3)
+
+VS. $H_1$:not all $\beta_{j(i)}$ equal zero
+
+$F^*=\frac{MSB(A)}{MSE} = 252.5/23.6  = 10.7$
+
+we can reject $H_0$ if $F^* > F(1-0.01;9,48)=2.801816$,otherwise reject$H_1$
+
+so that reject $H_0$ because $F^*>2.801816$,
+
+therefore, our conclusion implies that operator within at least one machine differ in terms of mean shifts effects, and the P-value is 6.99e-09
+\end{center}
+
+\item
+
+<<>>=
+  model1 = aov(Y ~ A + A/B, data = dat)
+@
+
+\begin{center}
+$H_0$:all $\beta_{j(i)}$ equal zero(i=1,2,3)
+
+VS. $H_1$:not all $\beta_{j(i)}$ equal zero
+
+$F^*=\frac{MSB(A)}{MSE} = 252.5/23.6  = 10.7$
+
+we can reject $H_0$ if $F^* > F(1-0.01;9,48)=2.801816$,otherwise reject$H_1$
+
+so that reject $H_0$ because $F^*>2.801816$,
+
+therefore, our conclusion implies that operator within at least one machine differ in terms of mean shifts effects, and the P-value is 6.99e-09
+\end{center}
+
+\begin{center}
+$H_0$:all $\beta_{j(i)}$ equal zero(i=1,2,3)
+
+VS. $H_1$:not all $\beta_{j(i)}$ equal zero
+
+$F^*=\frac{MSB(A)}{MSE} = 252.5/23.6  = 10.7$
+
+we can reject $H_0$ if $F^* > F(1-0.01;9,48)=2.801816$,otherwise reject$H_1$
+
+so that reject $H_0$ because $F^*>2.801816$,
+
+therefore, our conclusion implies that operator within at least one machine differ in terms of mean shifts effects, and the P-value is 6.99e-09
+\end{center}
+
+\begin{center}
+$H_0$:all $\beta_{j(i)}$ equal zero(i=1,2,3)
+
+VS. $H_1$:not all $\beta_{j(i)}$ equal zero
+
+$F^*=\frac{MSB(A)}{MSE} = 252.5/23.6  = 10.7$
+
+we can reject $H_0$ if $F^* > F(1-0.01;9,48)=2.801816$,otherwise reject$H_1$
+
+so that reject $H_0$ because $F^*>2.801816$,
+
+therefore, our conclusion implies that operator within at least one machine differ in terms of mean shifts effects, and the P-value is 6.99e-09
+\end{center}
+
+\item
+
+\begin{displaymath}
+\begin{split}
+  \alpha &\leq 1 -(1-\alpha_1)...(1-\alpha_5)\\
+         &= 1-(1-0.05)^5\\
+         &= 0.2262191
+\end{split}
+\end{displaymath}
+
+\qquad We conclude that three machine differ in mean output, 4 operators in machine 1 have different mean output effect, 4 operators in machine 2 have different mean output effect, but 4 operators in machine 3 do not have different mean output effect.
+
+\end{enumerate}
+
 \section{26.6}
 
+\begin{enumerate}[(a)]
+
+\item
+
+<<>>=
+  means = with(dat, by(Y, A, mean))
+  D1 = means[1] - means[2]
+  D2 = means[1] - means[3]
+  D3 = means[2] - means[3]
+  tukey = 1/sqrt(2)*qtukey(0.95, 3, 48)
+  tukey
+  mse = 23.6
+  s = sqrt(2*mse/(b*n))
+  s
+  c(D1-s*tukey, D1+s*tukey)
+  c(D2-s*tukey, D2+s*tukey)
+  c(D3-s*tukey, D3+s*tukey)
+@
+
+\begin{displaymath}
+\begin{split}
+\bar{Y}_{1\cdot \cdot} = 61.2 &, \bar{Y}_{2\cdot \cdot} = 70.95 , \bar{Y}_{3\cdot \cdot} = 73.55 \\
+\hat{D}_1 = \bar{Y}_{1\cdot \cdot}-\bar{Y}_{2\cdot \cdot} = -9.75 &,  \hat{D}_2 = \bar{Y}_{1\cdot \cdot}-\bar{Y}_{3\cdot \cdot}=-12.35 , \hat{D}_3 = \bar{Y}_{2\cdot \cdot}-\bar{Y}_{3\cdot \cdot}=-2.6 \\
+S = \sqrt{\frac{MSE}{bn}*2} = 1.536229 &, Tukey = \frac{1}{\sqrt{2}}\text{qtukey}(1-alpha, a, ab(n-1))=2.418488\\
+\text{base on} &\hat{D}_i \pm S*T\\
+-13.465351 & \leq D_1 \leq -6.034649  \\
+-16.065351 &\leq D_2 \leq -8.634649 \\
+-6.315351 &\leq D_3 \leq 1.115351  \\
+\end{split}
+\end{displaymath}
+
+\qquad We conclude that with 95\% family confidence that the mean output is highest in machine 3, and the difference between machine 2 and machine 3 is not statistically significant.
+
+\item
+
+<<>>=
+  means = with(dat, by(Y, list(A,B) , mean))
+  D1 = means[1,1] - means[1,2]
+  D2 = means[1,1] - means[1,3]
+  D3 = means[1,1] - means[1,4]
+  D4 = means[1,2] - means[1,3]
+  D5 = means[1,2] - means[1,4]
+  D6 = means[1,3] - means[1,4]
+  B = qt(1-0.05/(2*6), (n-1)*a*b)
+  B
+  mse = 23.6
+  s = sqrt(2*mse/(n))
+  s
+  c(D1-s*B, D1+s*B)
+  c(D2-s*B, D2+s*B)
+  c(D3-s*B, D3+s*B)
+  c(D4-s*B, D4+s*B)
+  c(D5-s*B, D5+s*B)
+  c(D6-s*B, D6+s*B)
+@
+
+\begin{displaymath}
+\begin{split}
+\bar{Y}_{11 \cdot} = 61.8 &, \bar{Y}_{12 \cdot} = 67.8 , \bar{Y}_{13 \cdot} = 62.6, \bar{Y}_{14 \cdot} = 52.6 \\
+\hat{D}_1 = \bar{Y}_{11 \cdot}-\bar{Y}_{12 \cdot} = -6 &,  \hat{D}_2 = \bar{Y}_{11 \cdot}-\bar{Y}_{13 \cdot}=-0.8 , \hat{D}_3 = \bar{Y}_{11 \cdot}-\bar{Y}_{14 \cdot}=-9.2 \\
+\hat{D}_4 = \bar{Y}_{12 \cdot}-\bar{Y}_{13 \cdot} =5.2 &,  \hat{D}_5 = \bar{Y}_{12 \cdot}-\bar{Y}_{14 \cdot}=15.2 , \hat{D}_6 = \bar{Y}_{13 \cdot}-\bar{Y}_{14 \cdot}=10 \\
+S = \sqrt{\frac{MSE}{n}*2} = 3.072458 &, B = t(1-\alpha/(2*6), ab(n-1))=2.752023\\
+\text{base on} &\hat{D}_i \pm S*B\\
+-14.455477 & \leq D_1 \leq 2.455477  \\
+-9.255477 &\leq D_2 \leq 7.655477 \\
+0.7445233 &\leq D_3 \leq 17.6554767  \\
+-3.255477 & \leq D_4 \leq 13.655477  \\
+6.744523 &\leq D_5 \leq 23.655477\\
+1.544523 &\leq D_6 \leq 18.455477  \\
+\end{split}
+\end{displaymath}
+
+\qquad We conclude that with 95\% family confidence in machine 1 the differences between operator 1 and operator 2, operator 1 and operator 3, operator 2 and operator 3 are not statistically significant.
+
+\item
+
+<<>>=
+  L_hat = (means[1,1]+means[1,2]+means[1,3])/3 - means[1,4]
+  s = sqrt(mse/(n)*((1/3)^2*3+1))
+  s
+  t = qt(1-0.01/2, a*b*(n-1))
+  t
+  c(L_hat-s*t, L_hat+s*t)
+@
+
+\begin{displaymath}
+\begin{split}
+\hat{L} &= \frac{\bar{Y}_{11\cdot}+\bar{Y}_{12\cdot}+\bar{Y}_{13\cdot}}{3}+\bar{Y}_{14\cdot} = 11.46667\\
+c_1 &= c_2 = c_3 = 1/3, c_4 = -1\\
+S &= \sqrt{\frac{MSE}{n}*\sum_i c_i^2} = 2.508652 \\
+t &= t(1-\alpha/2, ab(n-1))=2.682204\\
+\text{base on } &\hat{L} \pm S*t\\
+4.737951 & \leq D_1 \leq 18.195382  \\
+\end{split}
+\end{displaymath}
+
+\qquad We are 99\% confident that L is between 0.737951 and  18.195382.
+
+\end{enumerate}
+
 \section{26.7}
+
+\begin{enumerate}[(a)]
+
+\item
+
+\qquad $\beta_{j(i)}$ are $i.i.d$ $N(0, \sigma^2_\beta$, and $\beta_{j(i)}$ and $\epsilon_{ijk}$ are independent.
+
+\item
+
+<<>>=
+  model_new = aov(Y ~ A+ Error(A/B), data = dat)
+  summary(model_new)
+  s_square = (252.5-23.6)/n
+  s_square
+@
+
+\begin{displaymath}
+\begin{split}
+E(MSB(A)) &= \sigma^2 + n\sigma^2_{\beta}\\
+E(MSE) &= \sigma^2 \\
+\hat{\sigma}_\beta^2 &= s^2_\beta = (MSB(A)-MSE)/n = 45.78
+\end{split}
+\end{displaymath}
+
+\item
+
+Test:
+
+\begin{center}
+$H_0$:$\sigma^2_\beta = 0$
+
+VS. $H_1$:$\sigma^2_\beta \ne 0$
+
+$F^*=\frac{MSB(A)}{MSE} = 252.5/23.6  = 10.7$
+
+we can reject $H_0$ if $F^* > F(1-0.01;9,48)=1.765318$,otherwise reject$H_1$
+
+so that reject $H_0$ because $F^*>1.765318$,
+
+therefore, our conclusion implies that operator within at least one machine differ in terms of mean shifts effects, and the P-value is 6.976208e-09
+\end{center}
+
+<<>>=
+  c1=1/5
+  c2=-1/5
+  ms1=252.5 
+  ms2=23.6 
+  df1=9
+  df2=48
+  F1=qf(.95,df1,Inf)
+  F2=qf(.95,df2,Inf)
+  F3=qf(.95,Inf,df1)
+  F4=qf(.95,Inf,df2)
+  F5=qf(.95,df1,df2)
+  F6=qf(.95,df2,df1)
+  G1=1-1/F1
+  G2=1-1/F2
+  G3=((F5-1)^2-(G1*F5)^2-(F4-1)^2)/F5
+  G4=F6*( ((F6-1)/F6)^2 - ((F3-1)/F6)^2 - G2^2 )
+  Hl = sqrt( (G1*c1*ms1)^2 + ((F4-1)*c2*ms2)^2 - G3*c1*c2*ms1*ms2)
+  Hl
+  Hu = sqrt( (G2*c2*ms2)^2 + ((F3-1)*c1*ms1)^2 - G4*c1*c2*ms1*ms2)
+  Hu
+  sigma_mu =  (ms1-ms2)/(n)
+  c(max(0,sigma_mu-Hl), sigma_mu+Hu)
+@
+
+\begin{center}
+E(MSB(A))= $nb\sigma_\beta^2+\sigma^2$ \qquad E(MSE)=$\sigma^2$\\
+Base on $L=\sigma_\mu^2=c_1E(MSB(A))+c_2E(MSE)$\\
+then $c_1=1/(n)=0.2$, $c_2=-1/(n)=-0.2$\\
+and $MSB(A)=252.5, MSE=23.6, df1=9, df2=48$\\
+\end{center}
+
+According to MLS procedure, $H_l=22.00448$ \qquad $H_u=131.87976$ \qquad $\sigma_\beta^2=45.78$
+
+\qquad so that 90\% confident interval is  $s^2_\beta-H_l \leq \sigma_\mu^2 \leq s^2_\beta+H_u$,which means $22.00448 \leq \sigma_\beta^2 \leq 131.87976$
+
+\item
+
+Test the mean outputs differ for three machine:
+
+\begin{center}
+$H_0$:all $\alpha_i$ equal zero(i=1,2,3)
+
+VS. $H_1$:not all $\alpha_i$ equal zero
+
+$F^*=\frac{MSA}{MSB(A)} = 847.8/252.5  = 3.357624$
+
+we can reject $H_0$ if $F^* > F(1-0.1;2,9)=3.006452$,otherwise reject$H_1$
+
+so that reject $H_0$ because $F^*>3.006452$,
+
+therefore, the mean outputs differ for three machine, and the P-value is 0.08140399
+\end{center}
+
+\item
+
+<<>>=
+  means = with(dat, by(Y, A, mean))
+  D1 = means[1] - means[2]
+  D2 = means[1] - means[3]
+  D3 = means[2] - means[3]
+  tukey = 1/sqrt(2)*qtukey(0.9, 3, 9)
+  tukey
+  msb_a = 252.5 
+  s = sqrt(2*msb_a/(b*n))
+  s
+  c(D1-s*tukey, D1+s*tukey)
+  c(D2-s*tukey, D2+s*tukey)
+  c(D3-s*tukey, D3+s*tukey)
+@
+
+\begin{displaymath}
+\begin{split}
+\bar{Y}_{1\cdot \cdot} = 61.2 &, \bar{Y}_{2\cdot \cdot} = 70.95 , \bar{Y}_{3\cdot \cdot} = 73.55 \\
+\hat{D}_1 = \bar{Y}_{1\cdot \cdot}-\bar{Y}_{2\cdot \cdot} = -9.75 &,  \hat{D}_2 = \bar{Y}_{1\cdot \cdot}-\bar{Y}_{3\cdot \cdot}=-12.35 , \hat{D}_3 = \bar{Y}_{2\cdot \cdot}-\bar{Y}_{3\cdot \cdot}=-2.6 \\
+S = \sqrt{\frac{MSB(A)}{bn}*2} = 5.024938 &, Tukey = \frac{1}{\sqrt{2}}\text{qtukey}(1-alpha, a, a(b-1)=2.344595\\
+\text{base on} &\hat{D}_i \pm S*T\\
+-21.531444 & \leq D_1 \leq 2.031444   \\
+-24.131444 &\leq D_2 \leq -0.568556 \\
+-14.381444 &\leq D_3 \leq 9.181444   \\
+\end{split}
+\end{displaymath}
+
+\qquad We conclude that with 95\% family confidence that the mean output is highest in machine 3, and the differences between machine 2 and machine 3, machine 1 and machine 2 are not statistically significant.
+
+\item
+
+<<>>=
+  dat_reg = dat
+  med1 = median(dat_reg$Y[dat_reg$A==1])
+  med2 = median(dat_reg$Y[dat_reg$A==2])
+  med3 = median(dat_reg$Y[dat_reg$A==3])
+  d = abs(dat_reg$Y - c(rep(med1,20),rep(med2,20),rep(med3,20)))
+  model_fi = aov(d ~ factor(dat_reg$A))
+  summary(model_fi)
+@
+
+Test:
+
+Set $d_{ij} = | Y_{ij} - \tilde{Y}_i |$
+
+\begin{center}
+$H_0$:all $\sigma^2(\beta_{j(i)})$ are equal(i=1,2,3)
+
+VS. $H_1$:not all $\sigma^2(\beta_{j(i)})$ are equal zero
+
+$F^*_{BF}=\frac{MSTR(d)}{MSE(d)} = 109.85/34.02  = 3.228983$
+
+we can reject $H_0$ if $F^* > F(1-0.01;2,9)=8.021517$,otherwise reject$H_1$
+
+so that reject $H_1$ because $F^*<8.021517$,
+
+therefore, all $\sigma^2(\beta_{j(i)})$ are equal(i=1,2,3)
+\end{center}
+
+\end{enumerate}
 
 \section{26.19}
 
@@ -70,7 +468,7 @@ then:
 
 \begin{displaymath}
 \begin{split}
-E(MSB(a)) &= \sigma^2 + n\sigma^2_{\beta}\\
+E(MSB(A)) &= \sigma^2 + n\sigma^2_{\beta}\\
 E(MSE) &= \sigma^2 \\
 s^2_\beta &= (MSB(A)-MSE)/n\\
 \hat{\sigma}_\beta^2 &= max(0, s^2_\beta) = max(0, (MSB(A)-MSE)/n)
