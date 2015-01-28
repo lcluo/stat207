@@ -89,7 +89,7 @@
 ## -6.6  0.4  2.4 -1.6  5.4  6.6 -2.4 -1.4  1.6 -4.4 -6.4  5.6 -0.4  3.6 -2.4
 \end{verbatim}
 \begin{alltt}
-  \hlkwd{par}\hlstd{(} \hlkwc{mfrow} \hlstd{=} \hlkwd{c}\hlstd{(}\hlnum{2}\hlstd{,}\hlnum{2}\hlstd{))}
+  \hlkwd{par}\hlstd{(} \hlkwc{mfrow} \hlstd{=} \hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,}\hlnum{2}\hlstd{))}
   \hlkwd{plot}\hlstd{(model,} \hlkwc{which} \hlstd{=} \hlnum{1}\hlstd{)}
   \hlkwd{plot}\hlstd{(model,} \hlkwc{which} \hlstd{=} \hlnum{2}\hlstd{)}
 \end{alltt}
@@ -127,14 +127,23 @@
 
 \item
   
-\qquad No.
+\qquad No. Since 4 operators worked 6-hour shifts each, the operator effects contains the effects of shift
 
 \item
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-  \hlkwd{dotplot}\hlstd{(dat}\hlopt{$}\hlstd{A} \hlopt{~} \hlstd{dat}\hlopt{$}\hlstd{Y,} \hlkwc{groups} \hlstd{= dat}\hlopt{$}\hlstd{B)}
+  \hlkwd{stripchart}\hlstd{(Y} \hlopt{~} \hlstd{A,} \hlkwc{data} \hlstd{= dat,} \hlkwc{subset} \hlstd{= B} \hlopt{==} \hlstr{'1'}\hlstd{,} \hlkwc{pch} \hlstd{=} \hlnum{1}\hlstd{)}
+  \hlkwd{stripchart}\hlstd{(Y} \hlopt{~} \hlstd{A,} \hlkwc{data} \hlstd{= dat,} \hlkwc{subset} \hlstd{= B} \hlopt{==} \hlstr{'2'}\hlstd{,} \hlkwc{pch} \hlstd{=} \hlnum{2}\hlstd{,}
+           \hlkwc{add} \hlstd{=} \hlnum{TRUE}\hlstd{)}
+  \hlkwd{stripchart}\hlstd{(Y} \hlopt{~} \hlstd{A,} \hlkwc{data} \hlstd{= dat,} \hlkwc{subset} \hlstd{= B} \hlopt{==} \hlstr{'3'}\hlstd{,} \hlkwc{pch} \hlstd{=} \hlnum{3}\hlstd{,}
+           \hlkwc{add} \hlstd{=} \hlnum{TRUE}\hlstd{)}
+  \hlkwd{stripchart}\hlstd{(Y} \hlopt{~} \hlstd{A,} \hlkwc{data} \hlstd{= dat,} \hlkwc{subset} \hlstd{= B} \hlopt{==} \hlstr{'4'}\hlstd{,} \hlkwc{pch} \hlstd{=} \hlnum{4}\hlstd{,}
+           \hlkwc{add} \hlstd{=} \hlnum{TRUE}\hlstd{)}
+  \hlkwd{legend}\hlstd{(}\hlstr{'bottomright'}\hlstd{,} \hlkwc{pch} \hlstd{=} \hlnum{1}\hlopt{:}\hlnum{4}\hlstd{,}
+       \hlkwc{legend} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{'Operator 1'}\hlstd{,} \hlstr{'Operator 2'}\hlstd{,}
+                  \hlstr{'Operator 3'}\hlstd{,} \hlstr{'Operator 4'}\hlstd{))}
 \end{alltt}
 \end{kframe}
 \includegraphics[width=\maxwidth]{figure/unnamed-chunk-3-1} 
@@ -200,51 +209,68 @@ therefore, our conclusion implies that operator within at least one machine diff
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-  \hlstd{model1} \hlkwb{=} \hlkwd{aov}\hlstd{(Y} \hlopt{~} \hlstd{A} \hlopt{+} \hlstd{A}\hlopt{/}\hlstd{B,} \hlkwc{data} \hlstd{= dat)}
+  \hlstd{means} \hlkwb{=} \hlkwd{with}\hlstd{(dat,} \hlkwd{by}\hlstd{(Y,} \hlkwd{list}\hlstd{(A, B), mean))}
+  \hlstd{means_A} \hlkwb{=} \hlkwd{with}\hlstd{(dat,} \hlkwd{by}\hlstd{(Y,} \hlkwd{list}\hlstd{(A), mean))}
+  \hlkwd{sapply}\hlstd{(}\hlnum{1}\hlopt{:}\hlnum{3}\hlstd{,} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{)\{}
+        \hlstd{n}\hlopt{*}\hlkwd{sum}\hlstd{((means[x,]}\hlopt{-}\hlstd{means_A[x])}\hlopt{^}\hlnum{2}\hlstd{)}
+  \hlstd{\})}
 \end{alltt}
+\begin{verbatim}
+## [1]  599.20 1538.55  134.55
+\end{verbatim}
 \end{kframe}
 \end{knitrout}
 
+\begin{table}[h]
+\begin{tabular}{lll}
+\hline
+\multicolumn{1}{|c|}{SS} & \multicolumn{1}{c|}{df} & \multicolumn{1}{c|}{MS} \\ \hline
+599.2                    & 3                       & 199.7333                \\
+1538.55                  & 3                       & 512.8500                \\
+134.55                   & 3                       & 44.8500                
+\end{tabular}
+\end{table}
+
 \begin{center}
-$H_0$:all $\beta_{j(i)}$ equal zero(i=1,2,3)
+$H_0$:all $\beta_{j(1)}$ equal zero
 
-VS. $H_1$:not all $\beta_{j(i)}$ equal zero
+VS. $H_1$:not all $\beta_{j(1)}$ equal zero
 
-$F^*=\frac{MSB(A)}{MSE} = 252.5/23.6  = 10.7$
+$F^*=\frac{MSB(A_i)}{MSE} = 199.7333/23.6  = 8.46$
 
-we can reject $H_0$ if $F^* > F(1-0.01;9,48)=2.801816$,otherwise reject$H_1$
+we can reject $H_0$ if $F^* > F(1-0.01;3,48)=4.22$,otherwise reject$H_1$
 
-so that reject $H_0$ because $F^*>2.801816$,
+so that reject $H_0$ because $F^*>4.22$,
 
-therefore, our conclusion implies that operator within at least one machine differ in terms of mean shifts effects, and the P-value is 6.99e-09
+therefore, our conclusion implies that operator within machine 1 differs in terms of mean shifts effects, and 
 \end{center}
 
 \begin{center}
-$H_0$:all $\beta_{j(i)}$ equal zero(i=1,2,3)
+$H_0$:all $\beta_{j(2)}$ equal zero
 
-VS. $H_1$:not all $\beta_{j(i)}$ equal zero
+VS. $H_1$:not all $\beta_{j(2)}$ equal zero
 
-$F^*=\frac{MSB(A)}{MSE} = 252.5/23.6  = 10.7$
+$F^*=\frac{MSB(A_i)}{MSE} = 512.85/23.6  = 21.73$
 
-we can reject $H_0$ if $F^* > F(1-0.01;9,48)=2.801816$,otherwise reject$H_1$
+we can reject $H_0$ if $F^* > F(1-0.01;3,48)=4.22$,otherwise reject$H_1$
 
-so that reject $H_0$ because $F^*>2.801816$,
+so that reject $H_0$ because $F^*>4.22$,
 
-therefore, our conclusion implies that operator within at least one machine differ in terms of mean shifts effects, and the P-value is 6.99e-09
+therefore, our conclusion implies that operator within machine 2 differs in terms of mean shifts effects, and 
 \end{center}
 
 \begin{center}
-$H_0$:all $\beta_{j(i)}$ equal zero(i=1,2,3)
+$H_0$:all $\beta_{j(3)}$ equal zero
 
-VS. $H_1$:not all $\beta_{j(i)}$ equal zero
+VS. $H_1$:not all $\beta_{j(3)}$ equal zero
 
-$F^*=\frac{MSB(A)}{MSE} = 252.5/23.6  = 10.7$
+$F^*=\frac{MSB(A_i)}{MSE} = 44.85/23.6  = 1.9$
 
-we can reject $H_0$ if $F^* > F(1-0.01;9,48)=2.801816$,otherwise reject$H_1$
+we can reject $H_0$ if $F^* > F(1-0.01;3,48)=4.22$,otherwise reject$H_1$
 
-so that reject $H_0$ because $F^*>2.801816$,
+so that reject $H_1$ because $F^*<4.22$,
 
-therefore, our conclusion implies that operator within at least one machine differ in terms of mean shifts effects, and the P-value is 6.99e-09
+therefore, our conclusion implies that operator within machine 3 does not differ in terms of mean shifts effects, and 
 \end{center}
 
 \item
@@ -655,23 +681,37 @@ S = \sqrt{\frac{MSB(A)}{bn}*2} = 5.024938 &, Tukey = \frac{1}{\sqrt{2}}\text{qtu
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-  \hlstd{dat_reg} \hlkwb{=} \hlstd{dat}
-  \hlstd{med1} \hlkwb{=} \hlkwd{median}\hlstd{(dat_reg}\hlopt{$}\hlstd{Y[dat_reg}\hlopt{$}\hlstd{A}\hlopt{==}\hlnum{1}\hlstd{])}
-  \hlstd{med2} \hlkwb{=} \hlkwd{median}\hlstd{(dat_reg}\hlopt{$}\hlstd{Y[dat_reg}\hlopt{$}\hlstd{A}\hlopt{==}\hlnum{2}\hlstd{])}
-  \hlstd{med3} \hlkwb{=} \hlkwd{median}\hlstd{(dat_reg}\hlopt{$}\hlstd{Y[dat_reg}\hlopt{$}\hlstd{A}\hlopt{==}\hlnum{3}\hlstd{])}
-  \hlstd{d} \hlkwb{=} \hlkwd{abs}\hlstd{(dat_reg}\hlopt{$}\hlstd{Y} \hlopt{-} \hlkwd{c}\hlstd{(}\hlkwd{rep}\hlstd{(med1,}\hlnum{20}\hlstd{),}\hlkwd{rep}\hlstd{(med2,}\hlnum{20}\hlstd{),}\hlkwd{rep}\hlstd{(med3,}\hlnum{20}\hlstd{)))}
-  \hlstd{model_fi} \hlkwb{=} \hlkwd{aov}\hlstd{(d} \hlopt{~} \hlkwd{factor}\hlstd{(dat_reg}\hlopt{$}\hlstd{A))}
-  \hlkwd{summary}\hlstd{(model_fi)}
+  \hlstd{means.a} \hlkwb{=} \hlkwd{as.numeric}\hlstd{(}\hlkwd{with}\hlstd{(dat,} \hlkwd{by}\hlstd{(Y, A, mean)))}
+  \hlstd{means.ab} \hlkwb{=} \hlkwd{with}\hlstd{(dat,} \hlkwd{by}\hlstd{(Y,} \hlkwd{list}\hlstd{(A, B), mean))}
+  \hlstd{means.ab.mx} \hlkwb{=} \hlkwd{matrix}\hlstd{(means.ab,} \hlkwc{ncol} \hlstd{= a,} \hlkwc{byrow} \hlstd{=}  \hlnum{TRUE}\hlstd{)}
+  \hlstd{means.ab.mx}
 \end{alltt}
 \begin{verbatim}
-##                   Df Sum Sq Mean Sq F value Pr(>F)
-## factor(dat_reg$A)  2    109   54.52   1.923  0.155
-## Residuals         57   1616   28.35
+##      [,1] [,2] [,3]
+## [1,] 61.8 75.8 76.8
+## [2,] 67.8 75.2 69.6
+## [3,] 62.6 55.8 74.4
+## [4,] 52.6 77.0 73.4
+\end{verbatim}
+\begin{alltt}
+  \hlstd{betas} \hlkwb{=} \hlkwd{sapply}\hlstd{(}\hlnum{1}\hlopt{:}\hlstd{a,}
+                 \hlkwa{function}\hlstd{(}\hlkwc{i}\hlstd{)}
+                   \hlstd{means.ab.mx[,i]} \hlopt{-} \hlkwd{median}\hlstd{(means.ab.mx[,i]))}
+  \hlstd{betas} \hlkwb{=} \hlkwd{abs}\hlstd{(}\hlkwd{as.numeric}\hlstd{(betas))}
+
+  \hlstd{model_brown} \hlkwb{=} \hlkwd{aov}\hlstd{(betas} \hlopt{~} \hlkwd{factor}\hlstd{(}\hlkwd{c}\hlstd{(}\hlkwd{rep}\hlstd{(}\hlnum{1}\hlstd{,b),} \hlkwd{rep}\hlstd{(}\hlnum{2}\hlstd{,b),} \hlkwd{rep}\hlstd{(}\hlnum{3}\hlstd{,b))))}
+  \hlkwd{summary}\hlstd{(model_brown)}
+\end{alltt}
+\begin{verbatim}
+##                                            Df Sum Sq Mean Sq F value
+## factor(c(rep(1, b), rep(2, b), rep(3, b)))  2   23.3   11.64   0.306
+## Residuals                                   9  342.1   38.02        
+##                                            Pr(>F)
+## factor(c(rep(1, b), rep(2, b), rep(3, b)))  0.744
+## Residuals
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
-
-Test:
 
 Set $d_{ij} = | Y_{ij} - \tilde{Y}_i |$
 
@@ -680,7 +720,7 @@ $H_0$:all $\sigma^2(\beta_{j(i)})$ are equal(i=1,2,3)
 
 VS. $H_1$:not all $\sigma^2(\beta_{j(i)})$ are equal zero
 
-$F^*_{BF}=\frac{MSTR(d)}{MSE(d)} = 109.85/34.02  = 3.228983$
+$F^*_{BF}=\frac{MSTR(d)}{MSE(d)} = 11.64/38.02  = 0.306$
 
 we can reject $H_0$ if $F^* > F(1-0.01;2,9)=8.021517$,otherwise reject$H_1$
 
@@ -693,13 +733,285 @@ therefore, all $\sigma^2(\beta_{j(i)})$ are equal(i=1,2,3)
 
 \section{26.19}
 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+  \hlstd{dat} \hlkwb{=} \hlkwd{read.table}\hlstd{(}\hlstr{"CH26PR19.txt"}\hlstd{)}
+  \hlkwd{names}\hlstd{(dat)} \hlkwb{=} \hlkwd{c}\hlstd{(}\hlstr{"Y"}\hlstd{,} \hlstr{"A"}\hlstd{,} \hlstr{"B"}\hlstd{,} \hlstr{"k"}\hlstd{)}
+  \hlstd{dat}\hlopt{$}\hlstd{A} \hlkwb{=} \hlkwd{factor}\hlstd{(dat}\hlopt{$}\hlstd{A)}
+  \hlstd{dat}\hlopt{$}\hlstd{B} \hlkwb{=} \hlkwd{factor}\hlstd{(dat}\hlopt{$}\hlstd{B)}
+  \hlstd{a} \hlkwb{=} \hlkwd{length}\hlstd{(}\hlkwd{unique}\hlstd{(dat}\hlopt{$}\hlstd{A))}
+  \hlstd{b} \hlkwb{=} \hlkwd{length}\hlstd{(}\hlkwd{unique}\hlstd{(dat}\hlopt{$}\hlstd{B))}
+  \hlstd{n} \hlkwb{=} \hlkwd{length}\hlstd{(}\hlkwd{unique}\hlstd{(dat}\hlopt{$}\hlstd{k))}
+  \hlstd{model} \hlkwb{=} \hlkwd{aov}\hlstd{(Y} \hlopt{~} \hlstd{(A}\hlopt{/}\hlstd{B),} \hlkwc{data} \hlstd{= dat)}
+  \hlkwd{resid}\hlstd{(model)}
+\end{alltt}
+\begin{verbatim}
+##             1             2             3             4             5 
+## -4.000000e-01  7.382983e-15  4.000000e-01  3.333333e-02  3.333333e-01 
+##             6             7             8             9            10 
+## -3.666667e-01 -3.666667e-01  3.333333e-02  3.333333e-01  6.666667e-02 
+##            11            12            13            14            15 
+## -2.333333e-01  1.666667e-01  4.333333e-01 -6.666667e-02 -3.666667e-01 
+##            16            17            18            19            20 
+## -2.000000e-01  3.000000e-01 -1.000000e-01 -4.333333e-01  1.666667e-01 
+##            21            22            23            24            25 
+##  2.666667e-01 -1.333333e-01  4.666667e-01 -3.333333e-01 -3.666667e-01 
+##            26            27            28            29            30 
+##  3.333333e-01  3.333333e-02 -6.666667e-02  4.333333e-01 -3.666667e-01 
+##            31            32            33            34            35 
+## -3.000000e-01  2.000000e-01  1.000000e-01  4.000000e-01 -1.249001e-16 
+##            36 
+## -4.000000e-01
+\end{verbatim}
+\begin{alltt}
+  \hlkwd{par}\hlstd{(} \hlkwc{mfrow} \hlstd{=} \hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,}\hlnum{2}\hlstd{))}
+  \hlkwd{plot}\hlstd{(model,} \hlkwc{which} \hlstd{=} \hlnum{1}\hlstd{)}
+  \hlkwd{plot}\hlstd{(model,} \hlkwc{which} \hlstd{=} \hlnum{2}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-13-1} 
+
+\end{knitrout}
+
+\qquad The residuals versus fitted values plots shows no sign for unequal variance.And the QQ-plot indicates approximately normal distribution with slightly light tail, so that normality assumption seems to be reasonable, we can use subsample model here.
+
 \section{26.20}
+
+\begin{enumerate}[(a)]
+
+\item
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+  \hlstd{model_final} \hlkwb{=} \hlkwd{aov}\hlstd{(Y} \hlopt{~} \hlkwd{Error}\hlstd{(A}\hlopt{/}\hlstd{B),} \hlkwc{data} \hlstd{= dat)}
+  \hlkwd{summary}\hlstd{(model_final)}
+\end{alltt}
+\begin{verbatim}
+## 
+## Error: A
+##           Df Sum Sq Mean Sq F value Pr(>F)
+## Residuals  3  343.2   114.4               
+## 
+## Error: A:B
+##           Df Sum Sq Mean Sq F value Pr(>F)
+## Residuals  8  187.4   23.43               
+## 
+## Error: Within
+##           Df Sum Sq Mean Sq F value Pr(>F)
+## Residuals 24  3.033  0.1264
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\item
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+  \hlnum{114.4}\hlopt{/}\hlnum{23.43}
+\end{alltt}
+\begin{verbatim}
+## [1] 4.882629
+\end{verbatim}
+\begin{alltt}
+  \hlkwd{qf}\hlstd{(}\hlnum{1}\hlopt{-}\hlnum{0.05}\hlstd{,} \hlnum{3}\hlstd{,} \hlnum{8}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 4.066181
+\end{verbatim}
+\begin{alltt}
+  \hlkwd{pf}\hlstd{(}\hlnum{4.882629}\hlstd{,} \hlnum{3}\hlstd{,} \hlnum{8}\hlstd{,} \hlkwc{lower.tail} \hlstd{=} \hlnum{FALSE}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.03242618
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\begin{center}
+$H_0$:$\sigma^2_\tau = 0$
+
+VS. $H_1$:$\sigma^2_\tau \ne 0$
+
+$F^*=\frac{MSTR}{MSEE} = 252.5/23.6  = 4.882629$
+
+we can reject $H_0$ if $F^* > F(1-0.05;3,8)=4.066181$,otherwise reject$H_1$
+
+so that reject $H_0$ because $F^*>4.066181$,
+
+therefore, our conclusion implies that there are variations in mean concentration levels between plants, and the P-value is 0.03242618
+\end{center}
+
+\item
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+  \hlnum{23.43}\hlopt{/}\hlnum{0.1264}
+\end{alltt}
+\begin{verbatim}
+## [1] 185.3639
+\end{verbatim}
+\begin{alltt}
+  \hlkwd{qf}\hlstd{(}\hlnum{1}\hlopt{-}\hlnum{0.05}\hlstd{,} \hlnum{8}\hlstd{,} \hlnum{24}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 2.355081
+\end{verbatim}
+\begin{alltt}
+  \hlkwd{pf}\hlstd{(}\hlnum{185.3639}\hlstd{,} \hlnum{8}\hlstd{,} \hlnum{24}\hlstd{,} \hlkwc{lower.tail} \hlstd{=} \hlnum{FALSE}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 1.15931e-19
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\begin{center}
+$H_0$:$\sigma^2 = 0$
+
+VS. $H_1$:$\sigma^2 \ne 0$
+
+$F^*=\frac{MSEE}{MSOE} = 23.43/0.1264  = 185.3639$
+
+we can reject $H_0$ if $F^* > F(1-0.05;8,24)=2.355081$,otherwise reject$H_1$
+
+so that reject $H_0$ because $F^*>2.355081$,
+
+therefore, our conclusion implies that there m'e variations in mean concentration levels between leaves of the same plant, and P-value is 1.15931e-19
+\end{center}
+
+\item
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+  \hlstd{Y_mean} \hlkwb{=} \hlkwd{mean}\hlstd{(dat}\hlopt{$}\hlstd{Y)}
+  \hlstd{Y_mean}
+\end{alltt}
+\begin{verbatim}
+## [1] 14.26111
+\end{verbatim}
+\begin{alltt}
+  \hlstd{t} \hlkwb{=} \hlkwd{qt}\hlstd{(}\hlnum{1}\hlopt{-}\hlnum{0.05}\hlopt{/}\hlnum{2}\hlstd{,} \hlnum{3}\hlstd{)}
+  \hlstd{t}
+\end{alltt}
+\begin{verbatim}
+## [1] 3.182446
+\end{verbatim}
+\begin{alltt}
+  \hlstd{MSTR} \hlkwb{=} \hlnum{114.4}
+  \hlstd{s} \hlkwb{=} \hlkwd{sqrt}\hlstd{(MSTR}\hlopt{/}\hlstd{(a}\hlopt{*}\hlstd{b}\hlopt{*}\hlstd{n))}
+  \hlstd{s}
+\end{alltt}
+\begin{verbatim}
+## [1] 1.782632
+\end{verbatim}
+\begin{alltt}
+  \hlkwd{c}\hlstd{(Y_mean}\hlopt{-}\hlstd{s}\hlopt{*}\hlstd{t, Y_mean}\hlopt{+}\hlstd{s}\hlopt{*}\hlstd{t)}
+\end{alltt}
+\begin{verbatim}
+## [1]  8.58798 19.93424
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\begin{displaymath}
+\begin{split}
+\bar{Y}_{\cdot \cdot \cdot} &= 14.26111 \\
+S = \sqrt{\frac{MSTR}{rmn}} &= 1.782632 \\
+T = t(1-\alpha/2, r-1) &= 3.182446\\
+\text{base on } &\bar{Y}_{\cdot \cdot \cdot} \pm S*T\\
+8.58798 & \leq \mu_{\cdot\cdot} \leq 19.93424   \\
+\end{split}
+\end{displaymath}
+
+\item
+
+\begin{displaymath}
+\begin{split}
+  E(MSTR) &= \sigma_\eta^2+m\sigma^2+nm\sigma_\tau^2\\
+  E(MSEE) &= \sigma_\eta^2+m\sigma^2\\
+  E(MSOE) &= \sigma_\eta^2\\
+  s^2_\tau = \frac{MSTR-MSEE}{nm} &= (114.4-23.43)/(3*3) = 10.10778\\
+  s^2 = \frac{MSEE-MSOE}{m} &= (23.43-0.1264)/(3) = 7.767867\\
+  s^2_\eta = MSOE &= 0.1264 \\  
+\end{split}
+\end{displaymath}
+
+\qquad Therefore, $\sigma^2_\tau$ appears to be most important in the total variance
+
+\item
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+  \hlstd{c1}\hlkwb{=}\hlnum{1}\hlopt{/}\hlnum{9}
+  \hlstd{c2}\hlkwb{=}\hlopt{-}\hlnum{1}\hlopt{/}\hlnum{9}
+  \hlstd{ms1}\hlkwb{=}\hlnum{114.4}
+  \hlstd{ms2}\hlkwb{=}\hlnum{23.43}
+  \hlstd{df1}\hlkwb{=}\hlnum{3}
+  \hlstd{df2}\hlkwb{=}\hlnum{8}
+  \hlstd{F1}\hlkwb{=}\hlkwd{qf}\hlstd{(}\hlnum{.95}\hlstd{,df1,}\hlnum{Inf}\hlstd{)}
+  \hlstd{F2}\hlkwb{=}\hlkwd{qf}\hlstd{(}\hlnum{.95}\hlstd{,df2,}\hlnum{Inf}\hlstd{)}
+  \hlstd{F3}\hlkwb{=}\hlkwd{qf}\hlstd{(}\hlnum{.95}\hlstd{,}\hlnum{Inf}\hlstd{,df1)}
+  \hlstd{F4}\hlkwb{=}\hlkwd{qf}\hlstd{(}\hlnum{.95}\hlstd{,}\hlnum{Inf}\hlstd{,df2)}
+  \hlstd{F5}\hlkwb{=}\hlkwd{qf}\hlstd{(}\hlnum{.95}\hlstd{,df1,df2)}
+  \hlstd{F6}\hlkwb{=}\hlkwd{qf}\hlstd{(}\hlnum{.95}\hlstd{,df2,df1)}
+  \hlstd{G1}\hlkwb{=}\hlnum{1}\hlopt{-}\hlnum{1}\hlopt{/}\hlstd{F1}
+  \hlstd{G2}\hlkwb{=}\hlnum{1}\hlopt{-}\hlnum{1}\hlopt{/}\hlstd{F2}
+  \hlstd{G3}\hlkwb{=}\hlstd{((F5}\hlopt{-}\hlnum{1}\hlstd{)}\hlopt{^}\hlnum{2}\hlopt{-}\hlstd{(G1}\hlopt{*}\hlstd{F5)}\hlopt{^}\hlnum{2}\hlopt{-}\hlstd{(F4}\hlopt{-}\hlnum{1}\hlstd{)}\hlopt{^}\hlnum{2}\hlstd{)}\hlopt{/}\hlstd{F5}
+  \hlstd{G4}\hlkwb{=}\hlstd{F6}\hlopt{*}\hlstd{( ((F6}\hlopt{-}\hlnum{1}\hlstd{)}\hlopt{/}\hlstd{F6)}\hlopt{^}\hlnum{2} \hlopt{-} \hlstd{((F3}\hlopt{-}\hlnum{1}\hlstd{)}\hlopt{/}\hlstd{F6)}\hlopt{^}\hlnum{2} \hlopt{-} \hlstd{G2}\hlopt{^}\hlnum{2} \hlstd{)}
+  \hlstd{Hl} \hlkwb{=} \hlkwd{sqrt}\hlstd{( (G1}\hlopt{*}\hlstd{c1}\hlopt{*}\hlstd{ms1)}\hlopt{^}\hlnum{2} \hlopt{+} \hlstd{((F4}\hlopt{-}\hlnum{1}\hlstd{)}\hlopt{*}\hlstd{c2}\hlopt{*}\hlstd{ms2)}\hlopt{^}\hlnum{2} \hlopt{-} \hlstd{G3}\hlopt{*}\hlstd{c1}\hlopt{*}\hlstd{c2}\hlopt{*}\hlstd{ms1}\hlopt{*}\hlstd{ms2)}
+  \hlstd{Hl}
+\end{alltt}
+\begin{verbatim}
+## [1] 9.039359
+\end{verbatim}
+\begin{alltt}
+  \hlstd{Hu} \hlkwb{=} \hlkwd{sqrt}\hlstd{( (G2}\hlopt{*}\hlstd{c2}\hlopt{*}\hlstd{ms2)}\hlopt{^}\hlnum{2} \hlopt{+} \hlstd{((F3}\hlopt{-}\hlnum{1}\hlstd{)}\hlopt{*}\hlstd{c1}\hlopt{*}\hlstd{ms1)}\hlopt{^}\hlnum{2} \hlopt{-} \hlstd{G4}\hlopt{*}\hlstd{c1}\hlopt{*}\hlstd{c2}\hlopt{*}\hlstd{ms1}\hlopt{*}\hlstd{ms2)}
+  \hlstd{Hu}
+\end{alltt}
+\begin{verbatim}
+## [1] 95.41479
+\end{verbatim}
+\begin{alltt}
+  \hlstd{sigma_mu} \hlkwb{=}  \hlstd{(ms1}\hlopt{-}\hlstd{ms2)}\hlopt{/}\hlstd{(b}\hlopt{*}\hlstd{n)}
+  \hlkwd{c}\hlstd{(}\hlkwd{max}\hlstd{(}\hlnum{0}\hlstd{,sigma_mu}\hlopt{-}\hlstd{Hl), sigma_mu}\hlopt{+}\hlstd{Hu)}
+\end{alltt}
+\begin{verbatim}
+## [1]   1.068419 105.522573
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\begin{center}
+$s^2_\tau = \frac{MSTR-MSEE}{nm}$
+Base on $L=\sigma_\mu^2=c_1E(MSTR)+c_2E(MSEE)$\\
+then $c_1=1/(nm)=0.11111$, $c_2=-1/(nm)=-0.11111$\\
+and $MSTR=114.4, MSEE=23.43, df1=3, df2=8$\\
+\end{center}
+
+According to MLS procedure, $H_l=9.039359$ \qquad $H_u=95.41479$ \qquad $\sigma_\tau^2=10.10778$
+
+\qquad so that 90\% confident interval is  $s^2_\tau-H_l \leq \sigma_\tau^2 \leq s^2_\tau+H_u$,which means $1.068419 \leq \sigma_\tau^2 \leq 105.522573$
+
+\end{enumerate}
 
 \section{26.24}
 
 \begin{displaymath}
 \begin{split}
-SSB+SSAB &= na\sum_{j}(\bar{Y}_{\cdot j \cdot}-\bar{Y}_{\cdots})^2 + n\sum_i\sum_j(\bar{Y}_{ij\cdot}-\bar{Y}_{i\cdot\cdot}-\bar{Y}_{\cdot j \cdot}+\bar{Y}_{\cdots})^2
+SSB+SSAB &= na\sum_{j}(\bar{Y}_{\cdot j \cdot}-\bar{Y}_{\cdots})^2 + n\sum_i\sum_j(\bar{Y}_{ij\cdot}-\bar{Y}_{i\cdot\cdot}-\bar{Y}_{\cdot j \cdot}+\bar{Y}_{\cdots})^2\\
+         &= na\sum_{j}(\bar{Y}_{\cdot j \cdot}-\bar{Y}_{\cdots})^2 + n\sum_i\sum_j( (\bar{Y}_{ij\cdot}-\bar{Y}_{i\cdot\cdot})^2 + (\bar{Y}_{\cdot j \cdot}-\bar{Y}_{\cdots})^2  - 2(\bar{Y}_{ij\cdot}-\bar{Y}_{i\cdot\cdot})(\bar{Y}_{\cdot j \cdot}-\bar{Y}_{\cdots})  )\\
+         &= na\sum_{j}(\bar{Y}_{\cdot j \cdot}-\bar{Y}_{\cdots})^2 + n\sum_i\sum_j((\bar{Y}_{ij\cdot}-\bar{Y}_{i\cdot\cdot})^2) + na\sum_j((\bar{Y}_{\cdot j \cdot}-\bar{Y}_{\cdots})^2)\\
+         &- 2n\sum_j((\bar{Y}_{\cdot j \cdot}-\bar{Y}_{\cdots})\sum_i (\bar{Y}_{ij\cdot}-\bar{Y}_{i\cdot\cdot}))\\
+         &= na\sum_{j}(\bar{Y}_{\cdot j \cdot}-\bar{Y}_{\cdots})^2 + n\sum_i\sum_j((\bar{Y}_{ij\cdot}-\bar{Y}_{i\cdot\cdot})^2) + na\sum_j((\bar{Y}_{\cdot j \cdot}-\bar{Y}_{\cdots})^2)\\
+         &- 2na\sum_{j}(\bar{Y}_{\cdot j \cdot}-\bar{Y}_{\cdots})^2\\
+         &= n\sum_i\sum_j((\bar{Y}_{ij\cdot}-\bar{Y}_{i\cdot\cdot})^2)\\
+         &= SSB(A)
 \end{split}
 \end{displaymath}
 
@@ -745,6 +1057,20 @@ s^2_\beta &= (MSB(A)-MSE)/n\\
 \end{enumerate}
 
 \section{26.28}
+
+\begin{displaymath}
+\begin{split}
+s^2 \{\bar{Y}_{1j\cdot\cdot}-\bar{Y}_{2j\cdot\cdot}\} &= \frac{2}{cn}(MSBC(A)+\frac{MSC(A)-MSE}{b})\\
+                                                      &= \frac{2}{c}(\sigma^2_{\beta\gamma}+\frac{\sigma^2}{n}+\sigma^2_\gamma)
+\end{split}
+\end{displaymath}
+
+\begin{displaymath}
+\begin{split}
+df & = \frac{(c_1MS_1+ ... + c_hMS_h)^2}{\frac{(c_1MS_1)^2}{df_1}+...+\frac{(c_hMS_h)^2}{df_h}}\\
+   & = \frac{[bMSBC(A)+MSC(A)-MSE]^2}{\frac{(bMSBC(A))^2}{a(b-1)(c-1)}+\frac{(MSC(A))^2}{a(c-1)}+\frac{(MSE^2}{abc(n-1)}}
+\end{split}
+\end{displaymath}
 
 
 

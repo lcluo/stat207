@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  26 JAN 2015 23:29
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  27 JAN 2015 20:30
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -290,105 +290,258 @@ Package pdftex.def Info: figure/unnamed-chunk-2-1.pdf used on input line 116.
  [3 <./figure/unnamed-chunk-1-1.pdf>]
 Package color Info: Redefining color shadecolor on input line 135.
 
-<figure/unnamed-chunk-3-1.pdf, id=24, 505.89pt x 505.89pt>
+[4 <./figure/unnamed-chunk-2-1.pdf>]
+<figure/unnamed-chunk-3-1.pdf, id=32, 505.89pt x 505.89pt>
 File: figure/unnamed-chunk-3-1.pdf Graphic file (type pdf)
 
 <use figure/unnamed-chunk-3-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-3-1.pdf used on input line 140.
+Package pdftex.def Info: figure/unnamed-chunk-3-1.pdf used on input line 149.
 (pdftex.def)             Requested size: 327.22218pt x 327.2267pt.
- [4 <./figure/unnamed-chunk-2-1.pdf>]
-Package color Info: Redefining color shadecolor on input line 149.
+Package color Info: Redefining color shadecolor on input line 158.
 
-Overfull \hbox (14.02484pt too wide) in paragraph at lines 160--160
+Overfull \hbox (14.02484pt too wide) in paragraph at lines 169--169
 []\OT1/cmtt/m/n/10 ## Signif. codes:  0 ^^M***^^M 0.001 ^^M**^^M 0.01 ^^M*^^M 0
 .05 ^^M.^^M 0.1 ^^M ^^M 1[] 
  []
 
 [5 <./figure/unnamed-chunk-3-1.pdf>]
-Package color Info: Redefining color shadecolor on input line 201.
- [6]
-Package color Info: Redefining color shadecolor on input line 271.
+Package color Info: Redefining color shadecolor on input line 210.
+LaTeX Font Info:    Try loading font information for OMS+cmtt on input line 214
+.
 
-Overfull \hbox (25.21758pt too wide) in paragraph at lines 325--325
+(/Library/Frameworks/R.framework/Resources/share/texmf/tex/latex/omscmtt.fd
+File: omscmtt.fd 
+)
+LaTeX Font Info:    Font shape `OMS/cmtt/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 214.
+
+[6]
+Package color Info: Redefining color shadecolor on input line 297.
+ [7]
+Overfull \hbox (25.21758pt too wide) in paragraph at lines 351--351
 [] 
  []
 
 
-Overfull \hbox (17.77782pt too wide) detected at line 325
+Overfull \hbox (17.77782pt too wide) detected at line 351
 []
  []
 
-[7]
-Package color Info: Redefining color shadecolor on input line 332.
- [8]
-Overfull \hbox (17.77782pt too wide) detected at line 408
+Package color Info: Redefining color shadecolor on input line 358.
+[8]
+Overfull \hbox (17.77782pt too wide) detected at line 434
 []
  []
 
-Package color Info: Redefining color shadecolor on input line 415.
 [9]
-Package color Info: Redefining color shadecolor on input line 466.
+Package color Info: Redefining color shadecolor on input line 441.
  [10]
-Package color Info: Redefining color shadecolor on input line 522.
+Package color Info: Redefining color shadecolor on input line 492.
+ [11]
+Package color Info: Redefining color shadecolor on input line 548.
 
-Overfull \hbox (19.2748pt too wide) in paragraph at lines 540--540
+Overfull \hbox (19.2748pt too wide) in paragraph at lines 566--566
 []  []\OT1/cmtt/m/n/10 Hl[] []=[] []sqrt[][]( (G1[][]*[][]c1[][]*[][]ms1)[][]^[
 ][]2[] []+[] []((F4[][]-[][]1[][])[][]*[][]c2[][]*[][]ms2)[][]^[][]2[] []-[] []
 G3[][]*[][]c1[][]*[][]c2[][]*[][]ms1[][]*[][]ms2)[][] 
  []
 
 
-Overfull \hbox (19.2748pt too wide) in paragraph at lines 547--547
+Overfull \hbox (19.2748pt too wide) in paragraph at lines 573--573
 []  []\OT1/cmtt/m/n/10 Hu[] []=[] []sqrt[][]( (G2[][]*[][]c2[][]*[][]ms2)[][]^[
 ][]2[] []+[] []((F3[][]-[][]1[][])[][]*[][]c1[][]*[][]ms1)[][]^[][]2[] []-[] []
 G4[][]*[][]c1[][]*[][]c2[][]*[][]ms1[][]*[][]ms2)[][] 
  []
 
-[11]
-Package color Info: Redefining color shadecolor on input line 595.
- [12]
-Overfull \hbox (30.73264pt too wide) in paragraph at lines 649--649
+[12]
+Package color Info: Redefining color shadecolor on input line 621.
+ [13]
+Overfull \hbox (30.73264pt too wide) in paragraph at lines 675--675
 [] 
  []
 
 
-Overfull \hbox (17.77782pt too wide) detected at line 649
+Overfull \hbox (17.77782pt too wide) detected at line 675
 []
  []
 
-Package color Info: Redefining color shadecolor on input line 656.
+Package color Info: Redefining color shadecolor on input line 682.
 
-Overfull \hbox (8.77489pt too wide) in paragraph at lines 662--662
-[]  []\OT1/cmtt/m/n/10 d[] []=[] []abs[][](dat_reg[][]$[][]Y[] []-[] []c[][]([]
-[]rep[][](med1,[][]20[][]),[][]rep[][](med2,[][]20[][]),[][]rep[][](med3,[][]20
-[][])))[][] 
+Overfull \hbox (29.7747pt too wide) in paragraph at lines 702--702
+[]  []\OT1/cmtt/m/n/10 model_brown[] []=[] []aov[][](betas[] []~[] []factor[][]
+([][]c[][]([][]rep[][]([][]1[][],b),[] []rep[][]([][]2[][],b),[] []rep[][]([][]
+3[][],b))))[][] 
  []
 
-[13] [14] [15] (./hw3.aux) ) 
+
+Overfull \hbox (45.52457pt too wide) in paragraph at lines 712--712
+[]\OT1/cmtt/m/n/10 ##                                            Df Sum Sq Mean
+ Sq F value[] 
+ []
+
+
+Overfull \hbox (45.52457pt too wide) in paragraph at lines 712--712
+[]\OT1/cmtt/m/n/10 ## factor(c(rep(1, b), rep(2, b), rep(3, b)))  2   23.3   11
+.64   0.306[] 
+ []
+
+
+Overfull \hbox (3.52493pt too wide) in paragraph at lines 712--712
+[]\OT1/cmtt/m/n/10 ## Residuals                                   9  342.1   38
+.02[] 
+ []
+
+[14]
+Package color Info: Redefining color shadecolor on input line 737.
+
+Overfull \hbox (32.9967pt too wide) in paragraph at lines 766--766
+[]\OT1/cmtt/m/n/10 ##             1             2             3             4  
+           5[] 
+ []
+
+
+Overfull \hbox (32.9967pt too wide) in paragraph at lines 766--766
+[]\OT1/cmtt/m/n/10 ## -4.000000e-01  7.382983e-15  4.000000e-01  3.333333e-02  
+3.333333e-01[] 
+ []
+
+
+Overfull \hbox (32.9967pt too wide) in paragraph at lines 766--766
+[]\OT1/cmtt/m/n/10 ##             6             7             8             9  
+          10[] 
+ []
+
+
+Overfull \hbox (32.9967pt too wide) in paragraph at lines 766--766
+[]\OT1/cmtt/m/n/10 ## -3.666667e-01 -3.666667e-01  3.333333e-02  3.333333e-01  
+6.666667e-02[] 
+ []
+
+
+Overfull \hbox (32.9967pt too wide) in paragraph at lines 766--766
+[]\OT1/cmtt/m/n/10 ##            11            12            13            14  
+          15[] 
+ []
+
+
+Overfull \hbox (32.9967pt too wide) in paragraph at lines 766--766
+[]\OT1/cmtt/m/n/10 ## -2.333333e-01  1.666667e-01  4.333333e-01 -6.666667e-02 -
+3.666667e-01[] 
+ []
+
+
+Overfull \hbox (32.9967pt too wide) in paragraph at lines 766--766
+[]\OT1/cmtt/m/n/10 ##            16            17            18            19  
+          20[] 
+ []
+
+
+Overfull \hbox (32.9967pt too wide) in paragraph at lines 766--766
+[]\OT1/cmtt/m/n/10 ## -2.000000e-01  3.000000e-01 -1.000000e-01 -4.333333e-01  
+1.666667e-01[] 
+ []
+
+
+Overfull \hbox (32.9967pt too wide) in paragraph at lines 766--766
+[]\OT1/cmtt/m/n/10 ##            21            22            23            24  
+          25[] 
+ []
+
+
+Overfull \hbox (32.9967pt too wide) in paragraph at lines 766--766
+[]\OT1/cmtt/m/n/10 ##  2.666667e-01 -1.333333e-01  4.666667e-01 -3.333333e-01 -
+3.666667e-01[] 
+ []
+
+
+Overfull \hbox (32.9967pt too wide) in paragraph at lines 766--766
+[]\OT1/cmtt/m/n/10 ##            26            27            28            29  
+          30[] 
+ []
+
+
+Overfull \hbox (32.9967pt too wide) in paragraph at lines 766--766
+[]\OT1/cmtt/m/n/10 ##  3.333333e-01  3.333333e-02 -6.666667e-02  4.333333e-01 -
+3.666667e-01[] 
+ []
+
+
+Overfull \hbox (32.9967pt too wide) in paragraph at lines 766--766
+[]\OT1/cmtt/m/n/10 ##            31            32            33            34  
+          35[] 
+ []
+
+
+Overfull \hbox (32.9967pt too wide) in paragraph at lines 766--766
+[]\OT1/cmtt/m/n/10 ## -3.000000e-01  2.000000e-01  1.000000e-01  4.000000e-01 -
+1.249001e-16[] 
+ []
+
+[15] <figure/unnamed-chunk-13-1.pdf, id=80, 505.89pt x 505.89pt>
+File: figure/unnamed-chunk-13-1.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-13-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-13-1.pdf used on input line 773.
+(pdftex.def)             Requested size: 345.0pt x 345.00414pt.
+
+Overfull \hbox (15.0pt too wide) in paragraph at lines 773--774
+[][] 
+ []
+
+Package color Info: Redefining color shadecolor on input line 786.
+[16 <./figure/unnamed-chunk-13-1.pdf>]
+Package color Info: Redefining color shadecolor on input line 811.
+Package color Info: Redefining color shadecolor on input line 850.
+ [17]
+Package color Info: Redefining color shadecolor on input line 889.
+ [18]
+Package color Info: Redefining color shadecolor on input line 949.
+
+Overfull \hbox (19.2748pt too wide) in paragraph at lines 967--967
+[]  []\OT1/cmtt/m/n/10 Hl[] []=[] []sqrt[][]( (G1[][]*[][]c1[][]*[][]ms1)[][]^[
+][]2[] []+[] []((F4[][]-[][]1[][])[][]*[][]c2[][]*[][]ms2)[][]^[][]2[] []-[] []
+G3[][]*[][]c1[][]*[][]c2[][]*[][]ms1[][]*[][]ms2)[][] 
+ []
+
+
+Overfull \hbox (19.2748pt too wide) in paragraph at lines 974--974
+[]  []\OT1/cmtt/m/n/10 Hu[] []=[] []sqrt[][]( (G2[][]*[][]c2[][]*[][]ms2)[][]^[
+][]2[] []+[] []((F3[][]-[][]1[][])[][]*[][]c1[][]*[][]ms1)[][]^[][]2[] []-[] []
+G4[][]*[][]c1[][]*[][]c2[][]*[][]ms1[][]*[][]ms2)[][] 
+ []
+
+[19]
+Overfull \hbox (102.40396pt too wide) in paragraph at lines 1016--1016
+[] 
+ []
+
+[20] [21] (./hw3.aux) ) 
 Here is how much of TeX's memory you used:
- 2269 strings out of 493117
- 31194 string characters out of 6135433
- 100804 words of memory out of 5000000
- 5700 multiletter control sequences out of 15000+600000
+ 2293 strings out of 493117
+ 31780 string characters out of 6135433
+ 101804 words of memory out of 5000000
+ 5719 multiletter control sequences out of 15000+600000
  9350 words of font info for 35 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,20n,23p,341b,346s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2014/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmex10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmitt10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmr10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmr12.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmr7.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmsy10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmsy7.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmtt10.pfb>
-Output written on hw3.pdf (15 pages, 173203 bytes).
+ 38i,20n,23p,341b,378s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2014/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmbx12.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmex10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmitt10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmmi10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmmi5.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmmi7.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmr10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmr12.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmr5.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
+7.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10
+.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.p
+fb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pf
+b>
+Output written on hw3.pdf (21 pages, 211460 bytes).
 PDF statistics:
- 115 PDF objects out of 1000 (max. 8388607)
- 80 compressed objects within 1 object stream
+ 149 PDF objects out of 1000 (max. 8388607)
+ 103 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 16 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
