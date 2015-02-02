@@ -1,0 +1,316 @@
+\documentclass{article}
+\usepackage{enumerate}
+\usepackage{amsmath}
+
+\begin{document}
+
+\title{\huge \textbf{Stat 207 HW4} \\}
+\author{\large Cheng Luo 912466499 \\ \large Fan Wu 912538518}
+\maketitle
+
+\clearpage
+
+\section{27.6}
+
+\begin{enumerate}[(a)]
+
+\item
+
+<<>>=
+  dat = read.table("CH27PR06.txt")
+  names(dat) = c("Y", "S", "A")
+  dat1 = dat
+  dat$A = factor(dat$A)
+  dat$S = factor(dat$S)  
+  r = length(unique(dat$S))
+  a = length(unique(dat$A))
+  model = aov(Y~ A + S, data = dat)
+  res = resid(model)
+  res
+  par(mfrow = c(1,2))
+  plot(model, which = 1)
+  plot(model, which = 2)
+@
+
+\qquad The residuals versus fitted values plots shows no sign for unequal variance.And the QQ-plot indicates approximately normal distribution, so that normality assumption seems to be reasonable, we can use repeated measures model here.
+
+\item
+
+<<>>=
+  stripchart(res ~ dat$A, method = 'stack')
+@
+
+\qquad These plots do not indicate any correlations of the error terms within a price level, and thus suggest that no interference effects are present.
+
+\item
+
+<<>>=
+  interaction.plot(dat$S, dat$A, dat$Y)
+@
+
+\qquad We see that the rating curves for the stores do not appear to exhibit substantial departures from being parallel, hence, the assumption of no interactions appear to be reasonable.
+
+\item
+
+<<>>=
+  ab = dat1$S*dat1$A
+  model1 = aov(Y~factor(A)+factor(S)+ab, data = dat1)
+  anova(model1)
+  qf(1-0.01, 1, 13)
+  pf(2.0204, 1, 13, lower.tail = FALSE)
+@
+
+\begin{center}
+$H_0$:$D = 0$
+
+VS. $H_1$:$D \ne 0$
+
+$F^*=\frac{SSAB^*/1}{SSrem*/(13)} = 1.288/0.637  =2.0204$
+
+we can reject $H_0$ if $F^* > F(1-0.01;1,13)=9.073806$,otherwise reject$H_1$
+
+so that reject $H_1$ because $F^*<9.073806$,
+
+therefore, our conclusion implies that D equals zero, so there's no interactions, and P-value is 0.1787417.
+\end{center}
+
+\end{enumerate}
+
+\section{27.7}
+
+\begin{enumerate}[(a)]
+
+\item
+
+<<>>=
+  model = aov(Y~ A + Error(S/A), data = dat)
+  summary(model)
+@
+
+\item
+
+<<>>=
+  qf(1-0.05, 2, 14)
+  pf(49.35, 2, 14, lower.tail = FALSE)
+@
+
+\begin{center}
+$H_0$:all $\tau_j$ equal zero(j=1,2,3)
+
+VS. $H_1$:not all $\tau_j$ equal zero
+
+$F^*=\frac{MSA}{MSE} = 33.74/0.68   = 49.35$
+
+we can reject $H_0$ if $F^* > F(1-0.05;2,14)=3.738892$,otherwise reject$H_1$
+
+so that reject $H_0$ because $F^*>3.738892$,
+
+therefore, the mean sales of grapefruits differ for three price levels, and the P-value is 4.57e-07
+\end{center}
+
+\item
+
+<<>>=
+  means = with(dat, by(Y, A, mean))
+  D1 = means[1] - means[2]
+  D2 = means[1] - means[3]
+  D3 = means[2] - means[3]
+  tukey = 1/sqrt(2)*qtukey(0.95, a, (a-1)*(r-1))
+  tukey
+  mstr.s = 0.68 
+  s = sqrt(2*mstr.s/(r))
+  s
+  c(D1-s*tukey, D1+s*tukey)
+  c(D2-s*tukey, D2+s*tukey)
+  c(D3-s*tukey, D3+s*tukey)
+@
+
+\begin{displaymath}
+\begin{split}
+\bar{Y}_{1\cdot \cdot} = 55.4375 &, \bar{Y}_{2\cdot \cdot} = 53.6 , \bar{Y}_{3\cdot \cdot} = 51.3375 \\
+\hat{D}_1 = \bar{Y}_{1\cdot \cdot}-\bar{Y}_{2\cdot \cdot} = 1.8375 &,  \hat{D}_2 = \bar{Y}_{1\cdot \cdot}-\bar{Y}_{3\cdot \cdot}=4.1  , \hat{D}_3 = \bar{Y}_{2\cdot \cdot}-\bar{Y}_{3\cdot \cdot}=2.2625  \\
+\text{Because we estimate all pairwise }& \text{comparisons, so we use tukey procedure}\\
+S = \sqrt{\frac{MSTR.S}{r}*2} = 0.4123106 &, Tukey = \frac{1}{\sqrt{2}}\text{qtukey}(1-alpha, a, (a-1)*(r-1))=2.61728\\
+\text{base on } &\hat{D}_i \pm S*Tukey\\
+0.7583676 & \leq D_1 \leq 2.9166324  \\
+3.020868 &\leq D_2 \leq 5.179132  \\
+1.183368 &\leq D_3 \leq 3.341632   \\
+\end{split}
+\end{displaymath}
+
+\item
+
+\begin{displaymath}
+\begin{split}
+\hat{E} &= \frac{S_r^2}{MSTR.S} \\
+        &= \frac{(s-1)MSS+s(r-1)*MSTR.S}{(sr-1)*MSTR.S}\\
+        &= 48.36189
+\end{split}
+\end{displaymath}
+
+\end{enumerate}
+
+\section{27.18}
+
+\begin{enumerate}[(a)]
+
+\item
+
+<<>>=
+  dat = read.table("CH27PR18.txt")
+  names(dat) = c("Y", "S", "A", "B")
+  dat$S = factor(dat$S)
+  dat$A = factor(dat$A)
+  dat$B = factor(dat$B)
+  s = length(unique(dat$S))
+  a = length(unique(dat$a))
+  b = length(unique(dat$b))
+  model = aov(Y~ S+A*B+A*S+B*S, data = dat)
+  resid(model)
+  par(mfrow = c(1,2))
+  plot(model, which = 1)
+  plot(model, which = 2)
+@
+
+\qquad The residuals versus fitted values plots shows no sign for unequal variance.And the QQ-plot indicates approximately normal distribution with slightly light tail, so that normality assumption seems to be reasonable, we can use model here.
+
+\item
+
+<<>>=
+  stripchart(dat$Y ~ dat$A*dat$B, method="stack")
+@
+
+\qquad These plots do not indicate any correlations of the error terms within AB, and thus suggest that no interference effects are present.
+
+\end{enumerate}
+
+\section{27.19}
+
+\begin{enumerate}[(a)]
+
+\item
+
+<<>>=
+  model = aov(Y~ A*B+A*S+B*S+ Error(S/(A*B)), data = dat)
+  summary(model)
+@
+
+\item
+
+<<>>=
+
+@
+
+\qquad From the plot, we know that treatment interaction effects are not present, but two treatment main effects are present.
+
+\item
+
+<<>>=
+  qf(1-0.005, 1, 9)
+  pf(0.053, 1, 9, lower.tail = FALSE)
+@
+
+\begin{center}
+$H_0$:all $(\alpha\beta)_{jk}$ equal zero
+
+VS. $H_1$:not all $(\alpha\beta)_{jk}$ equal zero
+
+$F^*=\frac{MSAB}{MSABS} = 0.001/0.01878  = 0.053$
+
+we can reject $H_0$ if $F^* > F(1-0.005;1,9)=13.61361$,otherwise reject$H_1$
+
+so that reject $H_1$ because $F^*<13.61361$,
+
+therefore, there's no two treatment interaction effect, and the P-value is 0.823
+\end{center}
+
+\item
+
+<<>>=
+  qf(1-0.05, 1, 9)
+  pf(13.37904, 1, 9, lower.tail = FALSE)
+@
+
+\begin{center}
+$H_0$: all $\alpha_i$ equal zero(i=1,2)
+
+VS. $H_1$:not all $\alpha_i$ equal zero
+
+$F^*=\frac{MSA}{MSAS} = 3.0250/0.2261  = 13.37904$
+
+we can reject $H_0$ if $F^* > F(1-0.05;1,9)=5.117355$,otherwise reject$H_1$
+
+so that reject $H_0$ because $F^*>5.117355$,
+
+therefore, A treatment effect is present, and the P-value is 0.005253961
+\end{center}
+
+<<>>=
+  qf(1-0.05, 1, 9)
+  pf(20.37189, 1, 9, lower.tail = FALSE)
+@
+
+\begin{center}
+$H_0$: all $\beta_j$ equal zero(j=1,2)
+
+VS. $H_1$:not all $\beta_j$ equal zero
+
+$F^*=\frac{MSB}{MSBS} = 11.449/0.562  = 20.37189$
+
+we can reject $H_0$ if $F^* > F(1-0.05;1,9)=5.117355$,otherwise reject$H_1$
+
+so that reject $H_0$ because $F^*>5.117355$,
+
+therefore, B treatment effect is present, and the P-value is 0.001460304
+\end{center}
+
+\item
+
+<<>>=
+  means = with(dat, by(Y, list(A,B) , mean))
+  L1 = means[2,1] - means[1,1]
+  L2 = means[1,2] - means[1,1]
+  L3 = means[2,1] - means[1,2]
+  L4 = means[2,2] - means[1,1]
+  B = qt(1-0.05/(2*4), 9)
+  B
+  msabs = 0.01878 
+  S = sqrt(2*msabs/(s))
+  S
+  c(L1-S*B, L1+S*B)
+  c(L2-S*B, L2+S*B)
+  c(L3-S*B, L3+S*B)
+  c(L4-S*B, L4+S*B)
+@
+
+\begin{displaymath}
+\begin{split}
+\bar{Y}_{\cdot 11} =3.936 &, \bar{Y}_{\cdot 12} = 5.01 ,\\
+\bar{Y}_{\cdot 21} =4.49 &, \bar{Y}_{\cdot 22} = 5.55 \\
+\hat{L}_1 = \bar{Y}_{\cdot 21}-\bar{Y}_{\cdot 11} = .56 &,  
+\hat{L}_2 = \bar{Y}_{\cdot 12}-\bar{Y}_{\cdot 21}}= 1.08 ,\\ 
+\hat{L}_3 = \bar{Y}_{\cdot 21}-\bar{Y}_{\cdot 12}=-.52 &,
+\hat{L}_4 = \bar{Y}_{\cdot 22}-\bar{Y}_{\cdot 11} =1.62 \\
+S = \sqrt{\frac{MSABS}{s}*2} = 0.06128621 &, B = t(1-\alpha/(2*4), (a-1)(b-1)(s-1))=3.110935\\
+\text{base on} &\hat{L}_i \pm S*B\\
+0.3693426 & \leq L_1 \leq 0.7506574  \\
+0.8893426 &\leq L_2 \leq 1.2706574\\
+-0.7106574 &\leq L_3 \leq -0.3293426 \\
+1.429343 & \leq L_4 \leq 1.810657 \\
+\end{split}
+\end{displaymath}
+
+\qquad The treatment of high dose of both drugs has the most significant reduction in pain intensity compared to the treatments of only one drug has high dose , and a significant difference exists in the mean effects of two drugs used alone.
+
+\eng{enumerate}
+
+\section{27.20}
+
+\section{27.21}
+
+\section{27.22}
+
+\section{Extra Problem}
+
+
+\end{document}
