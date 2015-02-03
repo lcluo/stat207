@@ -8,7 +8,9 @@
 \author{\large Cheng Luo 912466499 \\ \large Fan Wu 912538518}
 \maketitle
 
-\clearpage
+\newpage
+\mbox{}
+\newpage
 
 \section{27.6}
 
@@ -163,8 +165,8 @@ S = \sqrt{\frac{MSTR.S}{r}*2} = 0.4123106 &, Tukey = \frac{1}{\sqrt{2}}\text{qtu
   dat$A = factor(dat$A)
   dat$B = factor(dat$B)
   s = length(unique(dat$S))
-  a = length(unique(dat$a))
-  b = length(unique(dat$b))
+  a = length(unique(dat$A))
+  b = length(unique(dat$B))
   model = aov(Y~ S+A*B+A*S+B*S, data = dat)
   resid(model)
   par(mfrow = c(1,2))
@@ -242,7 +244,7 @@ we can reject $H_0$ if $F^* > F(1-0.05;1,9)=5.117355$,otherwise reject$H_1$
 
 so that reject $H_0$ because $F^*>5.117355$,
 
-therefore, A treatment effect is present, and the P-value is 0.005253961
+therefore, factor A main effect is present, and the P-value is 0.005253961
 \end{center}
 
 <<>>=
@@ -261,7 +263,7 @@ we can reject $H_0$ if $F^* > F(1-0.05;1,9)=5.117355$,otherwise reject$H_1$
 
 so that reject $H_0$ because $F^*>5.117355$,
 
-therefore, B treatment effect is present, and the P-value is 0.001460304
+therefore, factor B main effect is present, and the P-value is 0.001460304
 \end{center}
 
 \item
@@ -288,7 +290,7 @@ therefore, B treatment effect is present, and the P-value is 0.001460304
 \bar{Y}_{\cdot 11} =3.936 &, \bar{Y}_{\cdot 12} = 5.01 ,\\
 \bar{Y}_{\cdot 21} =4.49 &, \bar{Y}_{\cdot 22} = 5.55 \\
 \hat{L}_1 = \bar{Y}_{\cdot 21}-\bar{Y}_{\cdot 11} = .56 &,  
-\hat{L}_2 = \bar{Y}_{\cdot 12}-\bar{Y}_{\cdot 21}}= 1.08 ,\\ 
+\hat{L}_2 = \bar{Y}_{\cdot 12}-\bar{Y}_{\cdot 21}= 1.08 ,\\ 
 \hat{L}_3 = \bar{Y}_{\cdot 21}-\bar{Y}_{\cdot 12}=-.52 &,
 \hat{L}_4 = \bar{Y}_{\cdot 22}-\bar{Y}_{\cdot 11} =1.62 \\
 S = \sqrt{\frac{MSABS}{s}*2} = 0.06128621 &, B = t(1-\alpha/(2*4), (a-1)(b-1)(s-1))=3.110935\\
@@ -302,15 +304,230 @@ S = \sqrt{\frac{MSABS}{s}*2} = 0.06128621 &, B = t(1-\alpha/(2*4), (a-1)(b-1)(s-
 
 \qquad The treatment of high dose of both drugs has the most significant reduction in pain intensity compared to the treatments of only one drug has high dose , and a significant difference exists in the mean effects of two drugs used alone.
 
-\eng{enumerate}
+\end{enumerate}
 
 \section{27.20}
 
+\begin{enumerate}[(a)]
+
+\item
+
+<<>>=
+  dat = read.table("CH27PR20.txt")
+  names(dat) = c("Y", "S", "A", "B")
+  dat$S = factor(dat$S)
+  dat$A = factor(dat$A)
+  dat$B = factor(dat$B)
+  s = length(unique(dat$S))
+  a = length(unique(dat$A))
+  b = length(unique(dat$B))
+  model = aov(Y~ A*B+(A/S), data = dat)
+  resid(model)
+  par(mfrow = c(1,2))
+  plot(model, which = 1)
+  plot(model, which = 2)
+@
+
+\qquad The residuals versus fitted values plots shows no sign for unequal variance.And the QQ-plot indicates approximately normal distribution with slightly heavy tail, so that normality assumption seems to be reasonable, we can use model here.
+
+\item
+
+<<>>=
+  dat1 = dat[ which(dat$A == 1), ]
+  dat2 = dat[ which(dat$A == 2), ]
+  par( mfrow = c(1, 2))
+  interaction.plot(dat1$B, dat1$S, dat1$Y, lty = 1)
+  interaction.plot(dat2$B, dat2$S, dat2$Y, lty = 1)
+@
+
+\qquad There's no evidence any interactions between field and treatments, so split-plot design can be used here.
+
+\end{enumerate}
+
 \section{27.21}
+
+\begin{enumerate}[(a)]
+
+\item
+
+<<>>=
+  model = aov(Y~ A*B+Error(A/S), data = dat)
+  summary(model)
+@
+
+\item
+
+<<>>=
+
+@
+
+\qquad From the plot, we know that treatment interaction effects are not present, but two treatment main effects are present.
+
+\item
+
+<<>>=
+  qf(1-0.05, 1, 8)
+  pf(0.033, 1, 8, lower.tail = FALSE)
+@
+
+\begin{center}
+$H_0$:all $(\alpha\beta)_{jk}$ equal zero
+
+VS. $H_1$:not all $(\alpha\beta)_{jk}$ equal zero
+
+$F^*=\frac{MSAB}{MSB.W(A)} = 0.05/1.5  = 0.033$
+
+we can reject $H_0$ if $F^* > F(1-0.05; 1, 8)=5.317655$,otherwise reject$H_1$
+
+so that reject $H_1$ because $F^*<5.317655$,
+
+therefore, there's no two treatment interaction effect, and the P-value is 0.8603687
+\end{center}
+
+\item
+
+<<>>=
+  qf(1-0.05, 1, 8)
+  pf(13.31423, 1, 8, lower.tail = FALSE)
+@
+
+\begin{center}
+$H_0$: all $\alpha_i$ equal zero(i=1,2)
+
+VS. $H_1$:not all $\alpha_i$ equal zero
+
+$F^*=\frac{MSA}{MSW(A)} = 1394/104.7  = 13.31423$
+
+we can reject $H_0$ if $F^* > F(1-0.05;1,8)=5.317655$,otherwise reject$H_1$
+
+so that reject $H_0$ because $F^*>5.317655$,
+
+therefore, factor A effect is present, and the P-value is 0.00650501
+\end{center}
+
+<<>>=
+  qf(1-0.05, 1, 8)
+  pf(45.63333, 1, 8, lower.tail = FALSE)
+@
+
+\begin{center}
+$H_0$: all $\beta_j$ equal zero(j=1,2)
+
+VS. $H_1$:not all $\beta_j$ equal zero
+
+$F^*=\frac{MSB}{MSB.W(A)} = 68.45/1.5  = 45.63333$
+
+we can reject $H_0$ if $F^* > F(1-0.05;1,8)=5.317655$,otherwise reject$H_1$
+
+so that reject $H_0$ because $F^*>5.317655$,
+
+therefore, factor B main effect is present, and the P-value is 0.0001442759
+\end{center}
+
+\item
+
+<<>>=
+  means1 = with(dat, by(Y, A , mean))
+  means2 = with(dat, by(Y, B , mean))
+  L1 = means1[1] - means1[2]
+  L2 = means2[1] - means2[2]
+  B = qt(1-0.1/(2*2), 8)
+  B
+  msb.wa = 1.5 
+  mswa = 104.7
+  S1 = sqrt(2*mswa/(b*s))
+  S2 = sqrt(2*msb.wa/(a*s))
+  S1
+  S2
+  c(L1-S1*B, L1+S1*B)
+  c(L2-S2*B, L2+S2*B)
+@
+
+\begin{displaymath}
+\begin{split}
+\bar{Y}_{\cdot 1 \cdot} =37.3&, \bar{Y}_{\cdot 2 \cdot} = 54 ,\\
+\bar{Y}_{\cdot \cdot 1} =43.8 &, \bar{Y}_{\cdot \cdot 2} = 47.5 \\
+\hat{L}_1 = \bar{Y}_{\cdot 1 \cdot}-\bar{Y}_{\cdot 2 \cdot}  = -16.7 &,  
+\hat{L}_2 = \bar{Y}_{\cdot \cdot 1}-\bar{Y}_{\cdot \cdot 2} =-3.7\\ 
+B = t(1-\alpha/(2*2), a(b-1)(s-1)) &=2.306004\\
+S1 = \sqrt{\frac{MSW(A)}{bs}*2} = 4.576024 &,
+S2 = \sqrt{\frac{MSB.W(A)}{as}*2} = 0.5477226 \\
+\text{base on} &\hat{L}_i \pm S*B\\
+-27.252331 & \leq L_1 \leq -6.147669  \\
+-4.96305 &\leq L_2 \leq -2.43695 \\
+\end{split}
+\end{displaymath}
+
+\qquad Irrigation method 2 is significantly better than Irrigation method 1, and fertilizer 2 is significantly better than fertilizer 1.
+
+\end{enumerate}
 
 \section{27.22}
 
+\begin{displaymath}
+\begin{split}
+SSTO &= \sum_i \sum_j (Y_{ij}-\bar{Y}_{\cdot \cdot})^2 \\
+     &= \sum_i \sum_j (Y_{ij} -\bar{Y}_{i\cdot} + \bar{Y}_{i\cdot} -\bar{Y}_{\cdot \cdot})^2 \\
+     &= \sum_i \sum_j (Y_{ij} -\bar{Y}_{i\cdot})^2 + \sum_i \sum_j (\bar{Y}_{i\cdot} -\bar{Y}_{\cdot \cdot})^2 + 2\sum_i \sum_j(Y_{ij} -\bar{Y}_{i\cdot})(\bar{Y}_{i\cdot}-\bar{Y}_{\cdot \cdot})\\
+     &= \sum_i \sum_j (Y_{ij} -\bar{Y}_{i\cdot})^2 + \sum_i \sum_j (\bar{Y}_{i\cdot} -\bar{Y}_{\cdot \cdot})^2 + 2\sum_i [(\bar{Y}_{i\cdot}-\bar{Y}_{\cdot \cdot})*\sum_j (Y_{ij} -\bar{Y}_{i\cdot})]\\
+     &\text{(since } \sum_j (Y_{ij} -\bar{Y}_{i\cdot})=0 \text{)}\\
+     &= \sum_i \sum_j (Y_{ij} -\bar{Y}_{i\cdot})^2 + r\sum_i (\bar{Y}_{i\cdot} -\bar{Y}_{\cdot \cdot})^2\\
+     &= SSS + SSW
+\end{split}
+\end{displaymath}
+
 \section{Extra Problem}
 
+Base on:
+
+\begin{displaymath}
+\begin{split}
+Y_{ij} &= \mu_{\cdot\cdot} + \rho_i + \tau_j + \epsilon_{ij}\\
+\bar{Y}_{i\cdot} &= \mu_{\cdot\cdot} + \rho_i + \bar{\epsilon}_{i\cdot}\\
+\bar{Y}_{\cdot j} &= \mu_{\cdot\cdot} + \bar{\rho}_\cdot + \tau_j + \bar{\epsilon}_{\cdot j}\\
+\bar{Y}_{\cdot \cdot} &= \mu_{\cdot\cdot} + \bar{\rho}_\cdot + \bar{\epsilon}_{\cdot \cdot}\\
+\end{split}
+\end{displaymath}
+
+So that:
+
+\begin{displaymath}
+\begin{split}
+E(SSS) &= r \sum_i (E(\bar{Y}_{i\cdot}-\bar{Y}_{\cdot\cdot})^2) \\
+       &= r \sum_i (Var(\bar{Y}_{i\cdot}-\bar{Y}_{\cdot\cdot})+ [E(\bar{Y}_{i\cdot}-\bar{Y}_{\cdot\cdot})]^2)\\
+       &\text{(since } E(\bar{Y}_{i\cdot}-\bar{Y}_{\cdot\cdot})=0 \text{)}\\  
+       &= r \sum_i (Var(\bar{Y}_{i\cdot}) + Var(\bar{Y}_{\cdot\cdot}) - 2 Cov((\bar{Y}_{i\cdot}, \bar{Y}_{\cdot\cdot}))\\
+       &= r \sum_i ( (\sigma_\rho^2+ \frac{\sigma^2}{r}) + (\frac{\sigma_\rho^2}{s}+ \frac{\sigma^2}{rs}) -2*(Cov(\rho_i,\bar{\rho}_\cdot)+Cov(\bar{\epsilon}_{i\cdot}, \bar{\rho}_\cdot)+Cov(\rho_i, \bar{\epsilon}_{\cdot \cdot})+Cov(\bar{\epsilon}_{i\cdot}, \bar{\epsilon}_{\cdot \cdot}))\\
+       &= rs * ( (\sigma_\rho^2+ \frac{\sigma^2}{r}) + (\frac{\sigma_\rho^2}{s}+ \frac{\sigma^2}{rs}) -2*(\frac{\sigma_\rho^2}{s} + 0+ 0 + \frac{\sigma^2}{rs}))\\
+       &= (s-1)\sigma^2 + r(s-1)\sigma_\rho^2\\
+E(MSS) &= \frac{E(SSS)}{s-1}\\
+       &= \sigma^2 + r\sigma_\rho^2
+\end{split}
+\end{displaymath}
+
+Likewise:
+
+\begin{displaymath}
+\begin{split}
+E(SSTR) &= s \sum_j (E(\bar{Y}_{\cdot j}-\bar{Y}_{\cdot\cdot})^2) \\
+       &= s \sum_j (Var(\bar{Y}_{\cdot j}-\bar{Y}_{\cdot\cdot})+ [E(\bar{Y}_{\cdot j}-\bar{Y}_{\cdot\cdot})]^2)\\ 
+       &= s \sum_j (Var(\bar{Y}_{\cdot j}) + Var(\bar{Y}_{\cdot\cdot}) - 2 Cov((\bar{Y}_{\cdot j}, \bar{Y}_{\cdot\cdot}) + \tau_j)\\
+       &= s \sum_j ( (\frac{\sigma_\rho^2}{s}+ \frac{\sigma^2}{s}) + (\frac{\sigma_\rho^2}{s}+ \frac{\sigma^2}{rs}) -2*(\frac{\sigma_\rho^2}{s} + 0+ 0 + \frac{\sigma^2}{rs}) + \tau_j)\\
+       &= (r-1)\sigma^2 + s\sum \tau_j^2\\
+E(MSTR) &= \frac{E(SSTR)}{r-1}\\
+       &= \sigma^2 + s\frac{\sum \tau_j^2}{r-1}
+\end{split}
+\end{displaymath}
+
+\begin{displaymath}
+\begin{split}
+E(SSTR.S) &= \sum_i \sum_j (E(Y_{ij}-\bar{Y}_{i\cdot}-\bar{Y}_{\cdot j}+\bar{Y}_{\cdot\cdot})^2) \\
+       &= \sum_i \sum_j (Var(Y_{ij}-\bar{Y}_{i\cdot}-\bar{Y}_{\cdot j}+\bar{Y}_{\cdot\cdot})+ [E(Y_{ij}-\bar{Y}_{i\cdot}-\bar{Y}_{\cdot j}+\bar{Y}_{\cdot\cdot})]^2)\\ 
+       &= \sum_i \sum_j (Var(Y_{ij}-\bar{Y}_{i\cdot}-\bar{Y}_{\cdot j}+\bar{Y}_{\cdot\cdot}))\\
+       &= (r-1)(s-1)\sigma^2\\
+E(MSTR.S) &= \frac{E(SSTR.S)}{(r-1)(s-1)}\\
+       &= \sigma^2
+\end{split}
+\end{displaymath}
 
 \end{document}
