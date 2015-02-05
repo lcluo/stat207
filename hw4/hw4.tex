@@ -122,7 +122,7 @@
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-  \hlkwd{interaction.plot}\hlstd{(dat}\hlopt{$}\hlstd{S, dat}\hlopt{$}\hlstd{A, dat}\hlopt{$}\hlstd{Y)}
+  \hlkwd{interaction.plot}\hlstd{(dat}\hlopt{$}\hlstd{A, dat}\hlopt{$}\hlstd{S, dat}\hlopt{$}\hlstd{Y)}
 \end{alltt}
 \end{kframe}
 \includegraphics[width=\maxwidth]{figure/unnamed-chunk-3-1} 
@@ -288,7 +288,15 @@ therefore, the mean sales of grapefruits differ for three price levels, and the 
 ##        2        2 
 ## 1.183368 3.341632
 \end{verbatim}
+\begin{alltt}
+  \hlkwd{plot}\hlstd{(}\hlkwd{c}\hlstd{(}\hlopt{-}\hlnum{1}\hlstd{,} \hlnum{6}\hlstd{),} \hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,} \hlnum{0}\hlstd{),} \hlkwc{type} \hlstd{=} \hlstr{"l"}\hlstd{)}
+  \hlkwd{points}\hlstd{(}\hlkwd{c}\hlstd{(D1}\hlopt{-}\hlstd{s}\hlopt{*}\hlstd{tukey, D1}\hlopt{+}\hlstd{s}\hlopt{*}\hlstd{tukey),} \hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,} \hlnum{0}\hlstd{),} \hlkwc{pch} \hlstd{=} \hlnum{1}\hlstd{)}
+  \hlkwd{points}\hlstd{(}\hlkwd{c}\hlstd{(D2}\hlopt{-}\hlstd{s}\hlopt{*}\hlstd{tukey, D2}\hlopt{+}\hlstd{s}\hlopt{*}\hlstd{tukey),} \hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,} \hlnum{0}\hlstd{),} \hlkwc{pch} \hlstd{=} \hlnum{2}\hlstd{)}
+  \hlkwd{points}\hlstd{(}\hlkwd{c}\hlstd{(D3}\hlopt{-}\hlstd{s}\hlopt{*}\hlstd{tukey, D3}\hlopt{+}\hlstd{s}\hlopt{*}\hlstd{tukey),} \hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,} \hlnum{0}\hlstd{),} \hlkwc{pch} \hlstd{=} \hlnum{3}\hlstd{)}
+\end{alltt}
 \end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-7-1} 
+
 \end{knitrout}
 
 \begin{displaymath}
@@ -412,7 +420,19 @@ S = \sqrt{\frac{MSTR.S}{r}*2} = 0.4123106 &, Tukey = \frac{1}{\sqrt{2}}\text{qtu
 
 \item
 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+  \hlkwd{interaction.plot}\hlstd{(dat}\hlopt{$}\hlstd{A, dat}\hlopt{$}\hlstd{B, dat}\hlopt{$}\hlstd{Y,} \hlkwc{ylim} \hlstd{=} \hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,} \hlnum{8}\hlstd{))}
+  \hlstd{dat1} \hlkwb{=} \hlstd{dat[} \hlkwd{which}\hlstd{(dat}\hlopt{$}\hlstd{B} \hlopt{==} \hlnum{1}\hlstd{), ]}
+  \hlstd{dat2} \hlkwb{=} \hlstd{dat[} \hlkwd{which}\hlstd{(dat}\hlopt{$}\hlstd{B} \hlopt{==} \hlnum{2}\hlstd{), ]}
+  \hlkwd{points}\hlstd{(dat1}\hlopt{$}\hlstd{A, dat1}\hlopt{$}\hlstd{Y,} \hlkwc{pch} \hlstd{=} \hlnum{1}\hlstd{)}
+  \hlkwd{points}\hlstd{(dat2}\hlopt{$}\hlstd{A, dat2}\hlopt{$}\hlstd{Y,} \hlkwc{pch} \hlstd{=} \hlnum{2}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-11-1} 
 
+\end{knitrout}
 
 \qquad From the plot, we know that treatment interaction effects are not present, but two treatment main effects are present.
 
@@ -631,8 +651,8 @@ S = \sqrt{\frac{MSABS}{s}*2} = 0.06128621 &, B = t(1-\alpha/(2*4), (a-1)(b-1)(s-
   \hlstd{dat1} \hlkwb{=} \hlstd{dat[} \hlkwd{which}\hlstd{(dat}\hlopt{$}\hlstd{A} \hlopt{==} \hlnum{1}\hlstd{), ]}
   \hlstd{dat2} \hlkwb{=} \hlstd{dat[} \hlkwd{which}\hlstd{(dat}\hlopt{$}\hlstd{A} \hlopt{==} \hlnum{2}\hlstd{), ]}
   \hlkwd{par}\hlstd{(} \hlkwc{mfrow} \hlstd{=} \hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,} \hlnum{2}\hlstd{))}
-  \hlkwd{interaction.plot}\hlstd{(dat1}\hlopt{$}\hlstd{B, dat1}\hlopt{$}\hlstd{S, dat1}\hlopt{$}\hlstd{Y,} \hlkwc{lty} \hlstd{=} \hlnum{1}\hlstd{)}
-  \hlkwd{interaction.plot}\hlstd{(dat2}\hlopt{$}\hlstd{B, dat2}\hlopt{$}\hlstd{S, dat2}\hlopt{$}\hlstd{Y,} \hlkwc{lty} \hlstd{=} \hlnum{1}\hlstd{)}
+  \hlkwd{interaction.plot}\hlstd{(dat1}\hlopt{$}\hlstd{B, dat1}\hlopt{$}\hlstd{S, dat1}\hlopt{$}\hlstd{Y)}
+  \hlkwd{interaction.plot}\hlstd{(dat2}\hlopt{$}\hlstd{B, dat2}\hlopt{$}\hlstd{S, dat2}\hlopt{$}\hlstd{Y)}
 \end{alltt}
 \end{kframe}
 \includegraphics[width=\maxwidth]{figure/unnamed-chunk-17-1} 
@@ -678,7 +698,19 @@ S = \sqrt{\frac{MSABS}{s}*2} = 0.06128621 &, B = t(1-\alpha/(2*4), (a-1)(b-1)(s-
 
 \item
 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+  \hlkwd{interaction.plot}\hlstd{(dat}\hlopt{$}\hlstd{A, dat}\hlopt{$}\hlstd{B, dat}\hlopt{$}\hlstd{Y,} \hlkwc{ylim} \hlstd{=} \hlkwd{c}\hlstd{(}\hlnum{25}\hlstd{,} \hlnum{75}\hlstd{))}
+  \hlstd{dat1} \hlkwb{=} \hlstd{dat[} \hlkwd{which}\hlstd{(dat}\hlopt{$}\hlstd{B} \hlopt{==} \hlnum{1}\hlstd{), ]}
+  \hlstd{dat2} \hlkwb{=} \hlstd{dat[} \hlkwd{which}\hlstd{(dat}\hlopt{$}\hlstd{B} \hlopt{==} \hlnum{2}\hlstd{), ]}
+  \hlkwd{points}\hlstd{(dat1}\hlopt{$}\hlstd{A, dat1}\hlopt{$}\hlstd{Y,} \hlkwc{pch} \hlstd{=} \hlnum{1}\hlstd{)}
+  \hlkwd{points}\hlstd{(dat2}\hlopt{$}\hlstd{A, dat2}\hlopt{$}\hlstd{Y,} \hlkwc{pch} \hlstd{=} \hlnum{2}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-19-1} 
 
+\end{knitrout}
 
 \qquad From the plot, we know that treatment interaction effects are not present, but two treatment main effects are present.
 

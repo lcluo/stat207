@@ -47,7 +47,7 @@
 \item
 
 <<>>=
-  interaction.plot(dat$S, dat$A, dat$Y)
+  interaction.plot(dat$A, dat$S, dat$Y)
 @
 
 \qquad We see that the rating curves for the stores do not appear to exhibit substantial departures from being parallel, hence, the assumption of no interactions appear to be reasonable.
@@ -125,6 +125,11 @@ therefore, the mean sales of grapefruits differ for three price levels, and the 
   c(D1-s*tukey, D1+s*tukey)
   c(D2-s*tukey, D2+s*tukey)
   c(D3-s*tukey, D3+s*tukey)
+  
+  plot(c(-1, 6), c(0, 0), type = "l")
+  points(c(D1-s*tukey, D1+s*tukey), c(0, 0), pch = 1)
+  points(c(D2-s*tukey, D2+s*tukey), c(0, 0), pch = 2)
+  points(c(D3-s*tukey, D3+s*tukey), c(0, 0), pch = 3)
 @
 
 \begin{displaymath}
@@ -200,7 +205,11 @@ S = \sqrt{\frac{MSTR.S}{r}*2} = 0.4123106 &, Tukey = \frac{1}{\sqrt{2}}\text{qtu
 \item
 
 <<>>=
-
+  interaction.plot(dat$A, dat$B, dat$Y, ylim = c(1, 8))
+  dat1 = dat[ which(dat$B == 1), ]
+  dat2 = dat[ which(dat$B == 2), ]
+  points(dat1$A, dat1$Y, pch = 1)
+  points(dat2$A, dat2$Y, pch = 2)
 @
 
 \qquad From the plot, we know that treatment interaction effects are not present, but two treatment main effects are present.
@@ -336,8 +345,8 @@ S = \sqrt{\frac{MSABS}{s}*2} = 0.06128621 &, B = t(1-\alpha/(2*4), (a-1)(b-1)(s-
   dat1 = dat[ which(dat$A == 1), ]
   dat2 = dat[ which(dat$A == 2), ]
   par( mfrow = c(1, 2))
-  interaction.plot(dat1$B, dat1$S, dat1$Y, lty = 1)
-  interaction.plot(dat2$B, dat2$S, dat2$Y, lty = 1)
+  interaction.plot(dat1$B, dat1$S, dat1$Y)
+  interaction.plot(dat2$B, dat2$S, dat2$Y)
 @
 
 \qquad There's no evidence any interactions between field and treatments, so split-plot design can be used here.
@@ -358,7 +367,11 @@ S = \sqrt{\frac{MSABS}{s}*2} = 0.06128621 &, B = t(1-\alpha/(2*4), (a-1)(b-1)(s-
 \item
 
 <<>>=
-
+  interaction.plot(dat$A, dat$B, dat$Y, ylim = c(25, 75))
+  dat1 = dat[ which(dat$B == 1), ]
+  dat2 = dat[ which(dat$B == 2), ]
+  points(dat1$A, dat1$Y, pch = 1)
+  points(dat2$A, dat2$Y, pch = 2)
 @
 
 \qquad From the plot, we know that treatment interaction effects are not present, but two treatment main effects are present.
