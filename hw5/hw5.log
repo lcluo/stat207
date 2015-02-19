@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  18 FEB 2015 22:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  18 FEB 2015 22:24
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -706,9 +706,9 @@ File: figure/unnamed-chunk-12-3.pdf Graphic file (type pdf)
 Package pdftex.def Info: figure/unnamed-chunk-12-3.pdf used on input line 607.
 (pdftex.def)             Requested size: 327.22218pt x 327.2267pt.
  [20 <./figure/unnamed-chunk-12-2.pdf>]
-Package color Info: Redefining color shadecolor on input line 614.
+Package color Info: Redefining color shadecolor on input line 616.
 
-Overfull \hbox (234.52292pt too wide) in paragraph at lines 616--616
+Overfull \hbox (234.52292pt too wide) in paragraph at lines 618--618
 []  []\OT1/cmtt/m/n/10 model2[] []=[] []lmer[][](weight[] []~[] []wk[] []+[] []
 wk2[] []+[] []treat[]  []+[] []([][]1[][]|[][]subject)[][]+[] []([][]0[] []+[] 
 []wk[][]|[][]subject)[][]+[] []([][]0[] []+[] []wk2[][]|[][]subject),[] []data[
@@ -716,105 +716,98 @@ wk2[] []+[] []treat[]  []+[] []([][]1[][]|[][]subject)[][]+[] []([][]0[] []+[]
  []
 
 
-Overfull \hbox (71.77434pt too wide) in paragraph at lines 653--653
+Overfull \hbox (71.77434pt too wide) in paragraph at lines 655--655
 []\OT1/cmtt/m/n/10 ## Formula: weight ~ wk + wk2 + treat + (1 | subject) + (0 +
  wk | subject) +[] 
  []
 
 [21 <./figure/unnamed-chunk-12-3.pdf>]
-Package color Info: Redefining color shadecolor on input line 662.
+Package color Info: Redefining color shadecolor on input line 664.
 
-Overfull \hbox (4.66617pt too wide) in paragraph at lines 678--679
+Overfull \hbox (4.66617pt too wide) in paragraph at lines 680--681
 [] \OT1/cmr/m/n/10 The AIC of the first model is 939.0791, which is big-ger tha
 n 926.3378(sec-
  []
 
-Package color Info: Redefining color shadecolor on input line 681.
+Package color Info: Redefining color shadecolor on input line 683.
 
-Overfull \hbox (71.77434pt too wide) in paragraph at lines 719--719
+Overfull \hbox (71.77434pt too wide) in paragraph at lines 721--721
 []\OT1/cmtt/m/n/10 ## Formula: weight ~ wk + wk2 + treat + (1 | subject) + (0 +
  wk | subject) +[] 
  []
 
 [22]
-Package color Info: Redefining color shadecolor on input line 726.
+Package color Info: Redefining color shadecolor on input line 728.
 
-Overfull \hbox (161.02356pt too wide) in paragraph at lines 728--728
+Overfull \hbox (161.02356pt too wide) in paragraph at lines 730--730
 []  []\OT1/cmtt/m/n/10 model3[] []=[] []lmer[][](weight[] []~[] []wk[] []+[] []
 wk2[] []+[] []treat[]  []+[] []([][]1[][]|[][]subject)[] []+[] []wk[][]*[][]tre
 at[] []+[] []wk2[][]*[][]treat,[] []data[] []= dat )[][] 
  []
 
 
-Overfull \hbox (61.27443pt too wide) in paragraph at lines 780--780
+Overfull \hbox (61.27443pt too wide) in paragraph at lines 782--782
 []\OT1/cmtt/m/n/10 ## Formula: weight ~ wk + wk2 + treat + (1 | subject) + wk *
  treat + wk2 *[] 
  []
 
 
-Overfull \hbox (35.02466pt too wide) in paragraph at lines 780--780
+Overfull \hbox (35.02466pt too wide) in paragraph at lines 782--782
 []\OT1/cmtt/m/n/10 ##             (Intr) wk     wk2    trtthr trtthy wk:trtthr 
 wk:trtthy[] 
  []
 
 
-Overfull \hbox (19.2748pt too wide) in paragraph at lines 780--780
+Overfull \hbox (19.2748pt too wide) in paragraph at lines 782--782
 []\OT1/cmtt/m/n/10 ## wk2:trtthrc  0.269  0.000 -0.707 -0.380 -0.172  0.000    
  0.000[] 
  []
 
 
-Overfull \hbox (19.2748pt too wide) in paragraph at lines 780--780
+Overfull \hbox (19.2748pt too wide) in paragraph at lines 782--782
 []\OT1/cmtt/m/n/10 ## wk2:trtthyr  0.244  0.000 -0.642 -0.172 -0.380  0.000    
  0.000[] 
  []
 
 [23]
-Underfull \hbox (badness 10000) in paragraph at lines 784--787
+Underfull \hbox (badness 10000) in paragraph at lines 786--789
 
  []
 
-Package color Info: Redefining color shadecolor on input line 791.
+[24]
+Package color Info: Redefining color shadecolor on input line 795.
 
-Overfull \hbox (61.27443pt too wide) in paragraph at lines 844--844
+Overfull \hbox (61.27443pt too wide) in paragraph at lines 848--848
 []\OT1/cmtt/m/n/10 ## Formula: weight ~ wk + wk2 + treat + (1 | subject) + wk *
  treat + wk2 *[] 
  []
 
 
-Overfull \hbox (35.02466pt too wide) in paragraph at lines 844--844
+Overfull \hbox (35.02466pt too wide) in paragraph at lines 848--848
 []\OT1/cmtt/m/n/10 ##             (Intr) wk     wk2    trtthr trtthy wk:trtthr 
 wk:trtthy[] 
  []
 
 
-Overfull \hbox (19.2748pt too wide) in paragraph at lines 844--844
+Overfull \hbox (19.2748pt too wide) in paragraph at lines 848--848
 []\OT1/cmtt/m/n/10 ## wk2:trtthrc  0.269  0.000 -0.707 -0.380 -0.172  0.000    
  0.000[] 
  []
 
 
-Overfull \hbox (19.2748pt too wide) in paragraph at lines 844--844
+Overfull \hbox (19.2748pt too wide) in paragraph at lines 848--848
 []\OT1/cmtt/m/n/10 ## wk2:trtthyr  0.244  0.000 -0.642 -0.172 -0.380  0.000    
  0.000[] 
  []
 
 
-Overfull \hbox (14.02484pt too wide) in paragraph at lines 858--858
+Overfull \hbox (14.02484pt too wide) in paragraph at lines 862--862
 []\OT1/cmtt/m/n/10 ## weight ~ wk + wk2 + treat + (1 | subject) + wk * treat + 
 wk2 *[] 
  []
 
-[24]
-Underfull \vbox (badness 10000) detected at line 859
- []
-
-
-Underfull \vbox (badness 10000) detected at line 859
- []
-
 [25]
-Overfull \hbox (17.77782pt too wide) detected at line 904
+Overfull \hbox (17.77782pt too wide) detected at line 910
 []
  []
 
@@ -822,7 +815,7 @@ Overfull \hbox (17.77782pt too wide) detected at line 904
 Here is how much of TeX's memory you used:
  2328 strings out of 493117
  32869 string characters out of 6135433
- 109804 words of memory out of 5000000
+ 110804 words of memory out of 5000000
  5747 multiletter control sequences out of 15000+600000
  9350 words of font info for 35 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -839,7 +832,7 @@ m/cmr7.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/c
 msy10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 sy5.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt
 10.pfb>
-Output written on hw5.pdf (27 pages, 262067 bytes).
+Output written on hw5.pdf (27 pages, 261485 bytes).
 PDF statistics:
  204 PDF objects out of 1000 (max. 8388607)
  140 compressed objects within 2 object streams

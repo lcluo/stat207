@@ -422,7 +422,7 @@
 
 \end{knitrout}
 
-\qquad The residuals versus fitted values plots shows no sign for unequal variance.
+\qquad The residuals versus fitted values plots shows no sign for unequal variance.And the plot seems to be normal distributed.
 
 \item
 
@@ -608,6 +608,8 @@
 
 \end{knitrout}
 
+\qquad The residuals versus fitted values plots shows no sign for unequal variance.The histgram show the residual seems to be normal distributed.The mean weight becomes larger over time. And the variability of weight change over time gets bigger, treatment thyroxine has the biggest variability over time.
+
 \item
 
 \begin{knitrout}
@@ -654,7 +656,7 @@
 \end{kframe}
 \end{knitrout}
 
-\qquad No, they seems to be different, the second model has term $I(weeks^2)$.
+\qquad No, they seems to be different, the second model has term wk2.
 
 \item
 
@@ -782,8 +784,10 @@
 \end{knitrout}
 
 \qquad The model for control is Y = 104.6114 + 26.48*wk + 0.6143*wk2  \\
-\qquad The model for treatthircl is Y = 104.6114 + 26.48*wk + 0.6143*wk2  - 10.0886 -9.37wk-1.9357wk2 =94.5228 + 17.11wk - 1.3214wk2 \\
-\qquad The model for treatthircl is Y = 104.6114 + 26.48*wk + 0.6143*wk2  - 0.8931 +0.6629wk+0.7122wk2 =103.7183 + 27.1429wk +1.3265wk2 \\
+\qquad The model for thiouracil is Y = 104.6114 + 26.48*wk + 0.6143*wk2  - 10.0886 -9.37wk-1.9357wk2 =94.5228 + 17.11wk - 1.3214wk2 \\
+\qquad The model for thyroxine is Y = 104.6114 + 26.48*wk + 0.6143*wk2  - 0.8931 +0.6629wk+0.7122wk2 =103.7183 + 27.1429wk +1.3265wk2 \\
+
+So that the slope are dependent on treatment.
 
 \item
 
@@ -858,6 +862,8 @@
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
+
+\qquad From the drop1 function, we know the when we don't drop anything, the AIC is the smallest, which is 976.38. So the model3 is the final model.
 
 \end{enumerate}
 
