@@ -41,7 +41,7 @@
   eigen(P)
 @
 
-\qquad Some eigenvalues are not too close to zero, so that it does not exist serious multicollinearity.
+\qquad Some eigenvalues are close to zero, so that it does exist multicollinearity.
 
 \item
 
@@ -115,7 +115,8 @@
   dat$subject = as.factor(dat$subject)
   datt = split(dat, dat$treat)
   par(mfrow = c(1, 3))
-  sapply(datt, function(x){interaction.plot(x$weeks, x$subject, x$weight, ylim = c(40, 200), xlab = unique(x$treat))})
+  sapply(datt, function(x){interaction.plot(x$weeks, x$subject, x$weight,
+                                            ylim = c(40, 200), xlab = unique(x$treat))})
 @
 
 \item
@@ -139,7 +140,7 @@
   boxplot(weight ~ weeks*treat, data = dat)
 @
 
-\qquad The residuals versus fitted values plots shows no sign for unequal variance.
+\qquad The residuals versus fitted values plots shows no sign for unequal variance.And the plot seems to be normal distributed.
 
 \item
 
@@ -175,6 +176,8 @@
   boxplot(weight ~ wk*treat, data = dat)
 @
 
+\qquad The residuals versus fitted values plots shows no sign for unequal variance.The histgram show the residual seems to be normal distributed.The mean weight becomes larger over time. And the variability of weight change over time gets bigger, treatment thyroxine has the biggest variability over time.
+
 \item
 
 <<>>=
@@ -182,7 +185,7 @@
   summary(model2)
 @
 
-\qquad No, they seems to be different, the second model has term $I(weeks^2)$.
+\qquad No, they seems to be different, the second model has term wk2.
 
 \item
 
@@ -200,17 +203,24 @@
 \item
 
 <<>>=
-  model3 = lmer(weight ~ weeks + I(weeks^2) + treat  + (1|subject) + (0 + weeks|subject)+ (0 + I(weeks^2)|subject), data = dat )
+  model3 = lmer(weight ~ wk + wk2 + treat  + (1|subject) + wk*treat + wk2*treat, data = dat )
+  summary(model3)
 @
 
-\qquad It seems that the slopes may depend on the treatment.
+\qquad The model for control is Y = 104.6114 + 26.48*wk + 0.6143*wk2  \\
+\qquad The model for thiouracil is Y = 104.6114 + 26.48*wk + 0.6143*wk2  - 10.0886 -9.37wk-1.9357wk2 =94.5228 + 17.11wk - 1.3214wk2 \\
+\qquad The model for thyroxine is Y = 104.6114 + 26.48*wk + 0.6143*wk2  - 0.8931 +0.6629wk+0.7122wk2 =103.7183 + 27.1429wk +1.3265wk2 \\
+
+So that the slope are dependent on treatment.
 
 \item
 
 <<>>=
   summary(model3)
-  drop1(model3, )
+  drop1(model3)
 @
+
+\qquad From the drop1 function, we know the when we don't drop anything, the AIC is the smallest, which is 976.38. So the model3 is the final model.
 
 \end{enumerate}
 

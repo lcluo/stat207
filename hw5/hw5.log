@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  18 FEB 2015 21:16
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  18 FEB 2015 22:15
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -467,33 +467,38 @@ File: omscmtt.fd
 LaTeX Font Info:    Font shape `OMS/cmtt/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 356.
 
-Overfull \hbox (291.77254pt too wide) in paragraph at lines 356--356
+Overfull \hbox (55.77454pt too wide) in paragraph at lines 356--356
 []  []\OT1/cmtt/m/n/10 sapply[][](datt,[] []function[][]([][]x[][])\OMS/cmsy/m/
 n/10 f[][]\OT1/cmtt/m/n/10 interaction.plot[][](x[][]$[][]weeks, x[][]$[][]subj
-ect, x[][]$[][]weight,[] []ylim[] []=[] []c[][]([][]40[][],[] []200[][]),[] []x
-lab[] []=[] []unique[][](x[][]$[][]treat))\OMS/cmsy/m/n/10 g\OT1/cmtt/m/n/10 )[
-][] 
+ect, x[][]$[][]weight,[][] 
+ []
+
+
+Overfull \hbox (134.52385pt too wide) in paragraph at lines 357--357
+[]                                            []\OT1/cmtt/m/n/10 ylim[] []=[] [
+]c[][]([][]40[][],[] []200[][]),[] []xlab[] []=[] []unique[][](x[][]$[][]treat)
+)\OMS/cmsy/m/n/10 g\OT1/cmtt/m/n/10 )[][] 
  []
 
 <figure/unnamed-chunk-8-1.pdf, id=56, 505.89pt x 505.89pt>
 File: figure/unnamed-chunk-8-1.pdf Graphic file (type pdf)
 
 <use figure/unnamed-chunk-8-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-8-1.pdf used on input line 359.
+Package pdftex.def Info: figure/unnamed-chunk-8-1.pdf used on input line 360.
 (pdftex.def)             Requested size: 327.22218pt x 327.2267pt.
  [10]
-Package color Info: Redefining color shadecolor on input line 376.
+Package color Info: Redefining color shadecolor on input line 377.
 
 <figure/unnamed-chunk-9-1.pdf, id=61, 505.89pt x 505.89pt>
 File: figure/unnamed-chunk-9-1.pdf Graphic file (type pdf)
 
 <use figure/unnamed-chunk-9-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-9-1.pdf used on input line 382.
+Package pdftex.def Info: figure/unnamed-chunk-9-1.pdf used on input line 383.
 (pdftex.def)             Requested size: 327.22218pt x 327.2267pt.
  [11 <./figure/unnamed-chunk-8-1.pdf>]
-Package color Info: Redefining color shadecolor on input line 391.
+Package color Info: Redefining color shadecolor on input line 392.
 
-Overfull \hbox (161.02356pt too wide) in paragraph at lines 404--404
+Overfull \hbox (161.02356pt too wide) in paragraph at lines 405--405
 []  []\OT1/cmtt/m/n/10 fit[] []=[] []lmer[][](weight[] []~[] []factor[][](weeks
 )[] []+[] []treat[] []+[] []factor[][](weeks)[][]:[][]treat[] []+[] []([][]1[][
 ]|[][]subject),[] []data[] []= dat )[][] 
@@ -503,178 +508,178 @@ Overfull \hbox (161.02356pt too wide) in paragraph at lines 404--404
 File: figure/unnamed-chunk-10-1.pdf Graphic file (type pdf)
 
 <use figure/unnamed-chunk-10-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-10-1.pdf used on input line 409.
+Package pdftex.def Info: figure/unnamed-chunk-10-1.pdf used on input line 410.
 (pdftex.def)             Requested size: 327.22218pt x 327.2267pt.
  [12 <./figure/unnamed-chunk-9-1.pdf>]
 <figure/unnamed-chunk-10-2.pdf, id=79, 505.89pt x 505.89pt>
 File: figure/unnamed-chunk-10-2.pdf Graphic file (type pdf)
 
 <use figure/unnamed-chunk-10-2.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-10-2.pdf used on input line 414.
+Package pdftex.def Info: figure/unnamed-chunk-10-2.pdf used on input line 415.
 (pdftex.def)             Requested size: 327.22218pt x 327.2267pt.
  [13 <./figure/unnamed-chunk-10-1.pdf>]
 <figure/unnamed-chunk-10-3.pdf, id=89, 505.89pt x 505.89pt>
 File: figure/unnamed-chunk-10-3.pdf Graphic file (type pdf)
 
 <use figure/unnamed-chunk-10-3.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-10-3.pdf used on input line 420.
+Package pdftex.def Info: figure/unnamed-chunk-10-3.pdf used on input line 421.
 (pdftex.def)             Requested size: 327.22218pt x 327.2267pt.
  [14 <./figure/unnamed-chunk-10-2.pdf>]
-Package color Info: Redefining color shadecolor on input line 429.
+Package color Info: Redefining color shadecolor on input line 430.
 
-Overfull \hbox (45.52457pt too wide) in paragraph at lines 530--530
+Overfull \hbox (45.52457pt too wide) in paragraph at lines 531--531
 []\OT1/cmtt/m/n/10 ## weight ~ factor(weeks) + treat + factor(weeks):treat + (1
  | subject)[] 
  []
 
 
-Overfull \hbox (35.02466pt too wide) in paragraph at lines 530--530
+Overfull \hbox (35.02466pt too wide) in paragraph at lines 531--531
 []\OT1/cmtt/m/n/10 ##                   (Intr) fct()1 fct()2 fct()3 fct()4 trtt
 hr trtthy[] 
  []
 
 
-Overfull \hbox (35.02466pt too wide) in paragraph at lines 530--530
+Overfull \hbox (35.02466pt too wide) in paragraph at lines 531--531
 []\OT1/cmtt/m/n/10 ## fctr(wks)1:trtthr  0.320 -0.707 -0.354 -0.354 -0.354 -0.4
 52 -0.205[] 
  []
 
 
-Overfull \hbox (35.02466pt too wide) in paragraph at lines 530--530
+Overfull \hbox (35.02466pt too wide) in paragraph at lines 531--531
 []\OT1/cmtt/m/n/10 ## fctr(wks)2:trtthr  0.320 -0.354 -0.707 -0.354 -0.354 -0.4
 52 -0.205[] 
  []
 
 
-Overfull \hbox (35.02466pt too wide) in paragraph at lines 530--530
+Overfull \hbox (35.02466pt too wide) in paragraph at lines 531--531
 []\OT1/cmtt/m/n/10 ## fctr(wks)3:trtthr  0.320 -0.354 -0.354 -0.707 -0.354 -0.4
 52 -0.205[] 
  []
 
 
-Overfull \hbox (35.02466pt too wide) in paragraph at lines 530--530
+Overfull \hbox (35.02466pt too wide) in paragraph at lines 531--531
 []\OT1/cmtt/m/n/10 ## fctr(wks)4:trtthr  0.320 -0.354 -0.354 -0.354 -0.707 -0.4
 52 -0.205[] 
  []
 
 
-Overfull \hbox (35.02466pt too wide) in paragraph at lines 530--530
+Overfull \hbox (35.02466pt too wide) in paragraph at lines 531--531
 []\OT1/cmtt/m/n/10 ## fctr(wks)1:trtthy  0.290 -0.642 -0.321 -0.321 -0.321 -0.2
 05 -0.452[] 
  []
 
 
-Overfull \hbox (35.02466pt too wide) in paragraph at lines 530--530
+Overfull \hbox (35.02466pt too wide) in paragraph at lines 531--531
 []\OT1/cmtt/m/n/10 ## fctr(wks)2:trtthy  0.290 -0.321 -0.642 -0.321 -0.321 -0.2
 05 -0.452[] 
  []
 
 
-Overfull \hbox (35.02466pt too wide) in paragraph at lines 530--530
+Overfull \hbox (35.02466pt too wide) in paragraph at lines 531--531
 []\OT1/cmtt/m/n/10 ## fctr(wks)3:trtthy  0.290 -0.321 -0.321 -0.642 -0.321 -0.2
 05 -0.452[] 
  []
 
 
-Overfull \hbox (35.02466pt too wide) in paragraph at lines 530--530
+Overfull \hbox (35.02466pt too wide) in paragraph at lines 531--531
 []\OT1/cmtt/m/n/10 ## fctr(wks)4:trtthy  0.290 -0.321 -0.321 -0.321 -0.642 -0.2
 05 -0.452[] 
  []
 
 
-Overfull \hbox (61.27443pt too wide) in paragraph at lines 530--530
+Overfull \hbox (61.27443pt too wide) in paragraph at lines 531--531
 []\OT1/cmtt/m/n/10 ##                   fctr(wks)1:trtthr fctr(wks)2:trtthr fct
 r(wks)3:trtthr[] 
  []
 
 
-Overfull \hbox (3.52493pt too wide) in paragraph at lines 530--530
+Overfull \hbox (3.52493pt too wide) in paragraph at lines 531--531
 []\OT1/cmtt/m/n/10 ## fctr(wks)4:trtthr  0.500             0.500             0.
 500[] 
  []
 
 
-Overfull \hbox (3.52493pt too wide) in paragraph at lines 530--530
+Overfull \hbox (3.52493pt too wide) in paragraph at lines 531--531
 []\OT1/cmtt/m/n/10 ## fctr(wks)1:trtthy  0.454             0.227             0.
 227[] 
  []
 
 
-Overfull \hbox (3.52493pt too wide) in paragraph at lines 530--530
+Overfull \hbox (3.52493pt too wide) in paragraph at lines 531--531
 []\OT1/cmtt/m/n/10 ## fctr(wks)2:trtthy  0.227             0.454             0.
 227[] 
  []
 
 
-Overfull \hbox (3.52493pt too wide) in paragraph at lines 530--530
+Overfull \hbox (3.52493pt too wide) in paragraph at lines 531--531
 []\OT1/cmtt/m/n/10 ## fctr(wks)3:trtthy  0.227             0.227             0.
 454[] 
  []
 
 
-Overfull \hbox (3.52493pt too wide) in paragraph at lines 530--530
+Overfull \hbox (3.52493pt too wide) in paragraph at lines 531--531
 []\OT1/cmtt/m/n/10 ## fctr(wks)4:trtthy  0.227             0.227             0.
 227[] 
  []
 
 
-Overfull \hbox (61.27443pt too wide) in paragraph at lines 530--530
+Overfull \hbox (61.27443pt too wide) in paragraph at lines 531--531
 []\OT1/cmtt/m/n/10 ##                   fctr(wks)4:trtthr fctr(wks)1:trtthy fct
 r(wks)2:trtthy[] 
  []
 
 
-Overfull \hbox (3.52493pt too wide) in paragraph at lines 530--530
+Overfull \hbox (3.52493pt too wide) in paragraph at lines 531--531
 []\OT1/cmtt/m/n/10 ## fctr(wks)3:trtthy  0.227             0.500             0.
 500[] 
  []
 
 
-Overfull \hbox (3.52493pt too wide) in paragraph at lines 530--530
+Overfull \hbox (3.52493pt too wide) in paragraph at lines 531--531
 []\OT1/cmtt/m/n/10 ## fctr(wks)4:trtthy  0.454             0.500             0.
 500[] 
  []
 
 
-Overfull \hbox (82.27425pt too wide) in paragraph at lines 542--542
+Overfull \hbox (82.27425pt too wide) in paragraph at lines 543--543
 []  []\OT1/cmtt/m/n/10 fit1[] []=[] []lm[][](weight[] []~[] []factor[][](weeks)
 [] []+[] []treat[] []+[] []factor[][](weeks)[][]:[][]treat,[] []data[] []= dat 
 )[][] 
  []
 
 
-Overfull \hbox (82.27425pt too wide) in paragraph at lines 543--543
+Overfull \hbox (82.27425pt too wide) in paragraph at lines 544--544
 []  []\OT1/cmtt/m/n/10 fit2[] []=[] []lmer[][](weight[] []~[] []treat[] []+[] [
 ]factor[][](weeks)[][]:[][]treat[] []+[] []([][]1[][]|[][]subject),[] []data[] 
 []= dat )[][] 
  []
 
 
-Overfull \hbox (124.27388pt too wide) in paragraph at lines 544--544
+Overfull \hbox (124.27388pt too wide) in paragraph at lines 545--545
 []  []\OT1/cmtt/m/n/10 fit3[] []=[] []lmer[][](weight[] []~[] []factor[][](week
 s)[] []+[] []factor[][](weeks)[][]:[][]treat[] []+[] []([][]1[][]|[][]subject),
 [] []data[] []= dat )[][] 
  []
 
 
-Overfull \hbox (50.77452pt too wide) in paragraph at lines 545--545
+Overfull \hbox (50.77452pt too wide) in paragraph at lines 546--546
 []  []\OT1/cmtt/m/n/10 fit4[] []=[] []lmer[][](weight[] []~[] []factor[][](week
 s)[] []+[] []treat[] []+[] []([][]1[][]|[][]subject),[] []data[] []= dat )[][] 
 
  []
 
 [15 <./figure/unnamed-chunk-10-3.pdf>]
-Underfull \vbox (badness 10000) detected at line 575
+Underfull \vbox (badness 10000) detected at line 576
  []
 
 
-Underfull \vbox (badness 10000) detected at line 575
+Underfull \vbox (badness 10000) detected at line 576
  []
 
 [16] [17]
-Package color Info: Redefining color shadecolor on input line 589.
+Package color Info: Redefining color shadecolor on input line 590.
 
-Overfull \hbox (98.02411pt too wide) in paragraph at lines 591--591
+Overfull \hbox (98.02411pt too wide) in paragraph at lines 592--592
 []  []\OT1/cmtt/m/n/10 model[] []=[] []lmer[][](weight[] []~[] []wk[] []+[] []t
 reat[]  []+[] []([][]1[][]|[][]subject)[] []+[] []([][]0[] []+[] []wk[][]|[][]s
 ubject),[] []data[] []= dat)[][] 
@@ -684,26 +689,26 @@ ubject),[] []data[] []= dat)[][]
 File: figure/unnamed-chunk-12-1.pdf Graphic file (type pdf)
 
 <use figure/unnamed-chunk-12-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-12-1.pdf used on input line 596.
+Package pdftex.def Info: figure/unnamed-chunk-12-1.pdf used on input line 597.
 (pdftex.def)             Requested size: 327.22218pt x 327.2267pt.
  [18]
 <figure/unnamed-chunk-12-2.pdf, id=116, 505.89pt x 505.89pt>
 File: figure/unnamed-chunk-12-2.pdf Graphic file (type pdf)
 
 <use figure/unnamed-chunk-12-2.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-12-2.pdf used on input line 601.
+Package pdftex.def Info: figure/unnamed-chunk-12-2.pdf used on input line 602.
 (pdftex.def)             Requested size: 327.22218pt x 327.2267pt.
  [19 <./figure/unnamed-chunk-12-1.pdf>]
 <figure/unnamed-chunk-12-3.pdf, id=126, 505.89pt x 505.89pt>
 File: figure/unnamed-chunk-12-3.pdf Graphic file (type pdf)
 
 <use figure/unnamed-chunk-12-3.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-12-3.pdf used on input line 606.
+Package pdftex.def Info: figure/unnamed-chunk-12-3.pdf used on input line 607.
 (pdftex.def)             Requested size: 327.22218pt x 327.2267pt.
  [20 <./figure/unnamed-chunk-12-2.pdf>]
-Package color Info: Redefining color shadecolor on input line 613.
+Package color Info: Redefining color shadecolor on input line 614.
 
-Overfull \hbox (234.52292pt too wide) in paragraph at lines 615--615
+Overfull \hbox (234.52292pt too wide) in paragraph at lines 616--616
 []  []\OT1/cmtt/m/n/10 model2[] []=[] []lmer[][](weight[] []~[] []wk[] []+[] []
 wk2[] []+[] []treat[]  []+[] []([][]1[][]|[][]subject)[][]+[] []([][]0[] []+[] 
 []wk[][]|[][]subject)[][]+[] []([][]0[] []+[] []wk2[][]|[][]subject),[] []data[
@@ -711,85 +716,133 @@ wk2[] []+[] []treat[]  []+[] []([][]1[][]|[][]subject)[][]+[] []([][]0[] []+[]
  []
 
 
-Overfull \hbox (71.77434pt too wide) in paragraph at lines 652--652
+Overfull \hbox (71.77434pt too wide) in paragraph at lines 653--653
 []\OT1/cmtt/m/n/10 ## Formula: weight ~ wk + wk2 + treat + (1 | subject) + (0 +
  wk | subject) +[] 
  []
 
 [21 <./figure/unnamed-chunk-12-3.pdf>]
-Package color Info: Redefining color shadecolor on input line 661.
+Package color Info: Redefining color shadecolor on input line 662.
 
-Overfull \hbox (4.66617pt too wide) in paragraph at lines 677--678
+Overfull \hbox (4.66617pt too wide) in paragraph at lines 678--679
 [] \OT1/cmr/m/n/10 The AIC of the first model is 939.0791, which is big-ger tha
 n 926.3378(sec-
  []
 
-Package color Info: Redefining color shadecolor on input line 680.
+Package color Info: Redefining color shadecolor on input line 681.
 
-Overfull \hbox (71.77434pt too wide) in paragraph at lines 718--718
+Overfull \hbox (71.77434pt too wide) in paragraph at lines 719--719
 []\OT1/cmtt/m/n/10 ## Formula: weight ~ wk + wk2 + treat + (1 | subject) + (0 +
  wk | subject) +[] 
  []
 
 [22]
-Package color Info: Redefining color shadecolor on input line 725.
+Package color Info: Redefining color shadecolor on input line 726.
 
-Overfull \hbox (344.77196pt too wide) in paragraph at lines 727--727
-[]  []\OT1/cmtt/m/n/10 model3[] []=[] []lmer[][](weight[] []~[] []weeks[] []+[]
- []I[][](weeks[][]^[][]2[][])[] []+[] []treat[]  []+[] []([][]1[][]|[][]subject
-)[] []+[] []([][]0[] []+[] []weeks[][]|[][]subject)[][]+[] []([][]0[] []+[] []I
-[][](weeks[][]^[][]2[][])[][]|[][]subject),[] []data[] []= dat )[][] 
+Overfull \hbox (161.02356pt too wide) in paragraph at lines 728--728
+[]  []\OT1/cmtt/m/n/10 model3[] []=[] []lmer[][](weight[] []~[] []wk[] []+[] []
+wk2[] []+[] []treat[]  []+[] []([][]1[][]|[][]subject)[] []+[] []wk[][]*[][]tre
+at[] []+[] []wk2[][]*[][]treat,[] []data[] []= dat )[][] 
  []
 
 
-Overfull \hbox (14.02484pt too wide) in paragraph at lines 731--732
-[]\OT1/cmtt/m/n/10 ## Warning in Ops.factor(weeks, 2): ^ not meaningful for fac
-tors[] 
- []
-
-Package color Info: Redefining color shadecolor on input line 741.
-
-Overfull \hbox (45.52457pt too wide) in paragraph at lines 747--747
-[]\OT1/cmtt/m/n/10 ## Error in summary(model3): error in evaluating the argumen
-t 'object'
+Overfull \hbox (61.27443pt too wide) in paragraph at lines 780--780
+[]\OT1/cmtt/m/n/10 ## Formula: weight ~ wk + wk2 + treat + (1 | subject) + wk *
+ treat + wk2 *[] 
  []
 
 
-Overfull \hbox (40.27461pt too wide) in paragraph at lines 747--747
-\OT1/cmtt/m/n/10 in selecting a method for function 'summary': Error: object 'm
-odel3'
+Overfull \hbox (35.02466pt too wide) in paragraph at lines 780--780
+[]\OT1/cmtt/m/n/10 ##             (Intr) wk     wk2    trtthr trtthy wk:trtthr 
+wk:trtthy[] 
+ []
+
+
+Overfull \hbox (19.2748pt too wide) in paragraph at lines 780--780
+[]\OT1/cmtt/m/n/10 ## wk2:trtthrc  0.269  0.000 -0.707 -0.380 -0.172  0.000    
+ 0.000[] 
+ []
+
+
+Overfull \hbox (19.2748pt too wide) in paragraph at lines 780--780
+[]\OT1/cmtt/m/n/10 ## wk2:trtthyr  0.244  0.000 -0.642 -0.172 -0.380  0.000    
+ 0.000[] 
  []
 
 [23]
-Overfull \hbox (17.77782pt too wide) detected at line 797
+Underfull \hbox (badness 10000) in paragraph at lines 784--787
+
+ []
+
+Package color Info: Redefining color shadecolor on input line 791.
+
+Overfull \hbox (61.27443pt too wide) in paragraph at lines 844--844
+[]\OT1/cmtt/m/n/10 ## Formula: weight ~ wk + wk2 + treat + (1 | subject) + wk *
+ treat + wk2 *[] 
+ []
+
+
+Overfull \hbox (35.02466pt too wide) in paragraph at lines 844--844
+[]\OT1/cmtt/m/n/10 ##             (Intr) wk     wk2    trtthr trtthy wk:trtthr 
+wk:trtthy[] 
+ []
+
+
+Overfull \hbox (19.2748pt too wide) in paragraph at lines 844--844
+[]\OT1/cmtt/m/n/10 ## wk2:trtthrc  0.269  0.000 -0.707 -0.380 -0.172  0.000    
+ 0.000[] 
+ []
+
+
+Overfull \hbox (19.2748pt too wide) in paragraph at lines 844--844
+[]\OT1/cmtt/m/n/10 ## wk2:trtthyr  0.244  0.000 -0.642 -0.172 -0.380  0.000    
+ 0.000[] 
+ []
+
+
+Overfull \hbox (14.02484pt too wide) in paragraph at lines 858--858
+[]\OT1/cmtt/m/n/10 ## weight ~ wk + wk2 + treat + (1 | subject) + wk * treat + 
+wk2 *[] 
+ []
+
+[24]
+Underfull \vbox (badness 10000) detected at line 859
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 859
+ []
+
+[25]
+Overfull \hbox (17.77782pt too wide) detected at line 904
 []
  []
 
-[24] (./hw5.aux) ) 
+[26] [27] (./hw5.aux) ) 
 Here is how much of TeX's memory you used:
- 2330 strings out of 493117
- 32902 string characters out of 6135433
+ 2328 strings out of 493117
+ 32869 string characters out of 6135433
  109804 words of memory out of 5000000
- 5749 multiletter control sequences out of 15000+600000
+ 5747 multiletter control sequences out of 15000+600000
  9350 words of font info for 35 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  38i,20n,23p,508b,378s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmbx12.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmex10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmitt10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmmi10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmmi7.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmr10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mr12.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
-7.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10
-.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.p
-fb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pf
-b>
-Output written on hw5.pdf (24 pages, 259016 bytes).
+</usr/local/texlive/2014/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmbx12.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmex10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmitt10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmmi10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmmi7.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmr10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmr12.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmr7.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/c
+msy10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+sy5.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt
+10.pfb>
+Output written on hw5.pdf (27 pages, 262067 bytes).
 PDF statistics:
- 194 PDF objects out of 1000 (max. 8388607)
- 133 compressed objects within 2 object streams
+ 204 PDF objects out of 1000 (max. 8388607)
+ 140 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  56 words of extra memory for PDF output out of 10000 (max. 10000000)
 

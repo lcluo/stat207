@@ -133,7 +133,7 @@
 \end{kframe}
 \end{knitrout}
 
-\qquad Some eigenvalues are not too close to zero, so that it does not exist serious multicollinearity.
+\qquad Some eigenvalues are close to zero, so that it does exist multicollinearity.
 
 \item
 
@@ -353,7 +353,8 @@
   \hlstd{dat}\hlopt{$}\hlstd{subject} \hlkwb{=} \hlkwd{as.factor}\hlstd{(dat}\hlopt{$}\hlstd{subject)}
   \hlstd{datt} \hlkwb{=} \hlkwd{split}\hlstd{(dat, dat}\hlopt{$}\hlstd{treat)}
   \hlkwd{par}\hlstd{(}\hlkwc{mfrow} \hlstd{=} \hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,} \hlnum{3}\hlstd{))}
-  \hlkwd{sapply}\hlstd{(datt,} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{)\{}\hlkwd{interaction.plot}\hlstd{(x}\hlopt{$}\hlstd{weeks, x}\hlopt{$}\hlstd{subject, x}\hlopt{$}\hlstd{weight,} \hlkwc{ylim} \hlstd{=} \hlkwd{c}\hlstd{(}\hlnum{40}\hlstd{,} \hlnum{200}\hlstd{),} \hlkwc{xlab} \hlstd{=} \hlkwd{unique}\hlstd{(x}\hlopt{$}\hlstd{treat))\})}
+  \hlkwd{sapply}\hlstd{(datt,} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{)\{}\hlkwd{interaction.plot}\hlstd{(x}\hlopt{$}\hlstd{weeks, x}\hlopt{$}\hlstd{subject, x}\hlopt{$}\hlstd{weight,}
+                                            \hlkwc{ylim} \hlstd{=} \hlkwd{c}\hlstd{(}\hlnum{40}\hlstd{,} \hlnum{200}\hlstd{),} \hlkwc{xlab} \hlstd{=} \hlkwd{unique}\hlstd{(x}\hlopt{$}\hlstd{treat))\})}
 \end{alltt}
 \end{kframe}
 \includegraphics[width=\maxwidth]{figure/unnamed-chunk-8-1} 
@@ -724,16 +725,65 @@
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-  \hlstd{model3} \hlkwb{=} \hlkwd{lmer}\hlstd{(weight} \hlopt{~} \hlstd{weeks} \hlopt{+} \hlkwd{I}\hlstd{(weeks}\hlopt{^}\hlnum{2}\hlstd{)} \hlopt{+} \hlstd{treat}  \hlopt{+} \hlstd{(}\hlnum{1}\hlopt{|}\hlstd{subject)} \hlopt{+} \hlstd{(}\hlnum{0} \hlopt{+} \hlstd{weeks}\hlopt{|}\hlstd{subject)}\hlopt{+} \hlstd{(}\hlnum{0} \hlopt{+} \hlkwd{I}\hlstd{(weeks}\hlopt{^}\hlnum{2}\hlstd{)}\hlopt{|}\hlstd{subject),} \hlkwc{data} \hlstd{= dat )}
+  \hlstd{model3} \hlkwb{=} \hlkwd{lmer}\hlstd{(weight} \hlopt{~} \hlstd{wk} \hlopt{+} \hlstd{wk2} \hlopt{+} \hlstd{treat}  \hlopt{+} \hlstd{(}\hlnum{1}\hlopt{|}\hlstd{subject)} \hlopt{+} \hlstd{wk}\hlopt{*}\hlstd{treat} \hlopt{+} \hlstd{wk2}\hlopt{*}\hlstd{treat,} \hlkwc{data} \hlstd{= dat )}
+  \hlkwd{summary}\hlstd{(model3)}
 \end{alltt}
-
-
-{\ttfamily\noindent\color{warningcolor}{\#\# Warning in Ops.factor(weeks, 2): \textasciicircum{} not meaningful for factors}}
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error: Invalid grouping factor specification, subject}}\end{kframe}
+\begin{verbatim}
+## Linear mixed model fit by REML ['lmerMod']
+## Formula: weight ~ wk + wk2 + treat + (1 | subject) + wk * treat + wk2 *  
+##     treat
+##    Data: dat
+## 
+## REML criterion at convergence: 936.2
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -1.9910 -0.5755  0.0700  0.6061  2.5878 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev.
+##  subject  (Intercept) 71.83    8.475   
+##  Residual             48.12    6.937   
+## Number of obs: 135, groups:  subject, 27
+## 
+## Fixed effects:
+##                     Estimate Std. Error t value
+## (Intercept)         104.6114     3.0855   33.90
+## wk                   26.4800     0.6937   38.17
+## wk2                   0.6143     0.5863    1.05
+## treatthiouracil     -10.0886     4.3635   -2.31
+## treatthyroxine       -0.8931     4.8084   -0.19
+## wk:treatthiouracil   -9.3700     0.9811   -9.55
+## wk:treatthyroxine     0.6629     1.0811    0.61
+## wk2:treatthiouracil  -1.9357     0.8291   -2.33
+## wk2:treatthyroxine    0.7122     0.9137    0.78
+## 
+## Correlation of Fixed Effects:
+##             (Intr) wk     wk2    trtthr trtthy wk:trtthr wk:trtthy
+## wk           0.000                                                
+## wk2         -0.380  0.000                                         
+## treatthircl -0.707  0.000  0.269                                  
+## treatthyrxn -0.642  0.000  0.244  0.454                           
+## wk:trtthrcl  0.000 -0.707  0.000  0.000  0.000                    
+## wk:trtthyrx  0.000 -0.642  0.000  0.000  0.000  0.454             
+## wk2:trtthrc  0.269  0.000 -0.707 -0.380 -0.172  0.000     0.000   
+## wk2:trtthyr  0.244  0.000 -0.642 -0.172 -0.380  0.000     0.000   
+##             wk2:trtthr
+## wk                    
+## wk2                   
+## treatthircl           
+## treatthyrxn           
+## wk:trtthrcl           
+## wk:trtthyrx           
+## wk2:trtthrc           
+## wk2:trtthyr  0.454
+\end{verbatim}
+\end{kframe}
 \end{knitrout}
 
-\qquad It seems that the slopes may depend on the treatment.
+\qquad The model for control is Y = 104.6114 + 26.48*wk + 0.6143*wk2  \\
+\qquad The model for treatthircl is Y = 104.6114 + 26.48*wk + 0.6143*wk2  - 10.0886 -9.37wk-1.9357wk2 =94.5228 + 17.11wk - 1.3214wk2 \\
+\qquad The model for treatthircl is Y = 104.6114 + 26.48*wk + 0.6143*wk2  - 0.8931 +0.6629wk+0.7122wk2 =103.7183 + 27.1429wk +1.3265wk2 \\
 
 \item
 
@@ -742,14 +792,71 @@
 \begin{alltt}
   \hlkwd{summary}\hlstd{(model3)}
 \end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in summary(model3): error in evaluating the argument 'object' in selecting a method for function 'summary': Error: object 'model3' not found}}\begin{alltt}
-  \hlkwd{drop1}\hlstd{(model3, )}
+\begin{verbatim}
+## Linear mixed model fit by REML ['lmerMod']
+## Formula: weight ~ wk + wk2 + treat + (1 | subject) + wk * treat + wk2 *  
+##     treat
+##    Data: dat
+## 
+## REML criterion at convergence: 936.2
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -1.9910 -0.5755  0.0700  0.6061  2.5878 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev.
+##  subject  (Intercept) 71.83    8.475   
+##  Residual             48.12    6.937   
+## Number of obs: 135, groups:  subject, 27
+## 
+## Fixed effects:
+##                     Estimate Std. Error t value
+## (Intercept)         104.6114     3.0855   33.90
+## wk                   26.4800     0.6937   38.17
+## wk2                   0.6143     0.5863    1.05
+## treatthiouracil     -10.0886     4.3635   -2.31
+## treatthyroxine       -0.8931     4.8084   -0.19
+## wk:treatthiouracil   -9.3700     0.9811   -9.55
+## wk:treatthyroxine     0.6629     1.0811    0.61
+## wk2:treatthiouracil  -1.9357     0.8291   -2.33
+## wk2:treatthyroxine    0.7122     0.9137    0.78
+## 
+## Correlation of Fixed Effects:
+##             (Intr) wk     wk2    trtthr trtthy wk:trtthr wk:trtthy
+## wk           0.000                                                
+## wk2         -0.380  0.000                                         
+## treatthircl -0.707  0.000  0.269                                  
+## treatthyrxn -0.642  0.000  0.244  0.454                           
+## wk:trtthrcl  0.000 -0.707  0.000  0.000  0.000                    
+## wk:trtthyrx  0.000 -0.642  0.000  0.000  0.000  0.454             
+## wk2:trtthrc  0.269  0.000 -0.707 -0.380 -0.172  0.000     0.000   
+## wk2:trtthyr  0.244  0.000 -0.642 -0.172 -0.380  0.000     0.000   
+##             wk2:trtthr
+## wk                    
+## wk2                   
+## treatthircl           
+## treatthyrxn           
+## wk:trtthrcl           
+## wk:trtthyrx           
+## wk2:trtthrc           
+## wk2:trtthyr  0.454
+\end{verbatim}
+\begin{alltt}
+  \hlkwd{drop1}\hlstd{(model3)}
 \end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in drop1(model3, ): object 'model3' not found}}\end{kframe}
+\begin{verbatim}
+## Single term deletions
+## 
+## Model:
+## weight ~ wk + wk2 + treat + (1 | subject) + wk * treat + wk2 * 
+##     treat
+##           Df     AIC
+## <none>        976.38
+## wk:treat   2 1057.36
+## wk2:treat  2  982.20
+\end{verbatim}
+\end{kframe}
 \end{knitrout}
 
 \end{enumerate}
