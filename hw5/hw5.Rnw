@@ -1,0 +1,261 @@
+\documentclass{article}
+\usepackage{enumerate}
+\usepackage{amsmath}
+
+\begin{document}
+
+\title{\huge \textbf{Stat 207 HW5} \\}
+\author{\large Cheng Luo 912466499 \\ \large Fan Wu 912538518}
+\maketitle
+
+\newpage
+\mbox{}
+\newpage
+
+\section{1}
+
+\begin{enumerate}[(a)]
+
+\item
+
+<<>>=
+  require(gdata)
+  dat1 = read.xls("apartment.xlsx", header = TRUE)
+  dat.stan = dat1
+  for(j in 1:ncol(dat1))
+    dat.stan[,j] = (dat1[,j] - mean(dat1[,j]))/(sd(dat1[,j])*(sqrt(25-1)))
+  dat = dat.stan
+  plot(dat)
+  cor(dat)
+@
+
+\qquad We find that Y is highly correlated with X2, X3 and X5. and X2, X3 and X5 are highly correlated with each other, which means the multicollinearity is present.
+
+\item
+
+<<>>=
+  require(Matrix)
+  X = dat[, 2:6]
+  X = as.matrix(X)
+  P = t(X) %*% X
+  eigen(P)
+@
+
+\qquad Some eigenvalues are not too close to zero, so that it does not exist serious multicollinearity.
+
+\item
+
+<<>>=
+  fit = lm(Y ~ 0 + ., data = dat)
+  summary(fit)
+  anova(fit)
+@
+
+\qquad In this multiple regression model, X1,X2, and X5 are more important to predict sale price.
+
+\item
+<<>>=
+  require(faraway)
+  vif(fit)
+@
+
+\qquad All VIF $>$1 shows that each X variable has the intercorrelation with the rest of the X variables.
+
+\item
+
+<<>>=
+  library('MASS')
+  select(lm.ridge(Y ~ 0 + ., data = dat, 
+                lambda = seq(0, 1, .001)))
+  k = .321
+  require('ridge')
+  model = linearRidge(Y ~ 0 + ., data = dat, 
+                    lambda = k, scaling = 'none'); model
+  summary(model)
+@
+
+\qquad Parameter estimates and their standard errors are shown in the summary(model).
+
+\item
+
+<<>>=
+  plot(X%*%model$coef, model$y)
+  par( mfrow = c(1, 2))
+  plot(X%*%model$coef, model$y - X%*%model$coef)
+  qqnorm(model$y - X%*%model$coef)
+  qqline(model$y - X%*%model$coef)
+@
+
+\qquad The residuals versus fitted values plots shows no sign for unequal variance.And the QQ-plot indicates approximately normal distribution with heavy tail, so that normality assumption seems to be reasonable, we can use model here.
+
+\item
+
+<<>>=
+  ans = solve(P + diag(k,5,5)) %*% P %*% solve(P + diag(k,5,5))
+  diag(ans)
+@
+
+\qquad VIF of the estimated ridge regression are shown in the above. All VIF are smaller than 1, which means they have little intercorrelation between X variables.
+
+\end{enumerate}
+
+\section{2}
+
+\begin{enumerate}[(a)]
+
+\item
+
+<<>>=
+  require(gdata)
+  dat = read.xls("ratdrink.xlsx")
+  dat = dat[, 1:4]
+  dat$wk = dat$weeks - mean(dat$weeks); dat$wk
+  dat$wk2 = dat$wk^2; dat$wk2
+  dat$weeks = as.factor(dat$weeks)
+  dat$subject = as.factor(dat$subject)
+  datt = split(dat, dat$treat)
+  par(mfrow = c(1, 3))
+  sapply(datt, function(x){interaction.plot(x$weeks, x$subject, x$weight, ylim = c(40, 200), xlab = unique(x$treat))})
+@
+
+\item
+
+<<>>=
+  par(mfrow = c(1, 1))
+  boxplot(weight ~ factor(weeks)*treat, data = dat)
+@
+
+\qquad The mean weight becomes larger over time. And the variability of weight change over time gets bigger, treatment thyroxine has the biggest variability over time.
+
+\item
+
+<<>>=
+  require(lme4)
+  fit = lmer(weight ~ factor(weeks) + treat + factor(weeks):treat + (1|subject), data = dat )
+  par(mfrow = c(1, 1))
+  plot(dat$weight, fitted(fit))
+  plot(fit, which = 1)
+  par(mfrow = c(1, 1))
+  boxplot(weight ~ weeks*treat, data = dat)
+@
+
+\qquad The residuals versus fitted values plots shows no sign for unequal variance.
+
+\item
+
+<<>>=
+  summary(fit)
+  anova(fit)
+  fit1 = lm(weight ~ factor(weeks) + treat + factor(weeks):treat, data = dat )
+  fit2 = lmer(weight ~ treat + factor(weeks):treat + (1|subject), data = dat )
+  fit3 = lmer(weight ~ factor(weeks) + factor(weeks):treat + (1|subject), data = dat )
+  fit4 = lmer(weight ~ factor(weeks) + treat + (1|subject), data = dat )
+  AIC(fit)
+  AIC(fit1)
+  AIC(fit2)
+  AIC(fit3)
+  AIC(fit4)
+@
+
+\qquad The AIC of the full model is 926.1398, which means it's the smallest AIC of all. So there's no need to drop the terms.
+
+\end{enumerate}
+
+\section{3}
+
+\begin{enumerate}[(a)]
+
+\item
+
+<<>>=
+  model = lmer(weight ~ wk + treat  + (1|subject) + (0 + wk|subject), data = dat)
+  par( mfrow = c(1, 1))
+  plot(model, which = 1)
+  hist(resid(model))
+  boxplot(weight ~ wk*treat, data = dat)
+@
+
+\item
+
+<<>>=
+  model2 = lmer(weight ~ wk + wk2 + treat  + (1|subject)+ (0 + wk|subject)+ (0 + wk2|subject), data = dat )
+  summary(model2)
+@
+
+\qquad No, they seems to be different, the second model has term $I(weeks^2)$.
+
+\item
+
+<<>>=
+  AIC(model)
+  AIC(model2)
+@
+
+\qquad The AIC of the first model is 939.0791, which is bigger than 926.3378(second model). So that, we should choose the first model with wk2.
+
+<<>>=
+  summary(model2)
+@
+
+\item
+
+<<>>=
+  model3 = lmer(weight ~ weeks + I(weeks^2) + treat  + (1|subject) + (0 + weeks|subject)+ (0 + I(weeks^2)|subject), data = dat )
+@
+
+\qquad It seems that the slopes may depend on the treatment.
+
+\item
+
+<<>>=
+  summary(model3)
+  drop1(model3, )
+@
+
+\end{enumerate}
+
+\section{4}
+
+\begin{enumerate}[(a)]
+
+\item
+
+\begin{displaymath}
+\begin{split}
+  E(Y_{ij}) &= E(\mu + \rho_i + \beta_1 x_i + \gamma_1 t_j + \epsilon_{ij})\\
+            &= \mu + \beta_1 x_i + \gamma_1 t_j \\
+  Var(Y_{ij}) &= var(\mu + \rho_i + \beta_1 x_i + \gamma_1 t_j + \epsilon_{ij})\\
+              &= var(\rho_i + \epsilon_{ij}) \\
+              &= \sigma^2_\rho +\sigma^2 (\text{since $\rho_i$ and $\epsilon_{ij}$ are independent} )\\
+  Cov(Y_{ij}, Y_{ij'}) &= E((Y_{ij}-E(Y_{ij}))(Y_{ij'}-E(Y_{ij'}))\\
+                       &= E((\rho_i+\epsilon_{ij})(\rho_i+\epsilon_{ij'})) \\
+                       &= E(\rho_i^2) (\text{since $\rho_i$ and $\epsilon_{ij}$ and $\epsilon_{ij'}$ are independent} )\\
+                       &= Var(\rho_i) + (E(\rho_i))^2\\
+                       &= \sigma^2_\rho\\
+  Corr(Y_{ij}, Y_{ij'}) &= \frac{Cov(Y_{ij}, Y_{ij'})}{\sqrt{Var(Y_{ij}) * Var(Y_{ij'})}} \\
+                        &= \frac{\sigma^2_\rho}{\sigma^2_\rho +\sigma^2}
+\end{split}
+\end{displaymath}
+
+\item
+
+\begin{displaymath}
+\begin{split}
+  E(Y_{ij}) &= E(\mu + \rho_i + \beta_1 x_i + \gamma_1 t_j + \gamma_{i1} t_j+ \epsilon_{ij})\\
+            &= \mu + \beta_1 x_i + \gamma_1 t_j \\
+  Var(Y_{ij}) &= var(\mu + \rho_i + \beta_1 x_i + \gamma_1 t_j + \gamma_{i1} t_j+ \epsilon_{ij})\\
+              &= var(\rho_i + \gamma_{i1} t_j+ \epsilon_{ij}) \\
+              &= \sigma^2_\rho + t^2_j \sigma^2_{\gamma 1}+ \sigma^2 (\text{since $\rho_i$, $\gamma_{i1}$ and $\epsilon_{ij}$ are independent} )\\
+  Cov(Y_{ij}, Y_{ij'}) &= E((Y_{ij}-E(Y_{ij}))(Y_{ij'}-E(Y_{ij'}))\\
+                       &= E((\rho_i+\gamma_{i1} t_j+\epsilon_{ij})(\rho_i+\gamma_{i1} t_{j'}+\epsilon_{ij'})) \\
+                       &= E(\rho_i^2 + \gamma^2_{i1} t_j*t_{j'}) (\text{since $\rho_i$, $\gamma_{i1}$, $\epsilon_{ij}$ and $\epsilon_{ij'}$ are independent} )\\
+                       &= E(\rho_i^2) + (t_j*t_{j'}) *E(\gamma^2_{i1})\\
+                       &= \sigma^2_\rho + (t_j*t_{j'}) \sigma^2_{\gamma 1}\\
+  Corr(Y_{ij}, Y_{ij'}) &= \frac{Cov(Y_{ij}, Y_{ij'})}{\sqrt{Var(Y_{ij}) * Var(Y_{ij'})}} \\
+                        &= \frac{\sigma^2_\rho + (t_j*t_{j'}) \sigma^2_{\gamma 1}}{\sqrt{(\sigma^2_\rho + t^2_j \sigma^2_{\gamma 1}+ \sigma^2)(\sigma^2_\rho + t^2_{j'} \sigma^2_{\gamma 1}+ \sigma^2)}}
+\end{split}
+\end{displaymath}
+
+\end{enumerate}
+
+\end{document}
