@@ -1,0 +1,317 @@
+\documentclass{article}
+\usepackage{enumerate}
+\usepackage{amsmath}
+
+\begin{document}
+
+\title{\huge \textbf{Stat 207 HW6} \\}
+\author{\large Cheng Luo 912466499 \\ \large Fan Wu 912538518}
+\maketitle
+
+\newpage
+\mbox{}
+\newpage
+
+\section{14.9}
+
+\begin{enumerate}[(a)]
+
+\item
+
+<<>>=
+  dat = read.table("CH14PR09.txt")
+  names(dat) = c("Y", "X")
+  logit = glm(Y ~ X, data = dat, family = "binomial")
+  summary(logit)
+@
+
+\qquad From the summary, the maximum likelihood estimates of $\hat{\beta}_0 = -10.308925$, $\hat{\beta}_1 = 0.018920$, $$\hat{\pi} = \frac{exp(\beta_0+\beta_1 X)}{1+exp(\beta_0+\beta_1 X)}=\frac{exp(-10.308925+0.018920 X)}{1+exp(-10.308925+0.018920 X)}$$
+
+\item
+
+<<>>=
+  plot(dat$X, fitted(logit), ylim = c(0, 1))
+  points(dat$X, dat$Y, lwd = 9)
+  lines(lowess(dat$Y ~ dat$X), lty = 2)
+@
+
+\qquad The fitted logistic response function appears to be well.
+
+\item
+
+<<>>=
+  exp(0.018920)
+@
+
+\qquad $exp(\beta_1)=1.0191$, so that the odds of employee's ability increased by 1.91\% with each additional employee's emotional stability.
+
+\item
+
+<<>>=
+  newdat = data.frame(X = 550)
+  predict(logit, newdata = newdat, type = "response")
+@
+
+\qquad The estimated probability that employees with an emotional stability test score of 550 will be able to perform in a task group is 0.5242263 .
+
+\item
+
+<<>>=
+  newpi = 0.7
+  pi_2 = log(newpi/(1-newpi))
+  (pi_2 - (-10.308925))/0.018920
+@
+
+\qquad The emotional stability test score for which 70 percents of the employees with this test score are expected to be able to  perform in a task group is 598.6524.
+
+\end{enumerate}
+
+\section{14.11}
+
+\begin{enumerate}[(a)]
+
+\item
+
+<<>>=
+  dat = read.table("CH14PR11.txt")
+  names(dat) = c("X", "n", "Y")
+  plot(dat$X, dat$Y/dat$n)
+@
+
+\qquad The plot support the analyst's belief that the logistic response functiion is appropriate.
+
+\item
+
+<<>>=
+  logit = glm(Y/n ~ X, data = dat, family = "binomial")
+  summary(logit)
+@
+
+\qquad From the summary, the maximum likelihood estimates of $\hat{\beta}_0 = -2.0766$, $\hat{\beta}_1 = 0.1359$, $$\hat{\pi} = \frac{exp(\beta_0+\beta_1 X)}{1+exp(\beta_0+\beta_1 X)}=\frac{exp(-2.0766+0.1359 X)}{1+exp(-2.0766+0.1359 X)}$$
+
+\item
+
+<<>>=
+  plot(dat$X, fitted(logit), ylim = c(0, 1))
+  points(dat$X, dat$Y/dat$n, lwd = 1)
+@
+
+\qquad The fitted logistic response function appears to be well.
+
+\item
+
+<<>>=
+  exp(0.1359)
+@
+
+\qquad $exp(\beta_1)=1.145567$, so that the odds of the bottles being returned is increased by 14.5567\% with each one deposit level increased.
+
+\item
+
+<<>>=
+  newdat = data.frame(X = 15)
+  predict(logit, newdata = newdat, type = "response")
+@
+
+\qquad The estimated probability that a bottle will be returned when the deposit is 15 cents is 0.4903005.
+
+\item
+
+<<>>=
+  newpi = 0.75
+  pi_2 = log(newpi/(1-newpi))
+  (pi_2 - (-2.0766))/0.1359
+@
+
+\qquad Estimate the amount of deposit for which 75\% of the bottles are expected to be returned is 23.36433.
+
+\end{enumerate}
+
+\section{14.14}
+
+\begin{enumerate}[(a)]
+
+\item
+
+<<>>=
+  dat = read.table("CH14PR14.txt")
+  names(dat) = c("Y", "X1", "X2", "X3")
+  logit = glm(Y ~ X1 + X2 + X3, data = dat, family = "binomial")
+  summary(logit)
+@
+
+\qquad From the summary, the maximum likelihood estimates $\hat{\beta}_0 = -1.17716 $, $\hat{\beta}_1 = 0.07279$, $\hat{\beta}_2 = -0.09899 $, $\hat{\beta}_4 = 0.43397 $ $$\hat{\pi} = \frac{exp(\beta_0+\beta_1 X1 + \beta_2 X2 + \beta_3 X3)}{1+exp(\beta_0+\beta_1 X1 + \beta_2 X2 + \beta_3 X3)}=\frac{exp(-1.17716+0.07279 X1 - 0.09899 X2 +0.43397 X3)}{1+exp(-1.17716+0.07279 X1 - 0.09899 X2 +0.43397 X3)}$$
+
+\item
+
+<<>>=
+  exp(0.07279)
+  exp(-0.09899 )
+  exp(0.43397)
+@
+
+\begin{itemize}
+\item
+$exp(\beta_1)=1.075505$, so that the odds of getting a flu shot is increased by 7.5\% with each one age increased.
+\item
+$exp(\beta_2)=0.9057518$, so that the odds of getting a flu shot is decreased by 9.4\% with each one health awareness index increased.
+\item
+$exp(\beta_3)=1.543373$, so that the odds of getting a flu shot is increased by 54.3\% from woman to man.
+\end{itemize}
+
+\item
+
+<<>>=
+  newdat = data.frame(X1 = 55, X2 = 60, X3 = 1)
+  predict(logit, newdata = newdat, type = "response")
+@
+
+\qquad The estimated probability with X1=55, X2=60 and X3=1 is 0.06422197 .
+
+\end{enumerate}
+
+\section{14.19}
+
+\begin{enumerate}[(a)]
+
+\item
+
+<<>>=
+  dat = read.table("CH14PR13.txt")
+  names(dat) = c("Y", "X1", "X2")
+  logit = glm(Y ~ X1 + X2, data = dat, family = "binomial")
+  summary(logit)
+@
+
+\item
+
+<<>>=
+  qnorm(1-0.05/2)
+@
+
+\begin{center}
+$H_0$:$\beta_2=0$
+
+VS. $H_1$:$\beta_2 \ne 0$
+
+$z^*=\frac{b2}{s(b_2)} = 0.59863/0.39007   = 1.535$
+
+we can reject $H_0$ if $|z^*| > Z(1-0.05/2)=1.959964$,otherwise reject$H_1$
+
+so that reject $H_1$ because $|z^*|<1.959964$,
+
+therefore, X2 can be dropped from the regression model, and the P-value is 0.1249 
+\end{center}
+
+\item
+
+<<>>=
+  logLik(logit)
+  logitR = glm(Y ~ X1, data = dat, family = "binomial")
+  logLik(logitR)
+  qchisq(1-0.05, 3-2)
+  pchisq(2.614, 1, lower.tail = FALSE)
+@
+
+\begin{center}
+$H_0$:$\beta_2=0$
+
+VS. $H_1$:$\beta_2 \ne 0$
+
+The full model: $\pi = [1 + exp(-(\beta_0 + \beta_1 X1 + \beta_2 X2))]^{-1} $
+
+L(F)= -18.34482
+
+The reduced model: $\pi = [1 + exp(-(\beta_0 + \beta_1 X1))]^{-1} $
+
+L(R)= -19.65227
+
+$G^2$ = -2(ln(L(R)-ln(L(F)))) = 2.614
+
+we can reject $H_0$ if $G^2 > \chi^2(1-0.05, 3-2)=3.8415$,otherwise reject$H_1$
+
+so that reject $H_1$ because $G^2 <3.8415$,
+
+therefore, X2 can be dropped from the regression model, and the P-value is 0.1059.And the result is same as the result we get in (b).
+\end{center}
+
+\item
+
+<<>>=
+  logLik(logit)
+  logitF = glm(Y ~ X1 + X2 +I(X1^2) + I(X2^2) + I(X1*X2), data = dat, family = "binomial")
+  logLik(logitF)
+  qchisq(1-0.05, 6-3)
+  pchisq(2.436953, 3, lower.tail = FALSE)
+@
+
+\begin{center}
+$H_0$:$\beta_3=\beta_4=\beta_5=0$
+
+VS. $H_1$:not all $\beta_k=0$,k=3,4,5
+
+The full model: $\pi = [1 + exp(-(\beta_0 + \beta_1 X1 + \beta_2 X2 + \beta_3 X3 + \beta_4 X4 + \beta_5 X5))]^{-1} $
+
+L(F)= -17.12634
+
+The reduced model: $\pi = [1 + exp(-(\beta_0 + \beta_1 X1 + \beta_2 X2))]^{-1} $
+
+L(R)= -18.34482
+
+$G^2$ = -2(ln(L(R)-ln(L(F)))) = 2.436953
+
+we can reject $H_0$ if $G^2 > \chi^2(1-0.05, 6-3)=7.81$,otherwise reject$H_1$
+
+so that reject $H_1$ because $G^2 <7.81$,
+
+therefore, X3,X4,X5 can be dropped from the regression model, and the P-value is 0.4867929.
+\end{center}
+
+\end{enumerate}
+
+\section{Problem 5}
+
+\begin{enumerate}[(a)]
+
+\item
+
+<<>>=
+  dat = read.table("apartment.txt", header = TRUE)
+  require("pls")
+  dat.stan = dat
+  for(j in 1:ncol(dat))
+    dat.stan[,j] = (dat[,j] - mean(dat[,j]))/sd(dat[,j])
+  dat = dat.stan
+  fit = plsr(Y ~ X1 + X2 + X3 + X4 + X5, data = dat, 5, validation="CV")
+  summary(fit)
+  loadings(fit)[, 1:3]
+  plot(fit, plottype = "scores", comps = 1:3)
+@
+
+\item
+
+<<>>=
+  Radj = c(0, 95.1 ,   95.21  ,  96.61  ,  98.05 , 98.05)/100
+  n = 25
+  ans = integer(5)
+  for (i in 2:6)
+  {
+    ans[i-1] = (n-i-2)*(Radj[i]-Radj[i-1])/(1-Radj[i])
+  }
+  
+@
+
+\item
+
+\end{enumerate}
+
+\section{Problem 6}
+
+\section{Problem 7}
+
+\section{Problem 8}
+
+
+
+
+\end{document}

@@ -220,7 +220,24 @@ So that the slope are dependent on treatment.
   drop1(model3)
 @
 
-\qquad From the drop1 function, we know the when we don't drop anything, the AIC is the smallest, which is 976.38. So the model3 is the final model.
+\qquad From the drop1 function, we know that when we don't drop anything, the AIC is the smallest, which is 976.38. So the model3 is the final model.
+
+\item
+
+<<>>=
+  
+@
+
+\item
+
+The final model:
+
+\begin{displaymath}
+\begin{split}
+  Y_{ij} &= \mu + \rho_i + \beta_1wk_j + \gamma_{i2}wk_j + treat_i + \beta_2wk_j *treat_j + \gamma_{i3}wk_j*treat_j +\\
+         & \beta_3wk^2_j + \gamma_{i4}wk^2_j + \beta_4wk^2_j*treat_j + \gamma_{i5}wk^2_j*treat_j + \epsilon_{ij}  
+\end{split}
+\end{displaymath}
 
 \end{enumerate}
 

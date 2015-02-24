@@ -1,0 +1,409 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  23 FEB 2015 22:26
+entering extended mode
+ \write18 enabled.
+ %&-line parsing enabled.
+**hw6.tex
+(./hw6.tex
+LaTeX2e <2014/05/01>
+Babel <3.9k> and hyphenation patterns for 78 languages loaded.
+(/usr/local/texlive/2014/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/local/texlive/2014/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/local/texlive/2014/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2014/04/25 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2014/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/05/08 v1.15 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+(/usr/local/texlive/2014/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2014/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/local/texlive/2014/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+
+(/usr/local/texlive/2014/texmf-dist/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+(/usr/local/texlive/2014/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+(/usr/local/texlive/2014/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count87
+))
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+)
+(/usr/local/texlive/2014/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2014/04/23 v1.1a Standard LaTeX Color (DPC)
+
+(/usr/local/texlive/2014/texmf-dist/tex/latex/latexconfig/color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package color Info: Driver file: pdftex.def on input line 137.
+)
+(/usr/local/texlive/2014/texmf-dist/tex/latex/framed/framed.sty
+Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
+\OuterFrameSep=\skip43
+\fb@frw=\dimen105
+\fb@frh=\dimen106
+\FrameRule=\dimen107
+\FrameSep=\dimen108
+)
+(/usr/local/texlive/2014/texmf-dist/tex/latex/base/alltt.sty
+Package: alltt 1997/06/16 v2.0g defines alltt environment
+)
+(/usr/local/texlive/2014/texmf-dist/tex/latex/tools/enumerate.sty
+Package: enumerate 1999/03/05 v3.00 enumerate extensions (DPC)
+\@enLab=\toks15
+)
+(/usr/local/texlive/2014/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2013/01/14 v2.14 AMS math features
+\@mathmargin=\skip44
+
+For additional information on amsmath, use the `?' option.
+(/usr/local/texlive/2014/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01
+
+(/usr/local/texlive/2014/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks16
+\ex@=\dimen109
+))
+(/usr/local/texlive/2014/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen110
+)
+(/usr/local/texlive/2014/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count88
+LaTeX Info: Redefining \frac on input line 210.
+\uproot@=\count89
+\leftroot@=\count90
+LaTeX Info: Redefining \overline on input line 306.
+\classnum@=\count91
+\DOTSCASE@=\count92
+LaTeX Info: Redefining \ldots on input line 378.
+LaTeX Info: Redefining \dots on input line 381.
+LaTeX Info: Redefining \cdots on input line 466.
+\Mathstrutbox@=\box26
+\strutbox@=\box27
+\big@size=\dimen111
+LaTeX Font Info:    Redeclaring font encoding OML on input line 566.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
+\macc@depth=\count93
+\c@MaxMatrixCols=\count94
+\dotsspace@=\muskip10
+\c@parentequation=\count95
+\dspbrk@lvl=\count96
+\tag@help=\toks17
+\row@=\count97
+\column@=\count98
+\maxfields@=\count99
+\andhelp@=\toks18
+\eqnshift@=\dimen112
+\alignsep@=\dimen113
+\tagshift@=\dimen114
+\tagwidth@=\dimen115
+\totwidth@=\dimen116
+\lineht@=\dimen117
+\@envbody=\toks19
+\multlinegap=\skip45
+\multlinetaggap=\skip46
+\mathdisplay@stack=\toks20
+LaTeX Info: Redefining \[ on input line 2665.
+LaTeX Info: Redefining \] on input line 2666.
+)
+(/usr/local/texlive/2014/texmf-dist/tex/latex/upquote/upquote.sty
+Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
+tim
+) (./hw6.aux)
+\openout1 = `hw6.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+
+(/usr/local/texlive/2014/texmf-dist/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count100
+\scratchdimen=\dimen118
+\scratchbox=\box28
+\nofMPsegments=\count101
+\nofMParguments=\count102
+\everyMPshowfont=\toks21
+\MPscratchCnt=\count103
+\MPscratchDim=\dimen119
+\MPnumerator=\count104
+\makeMPintoPDFobject=\count105
+\everyMPtoPDFconversion=\toks22
+) (/usr/local/texlive/2014/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/usr/local/texlive/2014/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+(/usr/local/texlive/2014/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(/usr/local/texlive/2014/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+
+(/usr/local/texlive/2014/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
+
+(/usr/local/texlive/2014/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
+Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
+))
+(/usr/local/texlive/2014/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
+
+(/usr/local/texlive/2014/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
+
+(/usr/local/texlive/2014/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 452.
+
+(/usr/local/texlive/2014/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+[1
+
+{/usr/local/texlive/2014/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+[2]
+Package color Info: Redefining color shadecolor on input line 71.
+LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 73.
+
+Overfull \hbox (14.02484pt too wide) in paragraph at lines 101--101
+[]\OT1/cmtt/m/n/10 ## Signif. codes:  0 ^^M***^^M 0.001 ^^M**^^M 0.01 ^^M*^^M 0
+.05 ^^M.^^M 0.1 ^^M ^^M 1[] 
+ []
+
+
+Overfull \hbox (14.89302pt too wide) in paragraph at lines 105--105
+[] \OT1/cmr/m/n/10 From the sum-mary, the max-i-mum like-li-hood es-ti-mates of
+ $[] = \OMS/cmsy/m/n/10 ^^@\OT1/cmr/m/n/10 10\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 
+308925$,
+ []
+
+Package color Info: Redefining color shadecolor on input line 110.
+<figure/unnamed-chunk-2-1.pdf, id=12, 505.89pt x 505.89pt>
+File: figure/unnamed-chunk-2-1.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-2-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-2-1.pdf used on input line 117.
+(pdftex.def)             Requested size: 327.22218pt x 327.2267pt.
+ [3]
+Package color Info: Redefining color shadecolor on input line 126.
+Package color Info: Redefining color shadecolor on input line 141.
+Package color Info: Redefining color shadecolor on input line 158.
+ [4 <./figure/unnamed-chunk-2-1.pdf>]
+Package color Info: Redefining color shadecolor on input line 181.
+
+<figure/unnamed-chunk-6-1.pdf, id=28, 505.89pt x 505.89pt>
+File: figure/unnamed-chunk-6-1.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-6-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-6-1.pdf used on input line 188.
+(pdftex.def)             Requested size: 327.22218pt x 327.2267pt.
+ [5 <./figure/unnamed-chunk-6-1.pdf>]
+Package color Info: Redefining color shadecolor on input line 197.
+
+Overfull \hbox (24.52475pt too wide) in paragraph at lines 227--227
+[]\OT1/cmtt/m/n/10 ##         1          2          3          4          5    
+      6[] 
+ []
+
+
+Overfull \hbox (24.52475pt too wide) in paragraph at lines 227--227
+[]\OT1/cmtt/m/n/10 ##  0.007846   0.019363   0.025865  -0.130556   0.056842   0
+.054601[] 
+ []
+
+Package color Info: Redefining color shadecolor on input line 236.
+<figure/unnamed-chunk-8-1.pdf, id=37, 505.89pt x 505.89pt>
+File: figure/unnamed-chunk-8-1.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-8-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-8-1.pdf used on input line 242.
+(pdftex.def)             Requested size: 327.22218pt x 327.2267pt.
+ [6]
+Package color Info: Redefining color shadecolor on input line 251.
+Package color Info: Redefining color shadecolor on input line 266.
+Package color Info: Redefining color shadecolor on input line 283.
+ [7 <./figure/unnamed-chunk-8-1.pdf>]
+Package color Info: Redefining color shadecolor on input line 306.
+
+Overfull \hbox (8.77489pt too wide) in paragraph at lines 310--310
+[]  []\OT1/cmtt/m/n/10 logit[] []=[] []glm[][](Y[] []~[] []X1[] []+[] []X2[] []
++[] []X3,[] []data[] []= dat,[] []family[] []=[] []"binomial"[][])[][] 
+ []
+
+
+Overfull \hbox (24.52475pt too wide) in paragraph at lines 338--338
+[]\OT1/cmtt/m/n/10 ## glm(formula = Y ~ X1 + X2 + X3, family = "binomial", data
+ = dat)[] 
+ []
+
+
+Overfull \hbox (14.02484pt too wide) in paragraph at lines 338--338
+[]\OT1/cmtt/m/n/10 ## Signif. codes:  0 ^^M***^^M 0.001 ^^M**^^M 0.01 ^^M*^^M 0
+.05 ^^M.^^M 0.1 ^^M ^^M 1[] 
+ []
+
+
+Overfull \hbox (128.3171pt too wide) detected at line 342
+[] \OT1/cmr/m/n/10 = [] = []
+ []
+
+[8]
+Package color Info: Redefining color shadecolor on input line 347.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 371.
+
+ (/usr/local/texlive/2014/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 371.
+Package color Info: Redefining color shadecolor on input line 381.
+Package color Info: Redefining color shadecolor on input line 404.
+
+Overfull \hbox (14.02484pt too wide) in paragraph at lines 435--435
+[]\OT1/cmtt/m/n/10 ## Signif. codes:  0 ^^M***^^M 0.001 ^^M**^^M 0.01 ^^M*^^M 0
+.05 ^^M.^^M 0.1 ^^M ^^M 1[] 
+ []
+
+[9]
+Package color Info: Redefining color shadecolor on input line 442.
+Package color Info: Redefining color shadecolor on input line 469.
+ [10]
+Package color Info: Redefining color shadecolor on input line 523.
+
+Overfull \hbox (145.2737pt too wide) in paragraph at lines 531--531
+[]  []\OT1/cmtt/m/n/10 logitF[] []=[] []glm[][](Y[] []~[] []X1[] []+[] []X2[] [
+]+[][]I[][](X1[][]^[][]2[][])[] []+[] []I[][](X2[][]^[][]2[][])[] []+[] []I[][]
+(X1[][]*[][]X2),[] []data[] []= dat,[] []family[] []=[] []"binomial"[][])[][] 
+ []
+
+[11]
+Package color Info: Redefining color shadecolor on input line 583.
+
+Overfull \hbox (50.77452pt too wide) in paragraph at lines 599--599
+[]  []\OT1/cmtt/m/n/10 fit[] []=[] []plsr[][](Y[] []~[] []X1[] []+[] []X2[] []+
+[] []X3[] []+[] []X4[] []+[] []X5,[] []data[] []= dat,[] []5[][],[] []validatio
+n[][]=[][]"CV"[][])[][] 
+ []
+
+
+Overfull \hbox (19.2748pt too wide) in paragraph at lines 618--618
+[]\OT1/cmtt/m/n/10 ##        (Intercept)  1 comps  2 comps  3 comps  4 comps  5
+ comps[] 
+ []
+
+
+Overfull \hbox (19.2748pt too wide) in paragraph at lines 618--618
+[]\OT1/cmtt/m/n/10 ## CV           1.021   0.3139   0.2964   0.2419   0.1853   
+0.2259[] 
+ []
+
+
+Overfull \hbox (19.2748pt too wide) in paragraph at lines 618--618
+[]\OT1/cmtt/m/n/10 ## adjCV        1.021   0.3094   0.2901   0.2340   0.1823   
+0.2213[] 
+ []
+
+[12] <figure/unnamed-chunk-19-1.pdf, id=69, 505.89pt x 505.89pt>
+File: figure/unnamed-chunk-19-1.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-19-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-19-1.pdf used on input line 634.
+(pdftex.def)             Requested size: 327.22218pt x 327.2267pt.
+ [13]
+Package color Info: Redefining color shadecolor on input line 641.
+LaTeX Font Info:    Try loading font information for OMS+cmtt on input line 647
+.
+
+(/Library/Frameworks/R.framework/Resources/share/texmf/tex/latex/omscmtt.fd
+File: omscmtt.fd 
+)
+LaTeX Font Info:    Font shape `OMS/cmtt/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 647.
+
+[14 <./figure/unnamed-chunk-19-1.pdf>] (./hw6.aux) ) 
+Here is how much of TeX's memory you used:
+ 2308 strings out of 493117
+ 32050 string characters out of 6135433
+ 99804 words of memory out of 5000000
+ 5731 multiletter control sequences out of 15000+600000
+ 9350 words of font info for 35 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 38i,7n,23p,430b,372s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2014/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2014/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmitt10.pfb></usr/local/texlive/2014/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2014/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2014/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2014/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2014/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2014/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2014/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2014/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2014/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmtt10.pfb>
+Output written on hw6.pdf (14 pages, 167009 bytes).
+PDF statistics:
+ 118 PDF objects out of 1000 (max. 8388607)
+ 82 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+
