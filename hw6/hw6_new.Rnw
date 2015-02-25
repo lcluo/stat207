@@ -21,6 +21,7 @@
 <<>>=
   dat = read.table("CH14PR09.txt")
   names(dat) = c("Y", "X")
+  dat = dat[order(dat$X), ]
   logit = glm(Y ~ X, data = dat, family = "binomial")
   summary(logit)
   b0 = coef(logit)[1]; b0
@@ -86,6 +87,8 @@
 
   plot(fit, plottype = "scores", comps = 1:3)
 @
+
+\qquad The first component is the most important component to predict the data and each component seems to be uncorrelated with other component.
 
 \item
 
@@ -208,8 +211,6 @@ l.opt = optimize(l.foo, c(0, 100), sig.sq, lambda, e.beta); l.opt
 
 \qquad For D(k), D(k.opt)$<$D(0), it's possible to improve over the ordinary least squares method using ridge regression.
 For L(k), L(k.opt)$<$L(0), which also means it's possible to improve over the ordinary least squares method using ridge regression.
-
-
 
 \end{enumerate}
 

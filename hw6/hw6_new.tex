@@ -72,6 +72,7 @@
 \begin{alltt}
   \hlstd{dat} \hlkwb{=} \hlkwd{read.table}\hlstd{(}\hlstr{"CH14PR09.txt"}\hlstd{)}
   \hlkwd{names}\hlstd{(dat)} \hlkwb{=} \hlkwd{c}\hlstd{(}\hlstr{"Y"}\hlstd{,} \hlstr{"X"}\hlstd{)}
+  \hlstd{dat} \hlkwb{=} \hlstd{dat[}\hlkwd{order}\hlstd{(dat}\hlopt{$}\hlstd{X), ]}
   \hlstd{logit} \hlkwb{=} \hlkwd{glm}\hlstd{(Y} \hlopt{~} \hlstd{X,} \hlkwc{data} \hlstd{= dat,} \hlkwc{family} \hlstd{=} \hlstr{"binomial"}\hlstd{)}
   \hlkwd{summary}\hlstd{(logit)}
 \end{alltt}
@@ -210,8 +211,8 @@
 ## VALIDATION: RMSEP
 ## Cross-validated using 10 random segments.
 ##        (Intercept)  1 comps  2 comps  3 comps  4 comps  5 comps
-## CV           1.021   0.4301   0.2754   0.2000   0.1800   0.1814
-## adjCV        1.021   0.4113   0.2699   0.1946   0.1768   0.1785
+## CV           1.021   0.3245   0.2416   0.1843   0.1718   0.2124
+## adjCV        1.021   0.3186   0.2405   0.1802   0.1692   0.2082
 ## 
 ## TRAINING: % variance explained
 ##    1 comps  2 comps  3 comps  4 comps  5 comps
@@ -282,6 +283,8 @@
 \includegraphics[width=\maxwidth]{figure/unnamed-chunk-5-1} 
 
 \end{knitrout}
+
+\qquad The first component is the most important component to predict the data and each component seems to be uncorrelated with other component.
 
 \item
 
@@ -389,7 +392,7 @@
   \hlstd{model}\hlopt{$}\hlstd{lambda.min}
 \end{alltt}
 \begin{verbatim}
-## [1] 0.01090626
+## [1] 0.01441744
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -403,13 +406,13 @@
 \end{alltt}
 \begin{verbatim}
 ## 6 x 1 sparse Matrix of class "dgCMatrix"
-##                      1
-## (Intercept)  .        
-## X1          -0.0396032
-## X2           0.2645694
-## X3           .        
-## X4           0.0070940
-## X5           0.6501270
+##                       1
+## (Intercept)  .         
+## X1          -0.05131094
+## X2           0.26469804
+## X3           .         
+## X4           0.01620098
+## X5           0.66414967
 \end{verbatim}
 \begin{alltt}
   \hlstd{fitted.} \hlkwb{=} \hlkwd{predict}\hlstd{(model,} \hlkwc{newx} \hlstd{= x)}
@@ -555,8 +558,6 @@
 
 \qquad For D(k), D(k.opt)$<$D(0), it's possible to improve over the ordinary least squares method using ridge regression.
 For L(k), L(k.opt)$<$L(0), which also means it's possible to improve over the ordinary least squares method using ridge regression.
-
-
 
 \end{enumerate}
 
