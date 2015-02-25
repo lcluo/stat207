@@ -295,10 +295,7 @@ therefore, X3,X4,X5 can be dropped from the regression model, and the P-value is
   n = 25
   ans = integer(5)
   for (i in 2:6)
-  {
-    ans[i-1] = (n-i-2)*(Radj[i]-Radj[i-1])/(1-Radj[i])
-  }
-  
+  {    ans[i-1] = (n-i-2)*(Radj[i]-Radj[i-1])/(1-Radj[i])}
 @
 
 \item
