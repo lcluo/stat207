@@ -1,0 +1,386 @@
+\documentclass{article}
+\usepackage{enumerate}
+\usepackage{amsmath}
+
+\begin{document}
+
+\title{\huge \textbf{Stat 207 HW7} \\}
+\author{\large Cheng Luo 912466499 \\ \large Fan Wu 912538518}
+\maketitle
+
+\newpage
+\mbox{}
+\newpage
+
+
+\section{14.11}
+
+\begin{enumerate}[(a)]
+
+\item
+
+<<>>=
+  dat = read.table("CH14PR11.txt")
+  names(dat) = c("X", "n", "Y")
+  plot(dat$X, dat$Y/dat$n)
+@
+
+\qquad The plot support the analyst's belief that the logistic response functiion is appropriate.
+
+\item
+
+<<>>=
+  logit = glm(Y/n ~ X, data = dat, family = "binomial")
+  summary(logit)
+@
+
+\qquad From the summary, the maximum likelihood estimates of $\hat{\beta}_0 = -2.0766$, $\hat{\beta}_1 = 0.1359$, $$\hat{\pi} = \frac{exp(\beta_0+\beta_1 X)}{1+exp(\beta_0+\beta_1 X)}=\frac{exp(-2.0766+0.1359 X)}{1+exp(-2.0766+0.1359 X)}$$
+
+\item
+
+<<>>=
+  plot(dat$X, fitted(logit), ylim = c(0, 1))
+  points(dat$X, dat$Y/dat$n, lwd = 1)
+@
+
+\qquad The fitted logistic response function appears to be well.
+
+\item
+
+<<>>=
+  exp(0.1359)
+@
+
+\qquad $exp(\beta_1)=1.145567$, so that the odds of the bottles being returned is increased by 14.5567\% with each one deposit level increased.
+
+\item
+
+<<>>=
+  newdat = data.frame(X = 15)
+  predict(logit, newdata = newdat, type = "response")
+@
+
+\qquad The estimated probability that a bottle will be returned when the deposit is 15 cents is 0.4903005.
+
+\item
+
+<<>>=
+  newpi = 0.75
+  pi_2 = log(newpi/(1-newpi))
+  (pi_2 - (-2.0766))/0.1359
+@
+
+\qquad Estimate the amount of deposit for which 75\% of the bottles are expected to be returned is 23.36433.
+
+\end{enumerate}
+
+\section{14.14}
+
+\begin{enumerate}[(a)]
+
+\item
+
+<<>>=
+  dat = read.table("CH14PR14.txt")
+  names(dat) = c("Y", "X1", "X2", "X3")
+  logit = glm(Y ~ X1 + X2 + X3, data = dat, family = "binomial")
+  summary(logit)
+@
+
+\qquad From the summary, the maximum likelihood estimates $\hat{\beta}_0 = -1.17716 $, $\hat{\beta}_1 = 0.07279$, $\hat{\beta}_2 = -0.09899 $, $\hat{\beta}_4 = 0.43397 $ $$\hat{\pi} = \frac{exp(\beta_0+\beta_1 X1 + \beta_2 X2 + \beta_3 X3)}{1+exp(\beta_0+\beta_1 X1 + \beta_2 X2 + \beta_3 X3)}=\frac{exp(-1.17716+0.07279 X1 - 0.09899 X2 +0.43397 X3)}{1+exp(-1.17716+0.07279 X1 - 0.09899 X2 +0.43397 X3)}$$
+
+\item
+
+<<>>=
+  exp(0.07279)
+  exp(-0.09899 )
+  exp(0.43397)
+@
+
+\begin{itemize}
+\item
+$exp(\beta_1)=1.075505$, so that the odds of getting a flu shot is increased by 7.5\% with each one age increased.
+\item
+$exp(\beta_2)=0.9057518$, so that the odds of getting a flu shot is decreased by 9.4\% with each one health awareness index increased.
+\item
+$exp(\beta_3)=1.543373$, so that the odds of getting a flu shot is increased by 54.3\% from woman to man.
+\end{itemize}
+
+\item
+
+<<>>=
+  newdat = data.frame(X1 = 55, X2 = 60, X3 = 1)
+  predict(logit, newdata = newdat, type = "response")
+@
+
+\qquad The estimated probability with X1=55, X2=60 and X3=1 is 0.06422197 .
+
+\end{enumerate}
+
+\section{14.17}
+
+\begin{enumerate}[(a)]
+
+\item
+
+<<>>=
+  dat = read.table("CH14PR11.txt")
+  names(dat) = c("X", "n", "Y")
+  logit = glm(Y/n ~ X, data = dat, family = "binomial")
+  summary(logit)
+  b1 = 0.1359
+  s1 = 0.1067
+  z = qnorm(1-0.05/2)
+  c(b1-s1*z, b1+s1*z)
+  c(exp(b1-s1*z), exp(b1+s1*z))  
+@
+
+\qquad From summary(logit), we get $s(b_1) = 0.1067, b_1 = 0.1359$, based on $b_k \pm z(1-\alpha/2)s{b_k}$, we conclude that we are 95 \% confident that $\beta_1$ is between -0.07322816 and 0.34502816, and corresponding confidence limits for the odds ratio $exp(\beta_1)$ is between 0.9293888 and 1.4120297.
+
+\item
+
+<<>>=
+  qnorm(1-0.05/2)
+@
+
+\begin{center}
+$H_0$:$\beta_1=0$
+
+VS. $H_1$:$\beta_1 \ne 0$
+
+$z^*=\frac{b_1}{s(b_1)} = 0.1359/0.1067   = 1.273664$
+
+we can reject $H_0$ if $|z^*| > Z(1-0.05/2)=1.959964$,otherwise reject$H_1$
+
+so that reject $H_1$ because $|z^*|<1.959964$,
+
+therefore, X1 can be dropped from the regression model, and the P-value is 0.203
+\end{center}
+
+\item
+
+<<>>=
+  logLik(logit)
+  logitR = glm(Y/n ~ 1, data = dat, family = "binomial")
+  logLik(logitR)
+  qchisq(1-0.05, 2-1)
+  pchisq(5.339856, 1, lower.tail = FALSE)
+@
+
+\begin{center}
+$H_0$:$\beta_1=0$
+
+VS. $H_1$:$\beta_1 \ne 0$
+
+The full model: $\pi = [1 + exp(-(\beta_0 + \beta_1 X1))]^{-1} $
+
+ln(L(F))= -1.557684
+
+The reduced model: $\pi = [1 + exp(-(\beta_0))]^{-1} $
+
+ln(L(R))= -4.158904
+
+$G^2$ = -2(ln(L(R)-ln(L(F)))) = 5.20244
+
+we can reject $H_0$ if $G^2 > \chi^2(1-0.05, 2-1)=3.8415$,otherwise reject$H_1$
+
+so that reject $H_0$ because $G^2 >3.8415$,
+
+therefore, X1 cannot be dropped from the regression model, and the P-value is 0.02084319.And the result is different from the result we get in (b).
+\end{center}
+
+\end{enumerate}
+
+\section{14.20}
+
+\begin{enumerate}[(a)]
+
+\item
+
+<<>>=
+  dat = read.table("CH14PR14.txt")
+  names(dat) = c("Y", "X1", "X2", "X3")
+  logit = glm(Y ~ X1 + X2 + X3, data = dat, family = "binomial")
+  summary(logit) 
+@
+
+\qquad $z(1-\frac{0.1}{2*2})=0.975, s(b_1)=0.03038, s(b_2)=0.03348$
+$$exp(30∗(0.0728−0.03038∗1.96))<exp(30\beta_1)<exp(30∗(0.0728+0.03038∗1.96))$$
+$$1.4878<exp(30\beta_1)<52.9837$$
+$$exp(25∗(−0.099−0.03348∗1.96))<exp(25\beta_2)<exp(25∗(0.0728+0.03348∗1.96))$$
+$$0.0163 <exp(25\beta_2)< 31.824$$
+\item
+
+<<>>=
+  qnorm(1-0.05/2)
+@
+
+\begin{center}
+$H_0$:$\beta_3=0$
+
+VS. $H_1$:$\beta_3 \ne 0$
+
+$z^*=\frac{b_3}{s(b_3)} = 0.43397/0.52179   = 0.8316947$
+
+we can reject $H_0$ if $|z^*| > Z(1-0.05/2)=1.959964$,otherwise reject$H_1$
+
+so that reject $H_1$ because $|z^*|<1.959964$,
+
+therefore, X3 can be dropped from the regression model, and the P-value is 0.40558  
+\end{center}
+
+\item
+
+<<>>=
+  logLik(logit)
+  logitR = glm(Y ~ X1+X2, data = dat, family = "binomial")
+  logLik(logitR)
+  qchisq(1-0.05, 4-3)
+  pchisq(0.70236, 1, lower.tail = FALSE)
+@
+
+\begin{center}
+$H_0$:$\beta_3=0$
+
+VS. $H_1$:$\beta_3 \ne 0$
+
+The full model: $\pi = [1 + exp(-(\beta_0 + \beta_1 X1 + \beta_2 X2 + \beta_3 X3))]^{-1} $
+
+ln(L(F))= -52.54659
+
+The reduced model: $\pi = [1 + exp(-(\beta_0 + \beta_1 X1 + \beta_2 X2))]^{-1} $
+
+ln(L(R))= -52.89769
+
+$G^2$ = -2(ln(L(R)-ln(L(F)))) = 0.70236
+
+we can reject $H_0$ if $G^2 > \chi^2(1-0.05, 4-3)=3.8415$,otherwise reject$H_1$
+
+so that reject $H_1$ because $G^2 < 3.8415$,
+
+therefore, X3 can be dropped from the regression model, and the P-value is 0.4019918.And the result is the same as the result we get in (b).
+\end{center}
+
+\item
+
+<<>>=
+  logitF = glm(Y ~ X1+X2+I(X1^2)+I(X2^2)+I(X1*X2), data = dat, family = "binomial")
+  logLik(logitF)
+  logitR = glm(Y ~ X1+X2, data = dat, family = "binomial")
+  logLik(logitR)
+  qchisq(1-0.05, 6-3)
+  pchisq(1.53394, 3, lower.tail = FALSE)
+@
+
+\begin{center}
+$H_0$:$\beta_3=\beta_4=\beta_5=0$
+
+VS. $H_1$:$not all \beta_3,\beta_4,\beta_5 equal 0$
+
+The full model: $\pi = [1 + exp(-(\beta_0 + \beta_1 X1 + \beta_2 X2 + \beta_3 X1^2 + \beta_4 X2^2 + \beta_5 X1*X2))]^{-1} $
+
+ln(L(F))= -52.13072
+
+The reduced model: $\pi = [1 + exp(-(\beta_0 + \beta_1 X1 + \beta_2 X2))]^{-1} $
+
+ln(L(R))= -52.89769
+
+$G^2$ = -2(ln(L(R)-ln(L(F)))) = 1.53394
+
+we can reject $H_0$ if $G^2 > \chi^2(1-0.05, 6-3)=7.814728$,otherwise reject$H_1$
+
+so that reject $H_1$ because $G^2 < 7.814728$,
+
+therefore, $X1^2,X2^2,I(X1*X2)$ can be dropped from the regression model, and the P-value is 0.6744594.And the result is the same as the result we get in (b).
+\end{center}
+
+\end{enumerate}
+
+\section{14.22}
+
+\begin{enumerate}[(a)]
+
+\item
+
+<<>>=
+  
+@
+
+\item
+
+\item
+
+\item
+
+\end{enumerate}
+
+\section{14.23}
+
+<<>>=
+  dat = read.table("CH14PR11.txt")
+  names(dat) = c("X", "n", "Y")
+  logit = glm(Y/n ~ X, data = dat, family = "binomial")
+  Oj1 = dat$Y
+  Ej1 = round(dat$n*fitted(logit), 1)
+  Oj0 = dat$n-dat$Y
+  Ej0 = dat$n-Ej1
+  rbind(Oj1, Oj0)
+  rbind(Ej1, Ej0)
+  X.squ = sum((rbind(Oj1, Oj0)-rbind(Ej1, Ej0))^2/rbind(Ej1, Ej0));X.squ
+@
+
+\begin{center}
+$H_0$:$E(Y)=[1+exp(-\beta_0-\beta_1 X1)]^{-1}$
+
+VS. $H_1$:$E(Y)  \ne [1+exp(-\beta_0-\beta_1 X1)]^{-1}$
+
+$X^2=\sum_j \sum_k \frac{(O_{jk}-E_{jk})^2}{E_{jk}} = 12.287$
+
+we can reject $H_0$ if $X^2 > \chi^2(0.99, 3)=13.2767$,otherwise reject$H_1$
+
+so that reject $H_1$ because $X^2 <13.2767$, 
+\end{center}
+
+
+
+\section{14.40}
+
+\begin{displaymath}
+\begin{split}
+  \frac{exp(\beta_0+\beta_1 Xi)}{1+exp(\beta_0+\beta_1 Xi)} &= \frac{1}{\frac{1}{exp(\beta_0+\beta_1 Xi)}+1} \\
+    &= \frac{1}{exp(0-\beta_0-\beta_1 Xi) + 1} \\
+    &= [1+exp(-\beta_0-\beta_1 Xi)]^{-1}
+\end{split}
+\end{displaymath}
+
+\section{14.41}
+
+\qquad For given observations $Y_1,Y_2...,Y_n$, all terms with a given X value, $X_j$, we get $$Y_{\cdot j}(\beta_0+\beta_1 X_j)-n_j ln(1+exp(\beta_0+\beta_1 Xj)$$
+
+Because there are $\binom{n_j}{Y_{\cdot j}}$ ways of getting these, we must add $ ln\binom{n_j}{Y_{\cdot j}}$, hence we get $$ln \binom{n_j}{Y_{\cdot j}} + Y_{\cdot j}(\beta_0+\beta_1 X_j)-n_j ln(1+exp(\beta_0+\beta_1 Xj)$$
+
+\section{14.42}
+
+\begin{displaymath}
+\begin{split}
+  \pi_i &= \frac{exp(\pi_i^{'})}{1+exp(\pi_i^{'})} \\
+  1-\pi_i &= \frac{1}{1+exp(\pi_i^{'})} \\
+  \frac{\pi_i}{1-\pi_i} &= exp(\pi_i^{'}) \\
+  F_L^{-1}(\pi_i) &= \pi_i^{'} =  log_e( \frac{\pi_i}{1-\pi_i})
+\end{split}
+\end{displaymath}
+
+\section{14.43}
+
+\begin{displaymath}
+\begin{split}
+  lnL(\beta_0, \beta_1) &= \sum_{i=1}^n y_i(\beta_0+\beta_1 X_i) - \sum_{i=1}^n(1+exp(\beta_0+\beta_1 X_i))\\
+  \frac{\partial^2 lnL}{\partial \beta_0^2} &= - \sum_{i=1}^n \frac{exp(\beta_0+\beta_1 X_i)}{[1+exp(\beta_0+\beta_1 X_i)]^2}\\
+  \frac{\partial^2 lnL}{\partial \beta_1^2} &= - \sum_{i=1}^n \frac{X_i^2 exp(\beta_0+\beta_1 X_i)}{[1+exp(\beta_0+\beta_1 X_i)]^2}\\
+  \frac{\partial^2 lnL}{\partial \beta_0 \partial \beta_1} &= - \sum_{i=1}^n \frac{X_i exp(\beta_0+\beta_1 X_i)}{[1+exp(\beta_0+\beta_1 X_i)]^2}\\
+  -E\{ \frac{\partial^2 lnL}{\partial \beta_0 \partial \beta_1} \} &= -g_{01} = -g_{10}
+  \text{which is reduced to (14.51)}
+\end{split}
+\end{displaymath}
+
+\end{document}
