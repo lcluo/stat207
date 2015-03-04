@@ -624,13 +624,284 @@ therefore, $X1^2,X2^2,I(X1*X2)$ can be dropped from the regression model, and th
 
 \item
 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+  \hlstd{dat} \hlkwb{=} \hlkwd{read.table}\hlstd{(}\hlstr{"CH14PR14.txt"}\hlstd{)}
+  \hlkwd{names}\hlstd{(dat)} \hlkwb{=} \hlkwd{c}\hlstd{(}\hlstr{"y"}\hlstd{,} \hlstr{"x1"}\hlstd{,} \hlstr{"x2"}\hlstd{,} \hlstr{"x3"}\hlstd{)}
+  \hlstd{dat.new} \hlkwb{=} \hlkwd{scale}\hlstd{(dat[,} \hlnum{2}\hlopt{:}\hlnum{4}\hlstd{],} \hlkwc{scale} \hlstd{=} \hlnum{FALSE}\hlstd{)}
+  \hlstd{dat.new} \hlkwb{=} \hlkwd{as.data.frame}\hlstd{(}\hlkwd{cbind}\hlstd{(dat}\hlopt{$}\hlstd{y, dat.new))}
+  \hlkwd{names}\hlstd{(dat.new)} \hlkwb{=} \hlkwd{c}\hlstd{(}\hlstr{"y"}\hlstd{,} \hlstr{"x1"}\hlstd{,} \hlstr{"x2"}\hlstd{,} \hlstr{"x3"}\hlstd{)}
 
+  \hlstd{alpha} \hlkwb{=} \hlnum{.1}
+  \hlstd{wrap.foo} \hlkwb{=} \hlkwa{function}\hlstd{(}\hlkwc{formula}\hlstd{,} \hlkwc{dat.new.} \hlstd{= dat.new)}
+  \hlstd{\{}
+    \hlstd{model} \hlkwb{=} \hlkwd{glm}\hlstd{(formula,} \hlkwc{family} \hlstd{= binomial,} \hlkwc{data} \hlstd{= dat.new.)}
+    \hlstd{p.val} \hlkwb{=} \hlkwd{summary}\hlstd{(model)}\hlopt{$}\hlstd{coef}
+    \hlstd{p.val[}\hlkwd{nrow}\hlstd{(p.val),} \hlnum{4}\hlstd{]}
+  \hlstd{\}}
+  \hlstd{tmp} \hlkwb{=} \hlkwd{c}\hlstd{(}\hlkwd{wrap.foo}\hlstd{(y} \hlopt{~} \hlstd{x1),}
+          \hlkwd{wrap.foo}\hlstd{(y} \hlopt{~} \hlstd{x2),}
+          \hlkwd{wrap.foo}\hlstd{(y} \hlopt{~} \hlkwd{I}\hlstd{(x1}\hlopt{*}\hlstd{x2)),}
+          \hlkwd{wrap.foo}\hlstd{(y} \hlopt{~} \hlkwd{I}\hlstd{(x1}\hlopt{^}\hlnum{2}\hlstd{)),}
+          \hlkwd{wrap.foo}\hlstd{(y} \hlopt{~} \hlkwd{I}\hlstd{(x2}\hlopt{^}\hlnum{2}\hlstd{)),}
+          \hlkwd{wrap.foo}\hlstd{(y} \hlopt{~} \hlkwd{I}\hlstd{(x1}\hlopt{^}\hlnum{2}\hlstd{)}\hlopt{:}\hlkwd{I}\hlstd{(x2}\hlopt{^}\hlnum{2}\hlstd{)))}
+  \hlkwd{any}\hlstd{(tmp} \hlopt{<} \hlstd{alpha)}
+\end{alltt}
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+\begin{alltt}
+  \hlkwd{which.min}\hlstd{(tmp)}
+\end{alltt}
+\begin{verbatim}
+## [1] 1
+\end{verbatim}
+\begin{alltt}
+  \hlstd{tmp} \hlkwb{=} \hlkwd{c}\hlstd{(}\hlkwd{wrap.foo}\hlstd{(y} \hlopt{~} \hlstd{x1} \hlopt{+} \hlstd{x2),}
+          \hlkwd{wrap.foo}\hlstd{(y} \hlopt{~} \hlstd{x1} \hlopt{+} \hlkwd{I}\hlstd{(x1}\hlopt{*}\hlstd{x2)),}
+          \hlkwd{wrap.foo}\hlstd{(y} \hlopt{~} \hlstd{x1} \hlopt{+} \hlkwd{I}\hlstd{(x1}\hlopt{^}\hlnum{2}\hlstd{)),}
+          \hlkwd{wrap.foo}\hlstd{(y} \hlopt{~} \hlstd{x1} \hlopt{+} \hlkwd{I}\hlstd{(x2}\hlopt{^}\hlnum{2}\hlstd{))}
+          \hlstd{)}
+  \hlkwd{any}\hlstd{(tmp} \hlopt{<} \hlstd{alpha)}
+\end{alltt}
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+\begin{alltt}
+  \hlkwd{which.min}\hlstd{(tmp)}
+\end{alltt}
+\begin{verbatim}
+## [1] 1
+\end{verbatim}
+\begin{alltt}
+  \hlstd{tmp} \hlkwb{=} \hlkwd{c}\hlstd{(}\hlkwd{wrap.foo}\hlstd{(y} \hlopt{~} \hlstd{x1} \hlopt{+} \hlstd{x2} \hlopt{+} \hlkwd{I}\hlstd{(x1}\hlopt{*}\hlstd{x2)),}
+          \hlkwd{wrap.foo}\hlstd{(y} \hlopt{~} \hlstd{x1} \hlopt{+} \hlstd{x2} \hlopt{+} \hlkwd{I}\hlstd{(x1}\hlopt{^}\hlnum{2}\hlstd{)),}
+          \hlkwd{wrap.foo}\hlstd{(y} \hlopt{~} \hlstd{x1} \hlopt{+} \hlstd{x2} \hlopt{+} \hlkwd{I}\hlstd{(x2}\hlopt{^}\hlnum{2}\hlstd{))}
+          \hlstd{)}
+  \hlkwd{any}\hlstd{(tmp} \hlopt{<} \hlstd{alpha)}
+\end{alltt}
+\begin{verbatim}
+## [1] FALSE
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\qquad X1 enters in step 1 ; X2 enters in step 2; no variables satisfy criterion for entry in step 3.
 
 \item
 
-\item
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+  \hlstd{wrap.foo} \hlkwb{=} \hlkwa{function}\hlstd{(}\hlkwc{formula}\hlstd{,} \hlkwc{dat.new.} \hlstd{= dat.new)}
+  \hlstd{\{}
+    \hlstd{model} \hlkwb{=} \hlkwd{glm}\hlstd{(formula,} \hlkwc{family} \hlstd{= binomial,} \hlkwc{data} \hlstd{= dat.new.)}
+    \hlstd{p.val} \hlkwb{=} \hlkwd{summary}\hlstd{(model)}\hlopt{$}\hlstd{coef}
+    \hlstd{p.val} \hlkwb{=} \hlstd{p.val[,} \hlnum{4}\hlstd{]}
+    \hlstd{p.val[}\hlopt{-}\hlnum{1}\hlstd{]}
+  \hlstd{\}}
+
+  \hlstd{tmp} \hlkwb{=} \hlkwd{wrap.foo}\hlstd{(y} \hlopt{~} \hlstd{x1} \hlopt{+} \hlstd{x2} \hlopt{+} \hlkwd{I}\hlstd{(x1}\hlopt{*}\hlstd{x2)} \hlopt{+} \hlkwd{I}\hlstd{(x1}\hlopt{^}\hlnum{2}\hlstd{)} \hlopt{+} \hlkwd{I}\hlstd{(x2}\hlopt{^}\hlnum{2}\hlstd{))}
+  \hlkwd{any}\hlstd{(tmp} \hlopt{>} \hlstd{alpha)}
+\end{alltt}
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+\begin{alltt}
+  \hlkwd{which.max}\hlstd{(tmp)}
+\end{alltt}
+\begin{verbatim}
+## I(x1^2) 
+##       4
+\end{verbatim}
+\begin{alltt}
+  \hlstd{tmp} \hlkwb{=} \hlkwd{wrap.foo}\hlstd{(y} \hlopt{~} \hlstd{x1} \hlopt{+} \hlstd{x2} \hlopt{+} \hlkwd{I}\hlstd{(x1}\hlopt{*}\hlstd{x2)} \hlopt{+} \hlkwd{I}\hlstd{(x2}\hlopt{^}\hlnum{2}\hlstd{))}
+  \hlkwd{any}\hlstd{(tmp} \hlopt{>} \hlstd{alpha)}
+\end{alltt}
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+\begin{alltt}
+  \hlkwd{which.max}\hlstd{(tmp)}
+\end{alltt}
+\begin{verbatim}
+## I(x1 * x2) 
+##          3
+\end{verbatim}
+\begin{alltt}
+  \hlstd{tmp} \hlkwb{=} \hlkwd{wrap.foo}\hlstd{(y} \hlopt{~} \hlstd{x1} \hlopt{+} \hlstd{x2} \hlopt{+} \hlkwd{I}\hlstd{(x2}\hlopt{^}\hlnum{2}\hlstd{))}
+  \hlkwd{any}\hlstd{(tmp} \hlopt{>} \hlstd{alpha)}
+\end{alltt}
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+\begin{alltt}
+  \hlkwd{which.max}\hlstd{(tmp)}
+\end{alltt}
+\begin{verbatim}
+## I(x2^2) 
+##       3
+\end{verbatim}
+\begin{alltt}
+  \hlstd{tmp} \hlkwb{=} \hlkwd{wrap.foo}\hlstd{(y} \hlopt{~} \hlstd{x1} \hlopt{+} \hlstd{x2)}
+  \hlkwd{any}\hlstd{(tmp} \hlopt{>} \hlstd{alpha)}
+\end{alltt}
+\begin{verbatim}
+## [1] FALSE
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\qquad X11 is deleted in step 1; X12 is deleted in step 2; X3 is deleted in step 3; X22 is deleted in step 4; X1 and X2 are retained in the model.
 
 \item
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+  \hlstd{model} \hlkwb{=} \hlkwd{glm}\hlstd{(y} \hlopt{~} \hlstd{x1} \hlopt{+} \hlstd{x2} \hlopt{+} \hlkwd{I}\hlstd{(x1}\hlopt{*}\hlstd{x2)} \hlopt{+} \hlkwd{I}\hlstd{(x1}\hlopt{^}\hlnum{2}\hlstd{)} \hlopt{+} \hlkwd{I}\hlstd{(x2}\hlopt{^}\hlnum{2}\hlstd{)} \hlopt{+} \hlkwd{I}\hlstd{(x1}\hlopt{^}\hlnum{2}\hlopt{*}\hlstd{x2}\hlopt{^}\hlnum{2}\hlstd{),}
+              \hlkwc{family} \hlstd{= binomial,} \hlkwc{data} \hlstd{= dat.new)}
+  \hlkwd{step}\hlstd{(model)}
+\end{alltt}
+\begin{verbatim}
+## Start:  AIC=116.67
+## y ~ x1 + x2 + I(x1 * x2) + I(x1^2) + I(x2^2) + I(x1^2 * x2^2)
+## 
+##                  Df Deviance    AIC
+## - I(x2^2)         1   102.68 114.68
+## - I(x1^2)         1   103.56 115.56
+## - I(x1 * x2)      1   103.84 115.84
+## - I(x1^2 * x2^2)  1   104.26 116.26
+## <none>                102.67 116.67
+## - x2              1   107.48 119.48
+## - x1              1   109.46 121.46
+## 
+## Step:  AIC=114.68
+## y ~ x1 + x2 + I(x1 * x2) + I(x1^2) + I(x1^2 * x2^2)
+## 
+##                  Df Deviance    AIC
+## - I(x1^2)         1   103.83 113.83
+## - I(x1 * x2)      1   103.84 113.84
+## <none>                102.68 114.68
+## - I(x1^2 * x2^2)  1   105.71 115.71
+## - x2              1   107.94 117.94
+## - x1              1   109.50 119.50
+## 
+## Step:  AIC=113.83
+## y ~ x1 + x2 + I(x1 * x2) + I(x1^2 * x2^2)
+## 
+##                  Df Deviance    AIC
+## - I(x1 * x2)      1   104.74 112.74
+## - I(x1^2 * x2^2)  1   105.75 113.75
+## <none>                103.83 113.83
+## - x1              1   109.97 117.97
+## - x2              1   111.00 119.00
+## 
+## Step:  AIC=112.74
+## y ~ x1 + x2 + I(x1^2 * x2^2)
+## 
+##                  Df Deviance    AIC
+## - I(x1^2 * x2^2)  1   105.80 111.80
+## <none>                104.74 112.74
+## - x1              1   109.97 115.97
+## - x2              1   111.40 117.40
+## 
+## Step:  AIC=111.8
+## y ~ x1 + x2
+## 
+##        Df Deviance    AIC
+## <none>      105.80 111.80
+## - x1    1   113.20 117.20
+## - x2    1   116.27 120.27
+## 
+## Call:  glm(formula = y ~ x1 + x2, family = binomial, data = dat.new)
+## 
+## Coefficients:
+## (Intercept)           x1           x2  
+##    -2.29705      0.07787     -0.09547  
+## 
+## Degrees of Freedom: 158 Total (i.e. Null);  156 Residual
+## Null Deviance:	    134.9 
+## Residual Deviance: 105.8 	AIC: 111.8
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\qquad The best model according to the AICp criterion is based on y ~ x1 + x2. AIC = 111.8.
+
+\item
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+  \hlkwd{step}\hlstd{(model,} \hlkwc{k} \hlstd{=} \hlkwd{log}\hlstd{(}\hlnum{159}\hlstd{))}
+\end{alltt}
+\begin{verbatim}
+## Start:  AIC=138.15
+## y ~ x1 + x2 + I(x1 * x2) + I(x1^2) + I(x2^2) + I(x1^2 * x2^2)
+## 
+##                  Df Deviance    AIC
+## - I(x2^2)         1   102.68 133.10
+## - I(x1^2)         1   103.56 133.97
+## - I(x1 * x2)      1   103.84 134.25
+## - I(x1^2 * x2^2)  1   104.26 134.68
+## - x2              1   107.48 137.89
+## <none>                102.67 138.15
+## - x1              1   109.46 139.87
+## 
+## Step:  AIC=133.1
+## y ~ x1 + x2 + I(x1 * x2) + I(x1^2) + I(x1^2 * x2^2)
+## 
+##                  Df Deviance    AIC
+## - I(x1^2)         1   103.83 129.17
+## - I(x1 * x2)      1   103.84 129.19
+## - I(x1^2 * x2^2)  1   105.71 131.05
+## <none>                102.68 133.10
+## - x2              1   107.94 133.28
+## - x1              1   109.50 134.84
+## 
+## Step:  AIC=129.17
+## y ~ x1 + x2 + I(x1 * x2) + I(x1^2 * x2^2)
+## 
+##                  Df Deviance    AIC
+## - I(x1 * x2)      1   104.74 125.02
+## - I(x1^2 * x2^2)  1   105.75 126.03
+## <none>                103.83 129.17
+## - x1              1   109.97 130.24
+## - x2              1   111.00 131.28
+## 
+## Step:  AIC=125.02
+## y ~ x1 + x2 + I(x1^2 * x2^2)
+## 
+##                  Df Deviance    AIC
+## - I(x1^2 * x2^2)  1   105.80 121.00
+## <none>                104.74 125.02
+## - x1              1   109.97 125.18
+## - x2              1   111.40 126.61
+## 
+## Step:  AIC=121
+## y ~ x1 + x2
+## 
+##        Df Deviance    AIC
+## <none>      105.80 121.00
+## - x1    1   113.20 123.33
+## - x2    1   116.27 126.41
+## 
+## Call:  glm(formula = y ~ x1 + x2, family = binomial, data = dat.new)
+## 
+## Coefficients:
+## (Intercept)           x1           x2  
+##    -2.29705      0.07787     -0.09547  
+## 
+## Degrees of Freedom: 158 Total (i.e. Null);  156 Residual
+## Null Deviance:	    134.9 
+## Residual Deviance: 105.8 	AIC: 111.8
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\qquad The best model according to the SBCp criterion is based on y ~ x1 + x2. SBC = 121.
 
 \end{enumerate}
 

@@ -303,14 +303,91 @@ therefore, $X1^2,X2^2,I(X1*X2)$ can be dropped from the regression model, and th
 \item
 
 <<>>=
-  
+  dat = read.table("CH14PR14.txt")
+  names(dat) = c("y", "x1", "x2", "x3")
+  dat.new = scale(dat[, 2:4], scale = FALSE)
+  dat.new = as.data.frame(cbind(dat$y, dat.new))
+  names(dat.new) = c("y", "x1", "x2", "x3")
+
+  alpha = .1
+  wrap.foo = function(formula, dat.new. = dat.new) 
+  {
+    model = glm(formula, family = binomial, data = dat.new.)
+    p.val = summary(model)$coef
+    p.val[nrow(p.val), 4]
+  }
+  tmp = c(wrap.foo(y ~ x1), 
+          wrap.foo(y ~ x2), 
+          wrap.foo(y ~ I(x1*x2)), 
+          wrap.foo(y ~ I(x1^2)), 
+          wrap.foo(y ~ I(x2^2)), 
+          wrap.foo(y ~ I(x1^2):I(x2^2)))
+  any(tmp < alpha)
+  which.min(tmp)
+
+  tmp = c(wrap.foo(y ~ x1 + x2), 
+          wrap.foo(y ~ x1 + I(x1*x2)), 
+          wrap.foo(y ~ x1 + I(x1^2)), 
+          wrap.foo(y ~ x1 + I(x2^2))
+          )  
+  any(tmp < alpha)
+  which.min(tmp)
+
+  tmp = c(wrap.foo(y ~ x1 + x2 + I(x1*x2)), 
+          wrap.foo(y ~ x1 + x2 + I(x1^2)), 
+          wrap.foo(y ~ x1 + x2 + I(x2^2))
+          )  
+  any(tmp < alpha)
 @
 
-\item
+\qquad X1 enters in step 1 ; X2 enters in step 2; no variables satisfy criterion for entry in step 3.
 
 \item
 
+<<>>=
+  wrap.foo = function(formula, dat.new. = dat.new) 
+  {
+    model = glm(formula, family = binomial, data = dat.new.)
+    p.val = summary(model)$coef
+    p.val = p.val[, 4]
+    p.val[-1]
+  }
+
+  tmp = wrap.foo(y ~ x1 + x2 + I(x1*x2) + I(x1^2) + I(x2^2))
+  any(tmp > alpha)
+  which.max(tmp)
+
+  tmp = wrap.foo(y ~ x1 + x2 + I(x1*x2) + I(x2^2))
+  any(tmp > alpha)
+  which.max(tmp)
+
+  tmp = wrap.foo(y ~ x1 + x2 + I(x2^2))
+  any(tmp > alpha)
+  which.max(tmp)
+
+  tmp = wrap.foo(y ~ x1 + x2)
+  any(tmp > alpha)
+@
+
+\qquad X11 is deleted in step 1; X12 is deleted in step 2; X3 is deleted in step 3; X22 is deleted in step 4; X1 and X2 are retained in the model.
+
 \item
+
+<<>>=
+  model = glm(y ~ x1 + x2 + I(x1*x2) + I(x1^2) + I(x2^2) + I(x1^2*x2^2), 
+              family = binomial, data = dat.new)
+  step(model)
+@
+
+\qquad The best model according to the AICp criterion is based on y ~ x1 + x2. AIC = 111.8.
+
+\item
+
+<<>>=
+  step(model, k = log(159))
+@
+
+\qquad The best model according to the SBCp criterion is based on y ~ x1 + x2. SBC = 121.
 
 \end{enumerate}
 
