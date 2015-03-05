@@ -87,34 +87,32 @@
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-  \hlstd{logit} \hlkwb{=} \hlkwd{glm}\hlstd{(Y}\hlopt{/}\hlstd{n} \hlopt{~} \hlstd{X,} \hlkwc{data} \hlstd{= dat,} \hlkwc{family} \hlstd{=} \hlstr{"binomial"}\hlstd{)}
-\end{alltt}
-
-
-{\ttfamily\noindent\color{warningcolor}{\#\# Warning: non-integer \#successes in a binomial glm!}}\begin{alltt}
+  \hlstd{logit} \hlkwb{=} \hlkwd{glm}\hlstd{(Y}\hlopt{/}\hlstd{n} \hlopt{~} \hlstd{X,} \hlkwc{data} \hlstd{= dat,} \hlkwc{weight} \hlstd{= n ,} \hlkwc{family} \hlstd{=} \hlstr{"binomial"}\hlstd{)}
   \hlkwd{summary}\hlstd{(logit)}
 \end{alltt}
 \begin{verbatim}
 ## 
 ## Call:
-## glm(formula = Y/n ~ X, family = "binomial", data = dat)
+## glm(formula = Y/n ~ X, family = "binomial", data = dat, weights = n)
 ## 
 ## Deviance Residuals: 
-##         1          2          3          4          5          6  
-##  0.007846   0.019363   0.025865  -0.130556   0.056842   0.054601  
+##       1        2        3        4        5        6  
+##  0.1754   0.4330   0.5784  -2.9193   1.2710   1.2209  
 ## 
 ## Coefficients:
-##             Estimate Std. Error z value Pr(>|z|)
-## (Intercept)  -2.0766     1.8970  -1.095    0.274
-## X             0.1359     0.1067   1.273    0.203
+##              Estimate Std. Error z value Pr(>|z|)    
+## (Intercept) -2.076565   0.084839  -24.48   <2e-16 ***
+## X            0.135851   0.004772   28.47   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 2.216343  on 5  degrees of freedom
-## Residual deviance: 0.024363  on 4  degrees of freedom
-## AIC: 7.1154
+##     Null deviance: 1108.171  on 5  degrees of freedom
+## Residual deviance:   12.181  on 4  degrees of freedom
+## AIC: 53.419
 ## 
-## Number of Fisher Scoring iterations: 4
+## Number of Fisher Scoring iterations: 3
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -296,54 +294,52 @@ $exp(\beta_3)=1.543373$, so that the odds of getting a flu shot is increased by 
 \begin{alltt}
   \hlstd{dat} \hlkwb{=} \hlkwd{read.table}\hlstd{(}\hlstr{"CH14PR11.txt"}\hlstd{)}
   \hlkwd{names}\hlstd{(dat)} \hlkwb{=} \hlkwd{c}\hlstd{(}\hlstr{"X"}\hlstd{,} \hlstr{"n"}\hlstd{,} \hlstr{"Y"}\hlstd{)}
-  \hlstd{logit} \hlkwb{=} \hlkwd{glm}\hlstd{(Y}\hlopt{/}\hlstd{n} \hlopt{~} \hlstd{X,} \hlkwc{data} \hlstd{= dat,} \hlkwc{family} \hlstd{=} \hlstr{"binomial"}\hlstd{)}
-\end{alltt}
-
-
-{\ttfamily\noindent\color{warningcolor}{\#\# Warning: non-integer \#successes in a binomial glm!}}\begin{alltt}
+  \hlstd{logit} \hlkwb{=} \hlkwd{glm}\hlstd{(Y}\hlopt{/}\hlstd{n} \hlopt{~} \hlstd{X,} \hlkwc{weight}\hlstd{=n,} \hlkwc{data} \hlstd{= dat,} \hlkwc{family} \hlstd{=} \hlstr{"binomial"}\hlstd{)}
   \hlkwd{summary}\hlstd{(logit)}
 \end{alltt}
 \begin{verbatim}
 ## 
 ## Call:
-## glm(formula = Y/n ~ X, family = "binomial", data = dat)
+## glm(formula = Y/n ~ X, family = "binomial", data = dat, weights = n)
 ## 
 ## Deviance Residuals: 
-##         1          2          3          4          5          6  
-##  0.007846   0.019363   0.025865  -0.130556   0.056842   0.054601  
+##       1        2        3        4        5        6  
+##  0.1754   0.4330   0.5784  -2.9193   1.2710   1.2209  
 ## 
 ## Coefficients:
-##             Estimate Std. Error z value Pr(>|z|)
-## (Intercept)  -2.0766     1.8970  -1.095    0.274
-## X             0.1359     0.1067   1.273    0.203
+##              Estimate Std. Error z value Pr(>|z|)    
+## (Intercept) -2.076565   0.084839  -24.48   <2e-16 ***
+## X            0.135851   0.004772   28.47   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 2.216343  on 5  degrees of freedom
-## Residual deviance: 0.024363  on 4  degrees of freedom
-## AIC: 7.1154
+##     Null deviance: 1108.171  on 5  degrees of freedom
+## Residual deviance:   12.181  on 4  degrees of freedom
+## AIC: 53.419
 ## 
-## Number of Fisher Scoring iterations: 4
+## Number of Fisher Scoring iterations: 3
 \end{verbatim}
 \begin{alltt}
   \hlstd{b1} \hlkwb{=} \hlnum{0.1359}
-  \hlstd{s1} \hlkwb{=} \hlnum{0.1067}
+  \hlstd{s1} \hlkwb{=} \hlnum{0.004772}
   \hlstd{z} \hlkwb{=} \hlkwd{qnorm}\hlstd{(}\hlnum{1}\hlopt{-}\hlnum{0.05}\hlopt{/}\hlnum{2}\hlstd{)}
   \hlkwd{c}\hlstd{(b1}\hlopt{-}\hlstd{s1}\hlopt{*}\hlstd{z, b1}\hlopt{+}\hlstd{s1}\hlopt{*}\hlstd{z)}
 \end{alltt}
 \begin{verbatim}
-## [1] -0.07322816  0.34502816
+## [1] 0.1265471 0.1452529
 \end{verbatim}
 \begin{alltt}
   \hlkwd{c}\hlstd{(}\hlkwd{exp}\hlstd{(b1}\hlopt{-}\hlstd{s1}\hlopt{*}\hlstd{z),} \hlkwd{exp}\hlstd{(b1}\hlopt{+}\hlstd{s1}\hlopt{*}\hlstd{z))}
 \end{alltt}
 \begin{verbatim}
-## [1] 0.9293888 1.4120297
+## [1] 1.134903 1.156332
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
 
-\qquad From summary(logit), we get $s(b_1) = 0.1067, b_1 = 0.1359$, based on $b_k \pm z(1-\alpha/2)s{b_k}$, we conclude that we are 95 \% confident that $\beta_1$ is between -0.07322816 and 0.34502816, and corresponding confidence limits for the odds ratio $exp(\beta_1)$ is between 0.9293888 and 1.4120297.
+\qquad From summary(logit), we get $s(b_1) = 0.004772, b_1 = 0.1359$, based on $b_k \pm z(1-\alpha/2)s{b_k}$, we conclude that we are 95 \% confident that $\beta_1$ is between 0.1265471 and 0.1452529, and corresponding confidence limits for the odds ratio $exp(\beta_1)$ is between 1.134903 and 1.156332.
 
 \item
 
@@ -363,13 +359,13 @@ $H_0$:$\beta_1=0$
 
 VS. $H_1$:$\beta_1 \ne 0$
 
-$z^*=\frac{b_1}{s(b_1)} = 0.1359/0.1067   = 1.273664$
+$z^*=\frac{b_1}{s(b_1)} = 0.1359/0.004772   = 28.47863$
 
 we can reject $H_0$ if $|z^*| > Z(1-0.05/2)=1.959964$,otherwise reject$H_1$
 
-so that reject $H_1$ because $|z^*|<1.959964$,
+so that reject $H_0$ because $|z^*|>1.959964$,
 
-therefore, X1 can be dropped from the regression model, and the P-value is 0.203
+therefore, X1 can not be dropped from the regression model, and the P-value is 2e-16
 \end{center}
 
 \item
@@ -380,18 +376,14 @@ therefore, X1 can be dropped from the regression model, and the P-value is 0.203
   \hlkwd{logLik}\hlstd{(logit)}
 \end{alltt}
 \begin{verbatim}
-## 'log Lik.' -1.557684 (df=2)
+## 'log Lik.' -24.70937 (df=2)
 \end{verbatim}
 \begin{alltt}
-  \hlstd{logitR} \hlkwb{=} \hlkwd{glm}\hlstd{(Y}\hlopt{/}\hlstd{n} \hlopt{~} \hlnum{1}\hlstd{,} \hlkwc{data} \hlstd{= dat,} \hlkwc{family} \hlstd{=} \hlstr{"binomial"}\hlstd{)}
-\end{alltt}
-
-
-{\ttfamily\noindent\color{warningcolor}{\#\# Warning: non-integer \#successes in a binomial glm!}}\begin{alltt}
+  \hlstd{logitR} \hlkwb{=} \hlkwd{glm}\hlstd{(Y}\hlopt{/}\hlstd{n} \hlopt{~} \hlnum{1}\hlstd{,} \hlkwc{weight} \hlstd{= n,} \hlkwc{data} \hlstd{= dat,} \hlkwc{family} \hlstd{=} \hlstr{"binomial"}\hlstd{)}
   \hlkwd{logLik}\hlstd{(logitR)}
 \end{alltt}
 \begin{verbatim}
-## 'log Lik.' -4.158904 (df=1)
+## 'log Lik.' -572.7044 (df=1)
 \end{verbatim}
 \begin{alltt}
   \hlkwd{qchisq}\hlstd{(}\hlnum{1}\hlopt{-}\hlnum{0.05}\hlstd{,} \hlnum{2}\hlopt{-}\hlnum{1}\hlstd{)}
@@ -400,10 +392,10 @@ therefore, X1 can be dropped from the regression model, and the P-value is 0.203
 ## [1] 3.841459
 \end{verbatim}
 \begin{alltt}
-  \hlkwd{pchisq}\hlstd{(}\hlnum{5.339856}\hlstd{,} \hlnum{1}\hlstd{,} \hlkwc{lower.tail} \hlstd{=} \hlnum{FALSE}\hlstd{)}
+  \hlkwd{pchisq}\hlstd{(}\hlnum{1095.99}\hlstd{,} \hlnum{1}\hlstd{,} \hlkwc{lower.tail} \hlstd{=} \hlnum{FALSE}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-## [1] 0.02084319
+## [1] 2.457179e-240
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -415,19 +407,19 @@ VS. $H_1$:$\beta_1 \ne 0$
 
 The full model: $\pi = [1 + exp(-(\beta_0 + \beta_1 X1))]^{-1} $
 
-ln(L(F))= -1.557684
+ln(L(F))= -24.70937
 
 The reduced model: $\pi = [1 + exp(-(\beta_0))]^{-1} $
 
-ln(L(R))= -4.158904
+ln(L(R))= -572.7044
 
-$G^2$ = -2(ln(L(R)-ln(L(F)))) = 5.20244
+$G^2$ = -2(ln(L(R)-ln(L(F)))) = 1095.99
 
 we can reject $H_0$ if $G^2 > \chi^2(1-0.05, 2-1)=3.8415$,otherwise reject$H_1$
 
 so that reject $H_0$ because $G^2 >3.8415$,
 
-therefore, X1 cannot be dropped from the regression model, and the P-value is 0.02084319.And the result is different from the result we get in (b).
+therefore, X1 cannot be dropped from the regression model, and the P-value is 2.457179e-240.And the result is different from the result we get in (b).
 \end{center}
 
 \end{enumerate}
@@ -971,9 +963,14 @@ so that reject $H_1$ because $X^2 <13.2767$,
 
 \section{14.41}
 
-\qquad For given observations $Y_1,Y_2...,Y_n$, all terms with a given X value, $X_j$, we get $$Y_{\cdot j}(\beta_0+\beta_1 X_j)-n_j ln(1+exp(\beta_0+\beta_1 Xj)$$
-
-Because there are $\binom{n_j}{Y_{\cdot j}}$ ways of getting these, we must add $ ln\binom{n_j}{Y_{\cdot j}}$, hence we get $$ln \binom{n_j}{Y_{\cdot j}} + Y_{\cdot j}(\beta_0+\beta_1 X_j)-n_j ln(1+exp(\beta_0+\beta_1 Xj)$$
+\begin{displaymath}
+\begin{split}
+  ln g(Y_1, ..., Y_n) &= ln \prod_i \binom{n_i}{Y_i} \pi_i^{Y_i} (1-\pi_i)^{n_i-Y_I}  \\
+                      &= \sum_i[ ln\binom{n_i}{Y_i} + Y_i ln(\pi_i) + (n_j-Y_j) ln (1-\pi_i) ] \\
+                      &= \sum_i[ ln\binom{n_i}{Y_i} + Y_i ln(\pi_i/(1-\pi_i)) + (n_j) ln (1-\pi_i)] \\
+                      &= \sum_i[ln\binom{n_i}{Y_i} + Y_i ln(\beta_0+\beta_1 Xi)) - (n_j) ln (1+exp(-\beta_0-\beta_1 Xi))]
+\end{split}
+\end{displaymath}
 
 \section{14.42}
 
@@ -994,8 +991,10 @@ Because there are $\binom{n_j}{Y_{\cdot j}}$ ways of getting these, we must add 
   \frac{\partial^2 lnL}{\partial \beta_0^2} &= - \sum_{i=1}^n \frac{exp(\beta_0+\beta_1 X_i)}{[1+exp(\beta_0+\beta_1 X_i)]^2}\\
   \frac{\partial^2 lnL}{\partial \beta_1^2} &= - \sum_{i=1}^n \frac{X_i^2 exp(\beta_0+\beta_1 X_i)}{[1+exp(\beta_0+\beta_1 X_i)]^2}\\
   \frac{\partial^2 lnL}{\partial \beta_0 \partial \beta_1} &= - \sum_{i=1}^n \frac{X_i exp(\beta_0+\beta_1 X_i)}{[1+exp(\beta_0+\beta_1 X_i)]^2}\\
+  -E\{ \frac{\partial^2 lnL}{\partial \beta_0^2} \} &= -g_{00}\\
+  -E\{ \frac{\partial^2 lnL}{\partial \beta_1^2} \} &= -g_{11}\\
   -E\{ \frac{\partial^2 lnL}{\partial \beta_0 \partial \beta_1} \} &= -g_{01} = -g_{10}
-  \text{which is reduced to (14.51)}
+  \text{,which is reduced to (14.51)}\\
 \end{split}
 \end{displaymath}
 

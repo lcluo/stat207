@@ -30,7 +30,7 @@
 \item
 
 <<>>=
-  logit = glm(Y/n ~ X, data = dat, family = "binomial")
+  logit = glm(Y/n ~ X, data = dat, weight = n , family = "binomial")
   summary(logit)
 @
 
@@ -126,16 +126,16 @@ $exp(\beta_3)=1.543373$, so that the odds of getting a flu shot is increased by 
 <<>>=
   dat = read.table("CH14PR11.txt")
   names(dat) = c("X", "n", "Y")
-  logit = glm(Y/n ~ X, data = dat, family = "binomial")
+  logit = glm(Y/n ~ X, weight=n, data = dat, family = "binomial")
   summary(logit)
   b1 = 0.1359
-  s1 = 0.1067
+  s1 = 0.004772
   z = qnorm(1-0.05/2)
   c(b1-s1*z, b1+s1*z)
   c(exp(b1-s1*z), exp(b1+s1*z))  
 @
 
-\qquad From summary(logit), we get $s(b_1) = 0.1067, b_1 = 0.1359$, based on $b_k \pm z(1-\alpha/2)s{b_k}$, we conclude that we are 95 \% confident that $\beta_1$ is between -0.07322816 and 0.34502816, and corresponding confidence limits for the odds ratio $exp(\beta_1)$ is between 0.9293888 and 1.4120297.
+\qquad From summary(logit), we get $s(b_1) = 0.004772, b_1 = 0.1359$, based on $b_k \pm z(1-\alpha/2)s{b_k}$, we conclude that we are 95 \% confident that $\beta_1$ is between 0.1265471 and 0.1452529, and corresponding confidence limits for the odds ratio $exp(\beta_1)$ is between 1.134903 and 1.156332.
 
 \item
 
@@ -148,23 +148,23 @@ $H_0$:$\beta_1=0$
 
 VS. $H_1$:$\beta_1 \ne 0$
 
-$z^*=\frac{b_1}{s(b_1)} = 0.1359/0.1067   = 1.273664$
+$z^*=\frac{b_1}{s(b_1)} = 0.1359/0.004772   = 28.47863$
 
 we can reject $H_0$ if $|z^*| > Z(1-0.05/2)=1.959964$,otherwise reject$H_1$
 
-so that reject $H_1$ because $|z^*|<1.959964$,
+so that reject $H_0$ because $|z^*|>1.959964$,
 
-therefore, X1 can be dropped from the regression model, and the P-value is 0.203
+therefore, X1 can not be dropped from the regression model, and the P-value is 2e-16
 \end{center}
 
 \item
 
 <<>>=
   logLik(logit)
-  logitR = glm(Y/n ~ 1, data = dat, family = "binomial")
+  logitR = glm(Y/n ~ 1, weight = n, data = dat, family = "binomial")
   logLik(logitR)
   qchisq(1-0.05, 2-1)
-  pchisq(5.339856, 1, lower.tail = FALSE)
+  pchisq(1095.99, 1, lower.tail = FALSE)
 @
 
 \begin{center}
@@ -174,19 +174,19 @@ VS. $H_1$:$\beta_1 \ne 0$
 
 The full model: $\pi = [1 + exp(-(\beta_0 + \beta_1 X1))]^{-1} $
 
-ln(L(F))= -1.557684
+ln(L(F))= -24.70937
 
 The reduced model: $\pi = [1 + exp(-(\beta_0))]^{-1} $
 
-ln(L(R))= -4.158904
+ln(L(R))= -572.7044
 
-$G^2$ = -2(ln(L(R)-ln(L(F)))) = 5.20244
+$G^2$ = -2(ln(L(R)-ln(L(F)))) = 1095.99
 
 we can reject $H_0$ if $G^2 > \chi^2(1-0.05, 2-1)=3.8415$,otherwise reject$H_1$
 
 so that reject $H_0$ because $G^2 >3.8415$,
 
-therefore, X1 cannot be dropped from the regression model, and the P-value is 0.02084319.And the result is different from the result we get in (b).
+therefore, X1 cannot be dropped from the regression model, and the P-value is 2.457179e-240.And the result is different from the result we get in (b).
 \end{center}
 
 \end{enumerate}
@@ -432,9 +432,14 @@ so that reject $H_1$ because $X^2 <13.2767$,
 
 \section{14.41}
 
-\qquad For given observations $Y_1,Y_2...,Y_n$, all terms with a given X value, $X_j$, we get $$Y_{\cdot j}(\beta_0+\beta_1 X_j)-n_j ln(1+exp(\beta_0+\beta_1 Xj)$$
-
-Because there are $\binom{n_j}{Y_{\cdot j}}$ ways of getting these, we must add $ ln\binom{n_j}{Y_{\cdot j}}$, hence we get $$ln \binom{n_j}{Y_{\cdot j}} + Y_{\cdot j}(\beta_0+\beta_1 X_j)-n_j ln(1+exp(\beta_0+\beta_1 Xj)$$
+\begin{displaymath}
+\begin{split}
+  ln g(Y_1, ..., Y_n) &= ln \prod_i \binom{n_i}{Y_i} \pi_i^{Y_i} (1-\pi_i)^{n_i-Y_I}  \\
+                      &= \sum_i[ ln\binom{n_i}{Y_i} + Y_i ln(\pi_i) + (n_j-Y_j) ln (1-\pi_i) ] \\
+                      &= \sum_i[ ln\binom{n_i}{Y_i} + Y_i ln(\pi_i/(1-\pi_i)) + (n_j) ln (1-\pi_i)] \\
+                      &= \sum_i[ln\binom{n_i}{Y_i} + Y_i ln(\beta_0+\beta_1 Xi)) - (n_j) ln (1+exp(-\beta_0-\beta_1 Xi))]
+\end{split}
+\end{displaymath}
 
 \section{14.42}
 
@@ -455,8 +460,10 @@ Because there are $\binom{n_j}{Y_{\cdot j}}$ ways of getting these, we must add 
   \frac{\partial^2 lnL}{\partial \beta_0^2} &= - \sum_{i=1}^n \frac{exp(\beta_0+\beta_1 X_i)}{[1+exp(\beta_0+\beta_1 X_i)]^2}\\
   \frac{\partial^2 lnL}{\partial \beta_1^2} &= - \sum_{i=1}^n \frac{X_i^2 exp(\beta_0+\beta_1 X_i)}{[1+exp(\beta_0+\beta_1 X_i)]^2}\\
   \frac{\partial^2 lnL}{\partial \beta_0 \partial \beta_1} &= - \sum_{i=1}^n \frac{X_i exp(\beta_0+\beta_1 X_i)}{[1+exp(\beta_0+\beta_1 X_i)]^2}\\
+  -E\{ \frac{\partial^2 lnL}{\partial \beta_0^2} \} &= -g_{00}\\
+  -E\{ \frac{\partial^2 lnL}{\partial \beta_1^2} \} &= -g_{11}\\
   -E\{ \frac{\partial^2 lnL}{\partial \beta_0 \partial \beta_1} \} &= -g_{01} = -g_{10}
-  \text{which is reduced to (14.51)}
+  \text{,which is reduced to (14.51)}\\
 \end{split}
 \end{displaymath}
 
