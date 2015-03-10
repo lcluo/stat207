@@ -1,0 +1,173 @@
+\documentclass{article}
+\usepackage{enumerate}
+\usepackage{amsmath}
+
+\begin{document}
+
+\title{\huge \textbf{Stat 207 HW8} \\}
+\author{\large Cheng Luo 912466499 \\ \large Fan Wu 912538518}
+\maketitle
+
+\newpage
+\mbox{}
+\newpage
+
+
+\section{14.28}
+
+\begin{enumerate}[(a)]
+
+\item
+
+<<>>=
+  dat = read.table("CH14PR14.txt")
+  names(dat) = c("Y", "X1", "X2", "X3") 
+  logit = glm(Y ~ X1 + X2 , data = dat, family = "binomial")
+  logitv = logit$fitted.values
+  dat = dat[order(logitv), ]
+  a = rep(1:8, each = 20)
+  a = a[-1]
+  b = split(dat, a)  
+  Oj1 = sapply(b, function(x){sum(x[[1]])})
+  Ej1 = sapply(split(sort(logitv), a), sum)
+  Oj0 = sapply(b, function(x){length(x[[1]])-sum(x[[1]])})
+  Ej0 = sapply(b, function(x){length(x[[1]])})-Ej1
+  rbind(Oj1, Ej1, Oj0, Ej0)
+
+  x = sapply(split(sort(logitv), a), median)
+  y = Ej1/sapply(b, function(x){length(x[[1]])})
+  plot(x, y)
+@
+
+\qquad The plot seems to be linear, it's consistent with a response function of monotonic sigmoidal shape.
+
+\item
+
+<<>>=
+  X.squ = sum((rbind(Oj1, Oj0)-rbind(Ej1, Ej0))^2/rbind(Ej1, Ej0));X.squ
+@
+
+\begin{center}
+$H_0$:$E(Y)=[1+exp(-\beta_0-\beta_1 X1-\beta_2 X2)]^{-1}$
+
+VS. $H_1$:$E(Y)  \ne [1+exp(-\beta_0-\beta_1 X1-\beta_2 X2)]^{-1}$
+
+$X^2=\sum_j \sum_k \frac{(O_{jk}-E_{jk})^2}{E_{jk}} = 12.11578$
+
+we can reject $H_0$ if $X^2 > \chi^2(0.95, 8-3)=11.0705$,otherwise reject$H_1$
+
+so that reject $H_0$ because $X^2 >11.0705$, Pvalue is 0.03323531.
+\end{center}
+
+\item
+
+<<>>=
+  p = summary(logit)
+  dr = p$deviance.resid;dr
+  pi = exp(logitv)/(1+exp(logitv))
+  plot(lowess(dr ~ pi))
+@
+
+\qquad
+
+\end{enumerate}
+
+\section{14.39}
+
+\begin{enumerate}[(a)]
+
+\item
+
+<<>>=
+  dat = read.table("CH14PR39.txt")
+  names(dat) = c("Y", "X1", "X2", "X3", "X4") 
+  poi = glm(Y ~ . , data = dat, family = "poisson") 
+  summary(poi)
+@
+
+\begin{displaymath}
+\begin{split}
+  b_0 = 0.489467 &\qquad s(b_0)=0.336869 \\
+  b_1 = -1.069403 &\qquad  s(b_1)=0.133154 \\
+  b_2 = -0.046606 &\qquad  s(b_2)=0.119970 \\
+  b_3 = 0.009470 &\qquad  s(b_3)=0.002953 \\
+  b_4 = 0.008566 &\qquad  s(b_4)=0.004312 \\
+  \mu = exp(0.489467165 -1.069402551 X1 & -0.046606063 X2 +  0.009469987X3 +  0.008565829 X4)
+\end{split}
+\end{displaymath}
+
+\item
+
+<<>>=
+  p = summary(poi)
+  dr = p$deviance.resid;dr
+  plot(sort(dr))
+@
+
+\qquad The points whose devaiance residual near 100 seem to be outlyers.
+
+\item
+
+<<>>=
+  logLik(poi)
+  poiR = glm(Y ~ .-X2 , data = dat, family = "poisson") 
+  logLik(poiR)
+  qchisq(1-0.05, 5-4)
+  pchisq(0.151, 1, lower.tail = FALSE)
+@
+
+\begin{center}
+$H_0$:$\beta_2=0$
+
+VS. $H_1$:$\beta_2 \ne 0$
+
+The full model: $\mu = exp(\beta_0 + \beta_1 X1 + \beta_2 X2 + \beta_3 X3 + \beta_4 X4) $
+
+ln(L(F))= -183.6439
+
+The reduced model: $\mu = exp(\beta_0 + \beta_1 X1 + \beta_3 X3 + \beta_4 X4) $
+
+ln(L(R))= -183.7194
+
+$G^2$ = -2(ln(L(R)-ln(L(F)))) = 0.151
+
+we can reject $H_0$ if $G^2 > \chi^2(1-0.05, 5-4)=3.8415$,otherwise reject$H_1$
+
+so that reject $H_1$ because $G^2 < 3.8415$,
+
+therefore, X2 can be dropped from the regression model, and the P-value is 0.6975815.And the result is the same as the result we get in (b).
+\end{center}
+
+\item
+
+<<>>=
+  summary(poiR)
+  b1 = -1.077770
+  s1 = 0.131415
+  z = qnorm(1-0.05/2)
+  c(b1-s1*z, b1+s1*z)
+@
+
+\qquad From summary(poiR), we get $s(b_1) = 0.131415, b_1 = -1.077770$, based on $b_k \pm z(1-\alpha/2)s{b_k}$, we conclude that we are 95 \% confident that $\beta_1$ is between -1.3353387 and -0.8202013. Because the confidence interval is smaller than 0, aerobic exercise reduce the frequency of falls when controlling for balance and strength.
+
+\end{enumerate}
+
+\section{14.44}
+
+\section{14.45}
+
+\section{14.46}
+
+\begin{displaymath}
+\begin{split}
+  E(Y) &= [1 + exp(-\beta_0-\beta_1 X_1 - \beta_2 X_2 - \beta_3 X_1 X_2)]^{-1} \\
+  \pi^{'}(X_1)  &= \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_1 X_2 \\
+  \pi^{'}(X_1 + 1)  &= \beta_0 + \beta_1 (X_1 + 1) + \beta_2 X_2 + \beta_3 (X_1 + 1) X_2 \\ 
+  \pi^{'}(X_1 + 1) - \pi^{'}(X_1) &= ln(odds ratio) = \beta_1 X_1 + \beta_3 X_1 X_2\\
+  \text{ Hence the odds ratio for X1 is } & exp(\beta_1 X_1 + \beta_3 X_1 X_2) \text{therefore, they are different.} \\
+\end{split}
+\end{displaymath}
+
+\section{14.47}
+
+\end{document}
