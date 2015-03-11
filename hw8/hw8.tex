@@ -98,8 +98,8 @@
 ## Ej0  9.738081
 \end{verbatim}
 \begin{alltt}
-  \hlstd{x} \hlkwb{=} \hlkwd{sapply}\hlstd{(}\hlkwd{split}\hlstd{(}\hlkwd{sort}\hlstd{(logitv), a), median)}
-  \hlstd{y} \hlkwb{=} \hlstd{Ej1}\hlopt{/}\hlkwd{sapply}\hlstd{(b,} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{)\{}\hlkwd{length}\hlstd{(x[[}\hlnum{1}\hlstd{]])\})}
+  \hlstd{y} \hlkwb{=} \hlkwd{sapply}\hlstd{(}\hlkwd{split}\hlstd{(}\hlkwd{sort}\hlstd{(logitv), a), median)}
+  \hlstd{x} \hlkwb{=} \hlstd{Ej1}\hlopt{/}\hlkwd{sapply}\hlstd{(b,} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{)\{}\hlkwd{length}\hlstd{(x[[}\hlnum{1}\hlstd{]])\})}
   \hlkwd{plot}\hlstd{(x, y)}
 \end{alltt}
 \end{kframe}
@@ -129,9 +129,9 @@ VS. $H_1$:$E(Y)  \ne [1+exp(-\beta_0-\beta_1 X1-\beta_2 X2)]^{-1}$
 
 $X^2=\sum_j \sum_k \frac{(O_{jk}-E_{jk})^2}{E_{jk}} = 12.11578$
 
-we can reject $H_0$ if $X^2 > \chi^2(0.95, 8-3)=11.0705$,otherwise reject$H_1$
+we can reject $H_0$ if $X^2 > \chi^2(0.95, 8-2)=12.5916$,otherwise reject$H_1$
 
-so that reject $H_0$ because $X^2 >11.0705$, Pvalue is 0.03323531.
+so that reject $H_1$ because $X^2 <12.5916$, Pvalue is 0.05943518.
 \end{center}
 
 \item
@@ -199,15 +199,81 @@ so that reject $H_0$ because $X^2 >11.0705$, Pvalue is 0.03323531.
 ##  0.42476809  0.86785144  1.67453806
 \end{verbatim}
 \begin{alltt}
-  \hlstd{pi} \hlkwb{=} \hlkwd{exp}\hlstd{(logitv)}\hlopt{/}\hlstd{(}\hlnum{1}\hlopt{+}\hlkwd{exp}\hlstd{(logitv))}
-  \hlkwd{plot}\hlstd{(}\hlkwd{lowess}\hlstd{(dr} \hlopt{~} \hlstd{pi))}
+  \hlstd{lows} \hlkwb{=} \hlkwd{lowess}\hlstd{(logitv, dr,} \hlnum{.7}\hlstd{,} \hlnum{0}\hlstd{);lows}
 \end{alltt}
+\begin{verbatim}
+## $x
+##   [1] 0.004117568 0.005380657 0.005813874 0.006020913 0.006553816
+##   [6] 0.007278447 0.008001755 0.008286057 0.008951093 0.009668986
+##  [11] 0.011003867 0.011085487 0.012613438 0.012834524 0.012834524
+##  [16] 0.013059435 0.013288233 0.015226801 0.015452533 0.015607367
+##  [21] 0.016726682 0.017571713 0.017617602 0.017747398 0.018371549
+##  [26] 0.021773129 0.021773129 0.022535610 0.023094563 0.024494189
+##  [31] 0.026882013 0.028298274 0.029495578 0.030299729 0.032354793
+##  [36] 0.035226199 0.038520373 0.038618820 0.038897215 0.039560541
+##  [41] 0.039947136 0.040234706 0.041915256 0.042323848 0.044087651
+##  [46] 0.046367188 0.047827674 0.049456440 0.050290414 0.050776320
+##  [51] 0.051501501 0.052872923 0.053626356 0.053761250 0.053761250
+##  [56] 0.054663641 0.055833717 0.058830122 0.060233817 0.060809646
+##  [61] 0.061668811 0.062257449 0.062257449 0.063737383 0.063737383
+##  [66] 0.064184764 0.069677590 0.072999098 0.073868811 0.078447141
+##  [71] 0.079182416 0.081029912 0.081787246 0.082350177 0.084469906
+##  [76] 0.085049591 0.087232199 0.098877166 0.098877166 0.099783195
+##  [81] 0.105784220 0.110149156 0.110149156 0.110883724 0.113379806
+##  [86] 0.114401854 0.115431916 0.116197114 0.116197114 0.120141456
+##  [91] 0.121446705 0.122531422 0.123624463 0.131455955 0.132006995
+##  [96] 0.133171735 0.133478501 0.138491730 0.143988948 0.150896868
+## [101] 0.156796870 0.159137868 0.160140341 0.162160612 0.162883307
+## [106] 0.167369727 0.167369727 0.169836784 0.170211426 0.174474811
+## [111] 0.174857529 0.176323549 0.176323549 0.177411440 0.178894230
+## [116] 0.183003454 0.187514843 0.190211007 0.195692078 0.205353025
+## [121] 0.207010578 0.207010578 0.212848500 0.214103167 0.214103167
+## [126] 0.215812168 0.223121468 0.228813560 0.229282366 0.229282366
+## [131] 0.231934023 0.233743020 0.233743020 0.238263628 0.238263628
+## [136] 0.246094701 0.281693191 0.294047656 0.295601219 0.301407172
+## [141] 0.303543886 0.350437581 0.370722956 0.380731597 0.401048267
+## [146] 0.432802264 0.443961491 0.465118050 0.484534317 0.514661378
+## [151] 0.529698682 0.532220820 0.540973420 0.571374597 0.630886977
+## [156] 0.649433730 0.686202121 0.758423830 0.913735656
+## 
+## $y
+##   [1] -0.088172324 -0.091193892 -0.092230236 -0.092725513 -0.094000327
+##   [6] -0.095733792 -0.097464093 -0.098144200 -0.099735105 -0.101452449
+##  [11] -0.104645759 -0.104841011 -0.108496180 -0.109025064 -0.109025064
+##  [16] -0.109563096 -0.110097898 -0.114629173 -0.115156807 -0.115518722
+##  [21] -0.118135047 -0.120110252 -0.120217515 -0.120520906 -0.121979817
+##  [26] -0.129930790 -0.129930790 -0.131674467 -0.132952707 -0.136153436
+##  [31] -0.141614024 -0.144852796 -0.147590845 -0.149429815 -0.154063466
+##  [36] -0.160537759 -0.167965287 -0.168187260 -0.168814970 -0.170298321
+##  [41] -0.171162836 -0.171805908 -0.175564005 -0.176477711 -0.180421979
+##  [46] -0.185519548 -0.188785532 -0.192398644 -0.194248659 -0.195326551
+##  [51] -0.196935228 -0.199977472 -0.201648820 -0.201948059 -0.201948059
+##  [56] -0.203949843 -0.206545438 -0.213049988 -0.216097110 -0.217347109
+##  [61] -0.219212173 -0.220489979 -0.220489979 -0.223702599 -0.223702599
+##  [66] -0.224673765 -0.235828329 -0.242573485 -0.244070632 -0.251951891
+##  [71] -0.253217613 -0.256397943 -0.257701638 -0.258386084 -0.260963379
+##  [76] -0.261668196 -0.264321944 -0.225045104 -0.225045104 -0.219128032
+##  [81] -0.179936676 -0.154186042 -0.154186042 -0.149852507 -0.135127045
+##  [86] -0.129097542 -0.124673161 -0.121386438 -0.121386438 -0.104444471
+##  [91] -0.098838092 -0.094178954 -0.092681826 -0.081955110 -0.082230732
+##  [96] -0.082813318 -0.082966758 -0.085474301 -0.094606794 -0.103042914
+## [101] -0.106432963 -0.107778064 -0.107963004 -0.108335712 -0.108469038
+## [106] -0.109296710 -0.109296710 -0.112443596 -0.112921475 -0.118359689
+## [111] -0.118847870 -0.120717870 -0.120717870 -0.122933578 -0.125953576
+## [116] -0.134322830 -0.144160594 -0.150039986 -0.164525881 -0.191343995
+## [121] -0.195401210 -0.195401210 -0.209690769 -0.212761835 -0.212761835
+## [126] -0.214943573 -0.224274748 -0.224766647 -0.224807160 -0.224807160
+## [131] -0.225036311 -0.225576792 -0.225576792 -0.226927430 -0.226927430
+## [136] -0.228381345 -0.216959869 -0.223662497 -0.223545473 -0.223108129
+## [141] -0.222011054 -0.180446860 -0.167914434 -0.163179048 -0.152280685
+## [146] -0.128270882 -0.116634223 -0.092479525 -0.069813508 -0.033587453
+## [151] -0.015034380 -0.011922648 -0.001158003  0.035380766  0.102419493
+## [156]  0.122606667  0.162324533  0.242116112  0.426978094
+\end{verbatim}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-3-1} 
-
 \end{knitrout}
 
-\qquad
+\qquad It shows that the model is adequate, because the plot shows approximately a horizontal line with zero intercept.
 
 \end{enumerate}
 
@@ -317,14 +383,12 @@ so that reject $H_0$ because $X^2 >11.0705$, Pvalue is 0.03323531.
 ##  0.117099736 -0.827717570 -0.345172951  0.048822205 -0.988857456
 \end{verbatim}
 \begin{alltt}
-  \hlkwd{plot}\hlstd{(}\hlkwd{sort}\hlstd{(dr))}
+  \hlkwd{plot}\hlstd{(dr,} \hlkwc{type} \hlstd{=} \hlstr{"l"}\hlstd{)}
 \end{alltt}
 \end{kframe}
 \includegraphics[width=\maxwidth]{figure/unnamed-chunk-5-1} 
 
 \end{knitrout}
-
-\qquad The points whose devaiance residual near 100 seem to be outlyers.
 
 \item
 
@@ -431,7 +495,89 @@ therefore, X2 can be dropped from the regression model, and the P-value is 0.697
 
 \section{14.44}
 
+\begin{displaymath}
+\begin{split}
+  lnL(\beta_0, \beta_1) &= \sum_{i=1}^n y_i(\beta_0+\beta_1 X_i) - \sum_{i=1}^n(1+exp(\beta_0+\beta_1 X_i))\\
+  \frac{\partial lnL}{\partial \beta_0} &= - \sum_{i=1}^n (Y_i-\frac{ exp(\beta_0+\beta_1 X_i)}{[1+exp(\beta_0+\beta_1 X_i)]^2})\\
+  \frac{\partial lnL}{\partial \beta_1} &= - \sum_{i=1}^n (Y_i X_i - \frac{ exp(\beta_0+\beta_1 X_i)}{[1+exp(\beta_0+\beta_1 X_i)]^2})\\
+  \frac{\partial^2 lnL}{\partial \beta_0^2} &= - \sum_{i=1}^n \frac{exp(\beta_0+\beta_1 X_i)}{[1+exp(\beta_0+\beta_1 X_i)]^2}\\
+  \frac{\partial^2 lnL}{\partial \beta_1^2} &= - \sum_{i=1}^n \frac{X_i^2 exp(\beta_0+\beta_1 X_i)}{[1+exp(\beta_0+\beta_1 X_i)]^2}\\
+  \frac{\partial^2 lnL}{\partial \beta_0 \partial \beta_1} &= - \sum_{i=1}^n \frac{X_i exp(\beta_0+\beta_1 X_i)}{[1+exp(\beta_0+\beta_1 X_i)]^2}\\
+\end{split}
+\end{displaymath}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+  \hlstd{dat} \hlkwb{=} \hlkwd{read.table}\hlstd{(}\hlstr{"CH14TA01.txt"}\hlstd{)}
+  \hlkwd{names}\hlstd{(dat)} \hlkwb{=} \hlkwd{c}\hlstd{(}\hlstr{"X"}\hlstd{,} \hlstr{"Y"}\hlstd{,} \hlstr{"pi"}\hlstd{)}
+  \hlstd{b0} \hlkwb{=} \hlopt{-}\hlnum{3.0597}
+  \hlstd{b1} \hlkwb{=} \hlnum{0.1615}
+  \hlstd{t} \hlkwb{=} \hlkwd{exp}\hlstd{(b0} \hlopt{+} \hlstd{b1}\hlopt{*}\hlstd{dat}\hlopt{$}\hlstd{X)}
+  \hlstd{t1} \hlkwb{=} \hlkwd{sum}\hlstd{(t}\hlopt{/}\hlstd{(}\hlnum{1}\hlopt{+}\hlstd{t)}\hlopt{^}\hlnum{2}\hlstd{);t1}
+\end{alltt}
+\begin{verbatim}
+## [1] 4.176239
+\end{verbatim}
+\begin{alltt}
+  \hlstd{t2} \hlkwb{=} \hlkwd{sum}\hlstd{((t} \hlopt{*} \hlstd{dat}\hlopt{$}\hlstd{X)}\hlopt{/}\hlstd{(}\hlnum{1} \hlopt{+} \hlstd{t)}\hlopt{^}\hlnum{2}\hlstd{);t2}
+\end{alltt}
+\begin{verbatim}
+## [1] 74.57466
+\end{verbatim}
+\begin{alltt}
+  \hlstd{t3} \hlkwb{=} \hlkwd{sum}\hlstd{(((dat}\hlopt{$}\hlstd{X)}\hlopt{^}\hlnum{2}\hlopt{*}\hlstd{t)}\hlopt{/}\hlstd{(}\hlnum{1} \hlopt{+} \hlstd{t)}\hlopt{^}\hlnum{2}\hlstd{);t3}
+\end{alltt}
+\begin{verbatim}
+## [1] 1568.482
+\end{verbatim}
+\begin{alltt}
+  \hlstd{H} \hlkwb{=} \hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(t, t1, t2, t3),} \hlnum{2}\hlstd{,} \hlnum{2}\hlstd{);H}
+\end{alltt}
+\begin{verbatim}
+##           [,1]      [,2]
+## [1,] 0.4499135 0.1236006
+## [2,] 5.0723286 2.6586009
+\end{verbatim}
+\begin{alltt}
+  \hlstd{H_1} \hlkwb{=} \hlkwd{solve}\hlstd{(H);H_1}
+\end{alltt}
+\begin{verbatim}
+##           [,1]       [,2]
+## [1,]  4.670787 -0.2171488
+## [2,] -8.911367  0.7904346
+\end{verbatim}
+\begin{alltt}
+  \hlkwd{sqrt}\hlstd{(}\hlnum{1.586}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 1.259365
+\end{verbatim}
+\begin{alltt}
+  \hlkwd{sqrt}\hlstd{(}\hlnum{0.7904346}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.8890639
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\qquad $H^{-1}$ we get after rootsquare is the same as the estimated standard deviation in table 14.1(b)
+
 \section{14.45}
+
+\begin{displaymath}
+\begin{split}
+  Y_i &= \frac{\gamma_0}{1 + \gamma_1 exp(\gamma_2 X_i)} + \epsilon_i \\
+  E(Y_i) &= \frac{\gamma_0}{1 + \gamma_1 exp(\gamma_2 X_i)} \\
+  \text{if} &\gamma_0 = 1 \\
+  E(Y_i) &= \frac{1}{1 + \gamma_1 exp(\gamma_2 X_i)} \\
+         &= \frac{1}{1 + exp(ln\gamma_1 + \gamma_2 X_i)} \\
+         &= \frac{1}{1 + exp(-\beta_0 - \beta_1 X_i)} \\
+         &= \frac{exp(\beta_0 + \beta_1 X_i)}{1+exp(\beta_0 + \beta_1 X_i)}\\
+  \text{if} &\gamma_1 = exp(-\beta_0) , \gamma_2 = -\beta_1\\       
+\end{split}
+\end{displaymath}
 
 \section{14.46}
 
@@ -446,5 +592,14 @@ therefore, X2 can be dropped from the regression model, and the P-value is 0.697
 \end{displaymath}
 
 \section{14.47}
+
+\begin{displaymath}
+\begin{split}
+  \pi &= 1 - exp[-exp(\frac{X_i-\gamma_0}{\gamma_1})] \\
+  1 - \pi &= exp[-exp(\frac{X_i-\gamma_0}{\gamma_1})] \\
+  ln[-ln(1-\pi)] &= -\frac{\gamma_0}{\gamma_1} + \frac{1}{\gamma_1} X_i\\
+                 &= \beta_0 + \beta_1 X_i  
+\end{split}
+\end{displaymath}
 
 \end{document}

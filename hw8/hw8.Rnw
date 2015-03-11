@@ -34,8 +34,8 @@
   Ej0 = sapply(b, function(x){length(x[[1]])})-Ej1
   rbind(Oj1, Ej1, Oj0, Ej0)
 
-  x = sapply(split(sort(logitv), a), median)
-  y = Ej1/sapply(b, function(x){length(x[[1]])})
+  y = sapply(split(sort(logitv), a), median)
+  x = Ej1/sapply(b, function(x){length(x[[1]])})
   plot(x, y)
 @
 
@@ -54,9 +54,9 @@ VS. $H_1$:$E(Y)  \ne [1+exp(-\beta_0-\beta_1 X1-\beta_2 X2)]^{-1}$
 
 $X^2=\sum_j \sum_k \frac{(O_{jk}-E_{jk})^2}{E_{jk}} = 12.11578$
 
-we can reject $H_0$ if $X^2 > \chi^2(0.95, 8-3)=11.0705$,otherwise reject$H_1$
+we can reject $H_0$ if $X^2 > \chi^2(0.95, 8-2)=12.5916$,otherwise reject$H_1$
 
-so that reject $H_0$ because $X^2 >11.0705$, Pvalue is 0.03323531.
+so that reject $H_1$ because $X^2 <12.5916$, Pvalue is 0.05943518.
 \end{center}
 
 \item
@@ -64,11 +64,10 @@ so that reject $H_0$ because $X^2 >11.0705$, Pvalue is 0.03323531.
 <<>>=
   p = summary(logit)
   dr = p$deviance.resid;dr
-  pi = exp(logitv)/(1+exp(logitv))
-  plot(lowess(dr ~ pi))
+  lows = lowess(logitv, dr, .7, 0);lows
 @
 
-\qquad
+\qquad It shows that the model is adequate, because the plot shows approximately a horizontal line with zero intercept.
 
 \end{enumerate}
 
@@ -101,10 +100,8 @@ so that reject $H_0$ because $X^2 >11.0705$, Pvalue is 0.03323531.
 <<>>=
   p = summary(poi)
   dr = p$deviance.resid;dr
-  plot(sort(dr))
+  plot(dr, type = "l")
 @
-
-\qquad The points whose devaiance residual near 100 seem to be outlyers.
 
 \item
 
@@ -154,7 +151,48 @@ therefore, X2 can be dropped from the regression model, and the P-value is 0.697
 
 \section{14.44}
 
+\begin{displaymath}
+\begin{split}
+  lnL(\beta_0, \beta_1) &= \sum_{i=1}^n y_i(\beta_0+\beta_1 X_i) - \sum_{i=1}^n(1+exp(\beta_0+\beta_1 X_i))\\
+  \frac{\partial lnL}{\partial \beta_0} &= - \sum_{i=1}^n (Y_i-\frac{ exp(\beta_0+\beta_1 X_i)}{[1+exp(\beta_0+\beta_1 X_i)]^2})\\
+  \frac{\partial lnL}{\partial \beta_1} &= - \sum_{i=1}^n (Y_i X_i - \frac{ exp(\beta_0+\beta_1 X_i)}{[1+exp(\beta_0+\beta_1 X_i)]^2})\\
+  \frac{\partial^2 lnL}{\partial \beta_0^2} &= - \sum_{i=1}^n \frac{exp(\beta_0+\beta_1 X_i)}{[1+exp(\beta_0+\beta_1 X_i)]^2}\\
+  \frac{\partial^2 lnL}{\partial \beta_1^2} &= - \sum_{i=1}^n \frac{X_i^2 exp(\beta_0+\beta_1 X_i)}{[1+exp(\beta_0+\beta_1 X_i)]^2}\\
+  \frac{\partial^2 lnL}{\partial \beta_0 \partial \beta_1} &= - \sum_{i=1}^n \frac{X_i exp(\beta_0+\beta_1 X_i)}{[1+exp(\beta_0+\beta_1 X_i)]^2}\\
+\end{split}
+\end{displaymath}
+
+<<>>=
+  dat = read.table("CH14TA01.txt")
+  names(dat) = c("X", "Y", "pi")
+  b0 = -3.0597
+  b1 = 0.1615
+  t = exp(b0 + b1*dat$X)
+  t1 = sum(t/(1+t)^2);t1
+  t2 = sum((t * dat$X)/(1 + t)^2);t2
+  t3 = sum(((dat$X)^2*t)/(1 + t)^2);t3
+  H = matrix(c(t, t1, t2, t3), 2, 2);H
+  H_1 = solve(H);H_1
+  sqrt(1.586)
+  sqrt(0.7904346)
+@
+
+\qquad $H^{-1}$ we get after rootsquare is the same as the estimated standard deviation in table 14.1(b)
+
 \section{14.45}
+
+\begin{displaymath}
+\begin{split}
+  Y_i &= \frac{\gamma_0}{1 + \gamma_1 exp(\gamma_2 X_i)} + \epsilon_i \\
+  E(Y_i) &= \frac{\gamma_0}{1 + \gamma_1 exp(\gamma_2 X_i)} \\
+  \text{if} &\gamma_0 = 1 \\
+  E(Y_i) &= \frac{1}{1 + \gamma_1 exp(\gamma_2 X_i)} \\
+         &= \frac{1}{1 + exp(ln\gamma_1 + \gamma_2 X_i)} \\
+         &= \frac{1}{1 + exp(-\beta_0 - \beta_1 X_i)} \\
+         &= \frac{exp(\beta_0 + \beta_1 X_i)}{1+exp(\beta_0 + \beta_1 X_i)}\\
+  \text{if} &\gamma_1 = exp(-\beta_0) , \gamma_2 = -\beta_1\\       
+\end{split}
+\end{displaymath}
 
 \section{14.46}
 
@@ -169,5 +207,14 @@ therefore, X2 can be dropped from the regression model, and the P-value is 0.697
 \end{displaymath}
 
 \section{14.47}
+
+\begin{displaymath}
+\begin{split}
+  \pi &= 1 - exp[-exp(\frac{X_i-\gamma_0}{\gamma_1})] \\
+  1 - \pi &= exp[-exp(\frac{X_i-\gamma_0}{\gamma_1})] \\
+  ln[-ln(1-\pi)] &= -\frac{\gamma_0}{\gamma_1} + \frac{1}{\gamma_1} X_i\\
+                 &= \beta_0 + \beta_1 X_i  
+\end{split}
+\end{displaymath}
 
 \end{document}
